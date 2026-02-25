@@ -119,9 +119,8 @@ export function PricingSection() {
             <div className="w-full h-[2px] bg-[var(--text-muted-dark)]" />
             <FeatureList features={starterFeatures} textClass="text-[var(--text-inverted)]" />
           </div>
-          {/* TODO: Replace with real Lemon Squeezy checkout URL */}
           <a
-            href="https://internsmarket.lemonsqueezy.com/checkout/starter"
+            href="https://polar.sh/internsmarket/products/starter-bundle"
             target="_blank"
             rel="noopener noreferrer"
             className="block w-full font-body text-[13px] font-bold text-[var(--text-primary)] tracking-[1.5px] bg-[var(--accent)] px-6 py-[14px] text-center hover:bg-[var(--accent-bright)] transition-colors no-underline"
@@ -152,9 +151,8 @@ export function PricingSection() {
             <div className="w-full h-[2px] bg-[var(--stroke)]" />
             <FeatureList features={proFeatures} textClass="text-[var(--text-primary)]" />
           </div>
-          {/* TODO: Replace with real Lemon Squeezy checkout URL */}
           <a
-            href="https://internsmarket.lemonsqueezy.com/checkout/pro"
+            href="https://polar.sh/internsmarket/products/pro-bundle"
             target="_blank"
             rel="noopener noreferrer"
             className="block w-full font-body text-[13px] font-bold text-[var(--text-inverted)] tracking-[1.5px] bg-[var(--bg-black)] px-6 py-[14px] text-center hover:bg-black/80 transition-colors no-underline"

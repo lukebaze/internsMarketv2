@@ -111,9 +111,8 @@ export function InternCard({
           </a>
         ) : (
           <>
-            {/* TODO: Replace with real Lemon Squeezy individual checkout URL */}
             <a
-              href={`https://internsmarket.lemonsqueezy.com/checkout/${name.toLowerCase().replace(/\s+/g, "-")}`}
+              href={`https://polar.sh/internsmarket/products/${name.toLowerCase().replace(/\s+/g, "-")}`}
               target="_blank"
               rel="noopener noreferrer"
               className="block w-full bg-[var(--bg-black)] text-[var(--text-inverted)] font-body text-[13px] font-bold px-5 py-[10px] text-center no-underline hover:bg-[var(--brown-dark)] transition-colors"
