@@ -1,16 +1,19 @@
-import { Terminal } from "lucide-react";
+"use client";
+
+import { Terminal, Copy, Check } from "lucide-react";
+import { useState, useCallback } from "react";
 
 // Terminal body lines data
 const terminalLines = [
-  { text: "$ npm install -g internsmarket", color: "text-white" },
-  { text: "✓ installed v2.4.0", color: "text-[var(--success-green)]" },
+  { text: "$ npm install -g internsmarket", color: "text-[var(--text-inverted)]", copyable: "npm install -g internsmarket" },
+  { text: "✓ installed v2.4.0", color: "text-[#84CC6A]" },
   { spacer: true },
-  { text: "$ internsmarket init", color: "text-white" },
-  { text: "→ Scanning project...", color: "text-[#C8B8A8]" },
-  { text: "→ 3 interns matched", color: "text-[#C8B8A8]" },
+  { text: "$ internsmarket init", color: "text-[var(--text-inverted)]", copyable: "internsmarket init" },
+  { text: "→ Scanning project...", color: "text-[#B0A08E]" },
+  { text: "→ 3 interns matched", color: "text-[#B0A08E]" },
   { spacer: true },
-  { text: "$ internsmarket deploy --intern jordan", color: "text-white" },
-  { text: "🚀 Jordan deployed successfully!", color: "text-[#FF8C42]" },
+  { text: "$ internsmarket deploy --intern jordan", color: "text-[var(--text-inverted)]", copyable: "internsmarket deploy --intern jordan" },
+  { text: "🚀 Jordan deployed successfully!", color: "text-[#F5B041]" },
 ] as const;
 
 // Mini stat item
@@ -23,27 +26,53 @@ function StatItem({ value, label, valueColor }: { value: string; label: string; 
   );
 }
 
+// Copyable terminal line
+function CopyableLine({ text, color, copyText }: { text: string; color: string; copyText: string }) {
+  const [copied, setCopied] = useState(false);
+  const handleCopy = useCallback(() => {
+    navigator.clipboard.writeText(copyText);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1500);
+  }, [copyText]);
+
+  return (
+    <div className="flex items-center gap-2 group">
+      <span className={`font-mono text-[13px] leading-[1.8] ${color} flex-1`}>{text}</span>
+      <button
+        onClick={handleCopy}
+        aria-label={`Copy: ${copyText}`}
+        className="text-[#9C8B7A] hover:text-[var(--text-inverted)] transition-colors cursor-pointer bg-transparent border-none p-0 shrink-0 opacity-0 group-hover:opacity-100"
+      >
+        {copied ? <Check size={12} /> : <Copy size={12} />}
+      </button>
+    </div>
+  );
+}
+
 // Terminal window component
 function TerminalWindow() {
   return (
     <div className="flex flex-col w-full border-2 border-[var(--terminal-border)]">
       {/* Title bar */}
-      <div className="flex items-center h-11 px-[18px] bg-[var(--terminal-bar)]">
+      <div className="flex items-center h-11 px-[18px] bg-[#1A1714]">
         <div className="flex items-center gap-2 shrink-0">
-          <div className="w-3 h-3 rounded-full bg-[#FF5F57]" />
-          <div className="w-3 h-3 rounded-full bg-[#FEBC2E]" />
-          <div className="w-3 h-3 rounded-full bg-[#28C840]" />
+          <div className="w-3 h-3 rounded-full bg-[#E87461]" />
+          <div className="w-3 h-3 rounded-full bg-[#F5C842]" />
+          <div className="w-3 h-3 rounded-full bg-[#84CC6A]" />
         </div>
-        <span className="font-body text-[13px] font-medium text-[var(--brown-light)] flex-1 text-center">
+        <span className="font-body text-[13px] font-medium text-[#9C8B7A] flex-1 text-center">
           internsmarket — zsh
         </span>
       </div>
 
       {/* Body */}
-      <div className="flex flex-col gap-[6px] p-5 bg-[var(--terminal-bg)]">
+      <div className="flex flex-col gap-[6px] px-5 py-6 bg-[#141210]">
         {terminalLines.map((line, i) => {
           if ("spacer" in line) {
             return <div key={i} className="h-1" />;
+          }
+          if ("copyable" in line && line.copyable) {
+            return <CopyableLine key={i} text={line.text} color={line.color} copyText={line.copyable} />;
           }
           return (
             <span key={i} className={`font-mono text-[13px] leading-[1.8] ${line.color}`}>
@@ -80,7 +109,7 @@ export function FinalCtaSection() {
 
           {/* Subtitle */}
           <p className="font-body text-[16px] text-[var(--text-muted)] leading-[1.6] max-w-[480px]">
-            Deploy AI interns to your codebase in 60 seconds. One CLI command. Zero configuration. No subscription. Pay once, own forever.
+            Deploy AI interns to your codebase in 60 seconds. One CLI command. Zero configuration. Full control.
           </p>
 
           {/* Mini stats row */}
@@ -126,7 +155,7 @@ export function FinalCtaSection() {
 
           {/* Subtitle */}
           <p className="font-body text-[12px] text-[var(--brown-light)] text-center mt-3">
-            No subscription · Pay once, own forever · Free tier available
+            No credit card required · Free tier available
           </p>
         </div>
       </div>
@@ -145,7 +174,7 @@ export function FinalCtaSection() {
 
         {/* Subtitle */}
         <p className="font-body text-[16px] text-[var(--text-muted)] leading-[1.6]">
-          Deploy AI interns to your codebase in 60 seconds. One CLI command. Zero configuration. No subscription. Pay once, own forever.
+          Deploy AI interns to your codebase in 60 seconds. One CLI command. Zero configuration. Full control.
         </p>
 
         {/* Mini stats */}
@@ -180,7 +209,7 @@ export function FinalCtaSection() {
 
         {/* Subtitle */}
         <p className="font-body text-[12px] text-[var(--brown-light)] text-center">
-          No subscription · Pay once, own forever · Free tier available
+          No credit card required · Free tier available
         </p>
       </div>
     </section>

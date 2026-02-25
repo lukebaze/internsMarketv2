@@ -1,17 +1,6 @@
-"use client";
-
-import { Copy } from "lucide-react";
-import { useState } from "react";
+import { CopyableCodeBlock } from "./copyable-code-block";
 
 export function HeroSection() {
-  const [copied, setCopied] = useState(false);
-
-  const handleCopy = () => {
-    navigator.clipboard.writeText("npm install -g internsmarket");
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
   return (
     <section id="install" className="relative w-full min-h-[700px] bg-[var(--bg-black)] flex items-center">
       {/* Background: avatar image grid */}
@@ -46,7 +35,7 @@ export function HeroSection() {
         className="absolute inset-0"
         style={{
           background:
-            "linear-gradient(to top, #1D1916FF 0%, #1D1916E6 25%, #1D1916B3 50%, #1D191666 75%, #1D191633 100%)",
+            "linear-gradient(to top, #000000FF 0%, #000000E6 30%, #000000B3 55%, #00000066 80%, #00000033 100%)",
         }}
       />
 
@@ -60,7 +49,7 @@ export function HeroSection() {
         {/* Subheadline */}
         <p className="font-body text-base text-[var(--text-muted-light)] leading-relaxed max-w-[600px]">
           InternsMarket ships full-stack AI personas — personality, skills,
-          memory, voice. Install free. Buy once to unlock the full team.
+          memory, voice. Think Shopify Themes for AI Agents.
         </p>
 
         {/* Button row */}
@@ -74,32 +63,15 @@ export function HeroSection() {
             INSTALL FREE
           </a>
           <a
-            href="#pricing"
+            href="#demo"
             className="font-body text-[13px] font-bold text-[var(--text-inverted)] tracking-[1.5px] border-[1.5px] border-[var(--warm-white)] px-7 py-[14px] text-center bg-transparent hover:bg-white/10 transition-colors"
           >
-            SEE PRICING
+            WATCH 90S DEMO
           </a>
         </div>
 
-        {/* Code block */}
-        <div className="inline-flex items-center gap-3 bg-[#2D1810CC] px-6 py-[14px] self-start">
-          <span className="font-mono text-[14px] text-[var(--text-muted)]">$</span>
-          <span className="font-mono text-[14px] text-[var(--text-inverted)]">
-            npm install -g internsmarket
-          </span>
-          <button
-            onClick={handleCopy}
-            aria-label="Copy install command"
-            className="text-[var(--text-muted)] hover:text-[var(--text-inverted)] transition-colors cursor-pointer bg-transparent border-none p-0"
-          >
-            <Copy size={16} />
-          </button>
-          {copied && (
-            <span className="font-mono text-[12px] text-[var(--accent)]">
-              Copied!
-            </span>
-          )}
-        </div>
+        {/* Code block with glow */}
+        <CopyableCodeBlock code="npm install -g internsmarket" variant="hero" />
       </div>
     </section>
   );
