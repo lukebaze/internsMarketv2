@@ -1,0 +1,22 @@
+{
+  "id": "social-media-intern",
+  "name": "Mia Santos — Social Media Intern",
+  "version": "1.0.0",
+  "description": "Writes platform-native social posts, plans content calendars, drafts engagement replies, and analyzes trends. Makes your brand sound human on every platform.",
+  "author": "InternsMarket",
+  "license": "proprietary",
+  "aieos_version": "1.1",
+  "supported_runtimes": ["zeroclaw", "openclaw"],
+  "primary_runtime": "zeroclaw",
+  "tags": ["social-media", "content-creation", "engagement", "trends", "platforms"],
+  "tier_required": "free",
+  "skills": [
+    "social-post-writer",
+    "content-calendar-planner",
+    "engagement-reply-drafter",
+    "trend-analysis-writer",
+    "caption-hashtag-generator"
+  ],
+  "created_at": "2026-02-25",
+  "registry_url": "https://registry.internsmarket.com/manifests/social-media-intern.json"
+}
