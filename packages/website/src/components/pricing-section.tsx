@@ -1,4 +1,4 @@
-import { BUNDLE_PRICES } from "@/data/interns-data";
+import { BUNDLE_PRICES, BUNDLE_CHECKOUT_URLS } from "@/data/interns-data";
 
 const freeFeatures = [
   "✓  3 free interns included",
@@ -120,7 +120,7 @@ export function PricingSection() {
             <FeatureList features={starterFeatures} textClass="text-[var(--text-inverted)]" />
           </div>
           <a
-            href="https://polar.sh/internsmarket/products/starter-bundle"
+            href={BUNDLE_CHECKOUT_URLS.starter}
             target="_blank"
             rel="noopener noreferrer"
             className="block w-full font-body text-[13px] font-bold text-[var(--text-primary)] tracking-[1.5px] bg-[var(--accent)] px-6 py-[14px] text-center hover:bg-[var(--accent-bright)] transition-colors no-underline"
@@ -152,7 +152,7 @@ export function PricingSection() {
             <FeatureList features={proFeatures} textClass="text-[var(--text-primary)]" />
           </div>
           <a
-            href="https://polar.sh/internsmarket/products/pro-bundle"
+            href={BUNDLE_CHECKOUT_URLS.pro}
             target="_blank"
             rel="noopener noreferrer"
             className="block w-full font-body text-[13px] font-bold text-[var(--text-inverted)] tracking-[1.5px] bg-[var(--bg-black)] px-6 py-[14px] text-center hover:bg-black/80 transition-colors no-underline"

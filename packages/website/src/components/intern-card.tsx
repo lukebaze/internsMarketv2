@@ -1,6 +1,6 @@
 "use client";
 
-import { BUNDLE_PRICES } from "@/data/interns-data";
+import { BUNDLE_PRICES, BUNDLE_CHECKOUT_URLS } from "@/data/interns-data";
 
 export interface InternCardProps {
   name: string;
@@ -10,6 +10,7 @@ export interface InternCardProps {
   skills: string[];
   image: string;
   price: number;
+  checkoutUrl?: string;
   isLast?: boolean;
 }
 
@@ -33,6 +34,7 @@ export function InternCard({
   skills,
   image,
   price,
+  checkoutUrl,
   isLast = false,
 }: InternCardProps) {
   const borderClass = isLast
@@ -112,16 +114,21 @@ export function InternCard({
         ) : (
           <>
             <a
-              href={`https://polar.sh/internsmarket/products/${name.toLowerCase().replace(/\s+/g, "-")}`}
+              href={checkoutUrl || "#pricing"}
               target="_blank"
               rel="noopener noreferrer"
               className="block w-full bg-[var(--bg-black)] text-[var(--text-inverted)] font-body text-[13px] font-bold px-5 py-[10px] text-center no-underline hover:bg-[var(--brown-dark)] transition-colors"
             >
               BUY FOR ${price}
             </a>
-            <span className="font-body text-[11px] text-[var(--text-muted-dark)] text-center">
+            <a
+              href={BUNDLE_CHECKOUT_URLS.starter}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-body text-[11px] text-[var(--text-muted-dark)] text-center no-underline hover:text-[var(--text-primary)] transition-colors"
+            >
               or get all interns for ${BUNDLE_PRICES.starter}
-            </span>
+            </a>
           </>
         )}
       </div>
