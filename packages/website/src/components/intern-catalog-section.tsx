@@ -86,7 +86,7 @@ export function InternCatalogSection() {
   }
 
   return (
-    <section className="w-full bg-[var(--warm-white)] border-t-2 border-[var(--stroke)]">
+    <section id="gallery" className="w-full bg-[var(--warm-white)] border-t-2 border-[var(--stroke)]">
       {/* Header */}
       <div className="flex flex-col gap-4 px-12 pt-12 pb-8">
         <span className="font-body text-[13px] font-bold text-[var(--text-primary)] tracking-[1.5px]">

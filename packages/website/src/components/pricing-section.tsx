@@ -51,7 +51,7 @@ function FeatureList({
 
 export function PricingSection() {
   return (
-    <section className="w-full bg-[var(--warm-white)] border-t-2 border-[var(--stroke)] px-12 py-16 flex flex-col gap-10">
+    <section id="pricing" className="w-full bg-[var(--warm-white)] border-t-2 border-[var(--stroke)] px-12 py-16 flex flex-col gap-10">
       {/* Header */}
       <div className="flex flex-col gap-3 w-full">
         <span className="font-body text-[13px] font-bold text-[var(--text-primary)] tracking-[1.5px]">
@@ -84,9 +84,14 @@ export function PricingSection() {
             <div className="w-full h-[2px] bg-[var(--stroke)]" />
             <FeatureList features={freeFeatures} textClass="text-[var(--text-primary)]" />
           </div>
-          <button className="w-full font-body text-[13px] font-bold text-[var(--text-primary)] tracking-[1.5px] border-[1.5px] border-[var(--stroke)] px-6 py-[14px] text-center bg-transparent hover:bg-black/5 transition-colors cursor-pointer">
+          <a
+            href="https://www.npmjs.com/package/internsmarket"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block w-full font-body text-[13px] font-bold text-[var(--text-primary)] tracking-[1.5px] border-[1.5px] border-[var(--stroke)] px-6 py-[14px] text-center bg-transparent hover:bg-black/5 transition-colors no-underline"
+          >
             INSTALL NOW
-          </button>
+          </a>
         </div>
 
         {/* Starter Tier (Highlighted) */}
@@ -111,9 +116,15 @@ export function PricingSection() {
             <div className="w-full h-[2px] bg-[var(--text-muted-dark)]" />
             <FeatureList features={starterFeatures} textClass="text-[var(--text-inverted)]" />
           </div>
-          <button className="w-full font-body text-[13px] font-bold text-[var(--text-primary)] tracking-[1.5px] bg-[var(--accent)] px-6 py-[14px] text-center hover:bg-[var(--accent-bright)] transition-colors cursor-pointer border-none">
+          {/* TODO: Replace with real Lemon Squeezy checkout URL */}
+          <a
+            href="https://internsmarket.lemonsqueezy.com/checkout/starter"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block w-full font-body text-[13px] font-bold text-[var(--text-primary)] tracking-[1.5px] bg-[var(--accent)] px-6 py-[14px] text-center hover:bg-[var(--accent-bright)] transition-colors no-underline"
+          >
             UPGRADE
-          </button>
+          </a>
         </div>
 
         {/* Pro Tier */}
@@ -133,9 +144,15 @@ export function PricingSection() {
             <div className="w-full h-[2px] bg-[var(--stroke)]" />
             <FeatureList features={proFeatures} textClass="text-[var(--text-primary)]" />
           </div>
-          <button className="w-full font-body text-[13px] font-bold text-[var(--text-inverted)] tracking-[1.5px] bg-[var(--bg-black)] px-6 py-[14px] text-center hover:bg-black/80 transition-colors cursor-pointer border-none">
+          {/* TODO: Replace with real Lemon Squeezy checkout URL */}
+          <a
+            href="https://internsmarket.lemonsqueezy.com/checkout/pro"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block w-full font-body text-[13px] font-bold text-[var(--text-inverted)] tracking-[1.5px] bg-[var(--bg-black)] px-6 py-[14px] text-center hover:bg-black/80 transition-colors no-underline"
+          >
             UPGRADE
-          </button>
+          </a>
         </div>
 
         {/* Enterprise Tier */}
@@ -155,9 +172,12 @@ export function PricingSection() {
             <div className="w-full h-[2px] bg-[var(--stroke)]" />
             <FeatureList features={enterpriseFeatures} textClass="text-[var(--text-primary)]" />
           </div>
-          <button className="w-full font-body text-[13px] font-bold text-[var(--text-primary)] tracking-[1.5px] border-[1.5px] border-[var(--stroke)] px-6 py-[14px] text-center bg-transparent hover:bg-black/5 transition-colors cursor-pointer">
+          <a
+            href="mailto:enterprise@internsmarket.com"
+            className="block w-full font-body text-[13px] font-bold text-[var(--text-primary)] tracking-[1.5px] border-[1.5px] border-[var(--stroke)] px-6 py-[14px] text-center bg-transparent hover:bg-black/5 transition-colors no-underline"
+          >
             CONTACT US
-          </button>
+          </a>
         </div>
       </div>
     </section>

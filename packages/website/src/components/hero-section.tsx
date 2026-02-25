@@ -13,7 +13,7 @@ export function HeroSection() {
   };
 
   return (
-    <section className="relative w-full min-h-[700px] bg-[var(--bg-black)] flex items-center">
+    <section id="install" className="relative w-full min-h-[700px] bg-[var(--bg-black)] flex items-center">
       {/* Background: avatar image grid */}
       <div className="absolute inset-0 grid grid-cols-4 grid-rows-3 gap-0.5 opacity-60">
         {[
@@ -64,13 +64,16 @@ export function HeroSection() {
         {/* Button row */}
         <div className="flex flex-col md:flex-row gap-4">
           <a
-            href="#install"
+            href="https://www.npmjs.com/package/internsmarket"
+            target="_blank"
+            rel="noopener noreferrer"
             className="font-body text-[13px] font-bold text-[var(--text-primary)] tracking-[1.5px] bg-[var(--accent)] px-7 py-[14px] text-center hover:bg-[var(--accent-bright)] transition-colors"
           >
             INSTALL FREE
           </a>
           <a
             href="#demo"
+            data-demo
             className="font-body text-[13px] font-bold text-[var(--text-inverted)] tracking-[1.5px] border-[1.5px] border-[var(--warm-white)] px-7 py-[14px] text-center bg-transparent hover:bg-white/10 transition-colors"
           >
             WATCH 90S DEMO

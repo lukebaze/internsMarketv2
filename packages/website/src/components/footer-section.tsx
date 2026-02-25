@@ -1,26 +1,50 @@
 import { Github, Twitter, MessageCircle, Linkedin } from "lucide-react";
 
-// Link column data
+// Link column data with explicit hrefs for each link
 const linkColumns = [
   {
     title: "PRODUCT",
-    links: ["Docs", "GitHub", "Intern Authoring", "Changelog"],
+    links: [
+      { label: "Docs", href: "https://docs.internsmarket.com" },
+      { label: "GitHub", href: "https://github.com/internsmarket/cli" },
+      { label: "Intern Authoring", href: "https://docs.internsmarket.com/authoring" },
+      { label: "Changelog", href: "https://github.com/internsmarket/cli/releases" },
+    ],
   },
   {
     title: "COMPANY",
-    links: ["About", "Blog", "Careers"],
+    links: [
+      { label: "About", href: "https://internsmarket.com/about" },
+      { label: "Blog", href: "https://internsmarket.com/blog" },
+      { label: "Careers", href: "https://internsmarket.com/careers" },
+    ],
   },
   {
     title: "COMMUNITY",
-    links: ["Discord", "Twitter / X", "Roadmap"],
+    links: [
+      { label: "Discord", href: "https://discord.gg/internsmarket" },
+      { label: "Twitter / X", href: "https://x.com/internsmarket" },
+      { label: "Roadmap", href: "https://github.com/internsmarket/cli/projects" },
+    ],
   },
   {
     title: "LEGAL",
-    links: ["Privacy Policy", "Terms of Service", "Licenses", "Contact"],
+    links: [
+      { label: "Privacy Policy", href: "https://internsmarket.com/privacy" },
+      { label: "Terms of Service", href: "https://internsmarket.com/tos" },
+      { label: "Licenses", href: "https://internsmarket.com/licenses" },
+      { label: "Contact", href: "https://internsmarket.com/contact" },
+    ],
   },
 ] as const;
 
-function LinkColumn({ title, links }: { title: string; links: readonly string[] }) {
+function LinkColumn({
+  title,
+  links,
+}: {
+  title: string;
+  links: readonly { label: string; href: string }[];
+}) {
   return (
     <div className="flex flex-col gap-4">
       <span className="font-body text-[11px] font-bold text-white tracking-[1.5px]">
@@ -28,11 +52,13 @@ function LinkColumn({ title, links }: { title: string; links: readonly string[] 
       </span>
       {links.map((link) => (
         <a
-          key={link}
-          href="#"
-          className="font-body text-[13px] text-[var(--text-muted)] leading-[1.5] hover:text-white transition-colors"
+          key={link.label}
+          href={link.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-body text-[13px] text-[var(--text-muted)] leading-[1.5] hover:text-white transition-colors no-underline"
         >
-          {link}
+          {link.label}
         </a>
       ))}
     </div>
@@ -54,16 +80,40 @@ export function FooterSection() {
           </p>
           {/* Social icons */}
           <div className="flex items-center gap-4">
-            <a href="#" aria-label="GitHub" className="text-[var(--text-muted)] hover:text-white transition-colors">
+            <a
+              href="https://github.com/internsmarket/cli"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub"
+              className="text-[var(--text-muted)] hover:text-white transition-colors"
+            >
               <Github size={20} />
             </a>
-            <a href="#" aria-label="Twitter" className="text-[var(--text-muted)] hover:text-white transition-colors">
+            <a
+              href="https://x.com/internsmarket"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Twitter"
+              className="text-[var(--text-muted)] hover:text-white transition-colors"
+            >
               <Twitter size={20} />
             </a>
-            <a href="#" aria-label="Discord" className="text-[var(--text-muted)] hover:text-white transition-colors">
+            <a
+              href="https://discord.gg/internsmarket"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Discord"
+              className="text-[var(--text-muted)] hover:text-white transition-colors"
+            >
               <MessageCircle size={20} />
             </a>
-            <a href="#" aria-label="LinkedIn" className="text-[var(--text-muted)] hover:text-white transition-colors">
+            <a
+              href="https://www.linkedin.com/company/internsmarket"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+              className="text-[var(--text-muted)] hover:text-white transition-colors"
+            >
               <Linkedin size={20} />
             </a>
           </div>

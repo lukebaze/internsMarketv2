@@ -113,11 +113,16 @@ export function FinalCtaSection() {
           <TerminalWindow />
 
           {/* CTA Button */}
-          <button className="w-full bg-[var(--accent-bright)] py-[22px] px-8 text-center cursor-pointer border-none mt-0">
+          <a
+            href="https://www.npmjs.com/package/internsmarket"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block w-full bg-[var(--accent-bright)] py-[22px] px-8 text-center no-underline mt-0 hover:opacity-90 transition-opacity"
+          >
             <span className="font-display text-[26px] font-black text-white tracking-wide">
               GET STARTED FREE →
             </span>
-          </button>
+          </a>
 
           {/* Subtitle */}
           <p className="font-body text-[12px] text-[var(--brown-light)] text-center mt-3">
@@ -162,11 +167,16 @@ export function FinalCtaSection() {
         <TerminalWindow />
 
         {/* CTA Button */}
-        <button className="w-full bg-[var(--accent-bright)] py-5 px-8 text-center cursor-pointer border-none">
+        <a
+          href="https://www.npmjs.com/package/internsmarket"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block w-full bg-[var(--accent-bright)] py-5 px-8 text-center no-underline hover:opacity-90 transition-opacity"
+        >
           <span className="font-display text-[22px] font-black text-white tracking-wide">
             GET STARTED FREE →
           </span>
-        </button>
+        </a>
 
         {/* Subtitle */}
         <p className="font-body text-[12px] text-[var(--brown-light)] text-center">

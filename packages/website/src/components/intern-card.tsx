@@ -88,13 +88,21 @@ export function InternCard({
       {/* CTA button */}
       <div className="mt-auto pt-2">
         {tier === "free" ? (
-          <button className="w-full bg-[var(--bg-black)] text-[var(--text-inverted)] font-body text-[13px] font-bold px-5 py-[10px] text-center cursor-pointer border-none">
+          <a
+            href="https://www.npmjs.com/package/internsmarket"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block w-full bg-[var(--bg-black)] text-[var(--text-inverted)] font-body text-[13px] font-bold px-5 py-[10px] text-center no-underline"
+          >
             INSTALL NOW
-          </button>
+          </a>
         ) : (
-          <button className="w-full bg-transparent text-[var(--text-primary)] font-body text-[13px] font-bold px-5 py-[10px] text-center cursor-pointer border-[1.5px] border-[var(--stroke)]">
+          <a
+            href="#pricing"
+            className="block w-full bg-transparent text-[var(--text-primary)] font-body text-[13px] font-bold px-5 py-[10px] text-center no-underline border-[1.5px] border-[var(--stroke)]"
+          >
             UPGRADE TO UNLOCK
-          </button>
+          </a>
         )}
       </div>
     </div>

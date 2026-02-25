@@ -31,6 +31,10 @@
     height: 100%;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   .font-display {
     font-family: "Anton", sans-serif;
   }
