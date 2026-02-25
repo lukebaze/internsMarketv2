@@ -142,6 +142,7 @@ export function InternCatalogSection() {
           <InternCard
             key={intern.name}
             {...intern}
+            price={intern.price}
             isLast={isLastInRow(index)}
           />
         ))}

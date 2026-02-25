@@ -29,7 +29,7 @@ export default function RootLayout({
   return (
     <html lang="en" style={{ colorScheme: "light" }}>
       <head>
-        <meta name="theme-color" content="#000000" />
+        <meta name="theme-color" content="#1D1916" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"

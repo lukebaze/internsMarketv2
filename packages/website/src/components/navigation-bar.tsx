@@ -15,7 +15,7 @@ export function NavigationBar() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <nav className="sticky top-0 z-50 w-full bg-[#040404]">
+    <nav className="sticky top-0 z-50 w-full bg-[var(--bg-black)]">
       <div className="flex items-center justify-between px-6 md:px-12 py-4">
         {/* Logo */}
         <a
@@ -38,12 +38,12 @@ export function NavigationBar() {
             </a>
           ))}
 
-          {/* Upgrade button — scrolls to pricing */}
+          {/* Get started button — scrolls to pricing */}
           <a
             href="#pricing"
-            className="font-body text-[13px] font-bold text-[var(--text-inverted)] tracking-[1.5px] border-[1.5px] border-[var(--text-inverted)] px-5 py-2 no-underline hover:bg-[var(--text-inverted)] hover:text-[#040404] transition-colors"
+            className="font-body text-[13px] font-bold text-[var(--text-inverted)] tracking-[1.5px] border-[1.5px] border-[var(--text-inverted)] px-5 py-2 no-underline hover:bg-[var(--text-inverted)] hover:text-[var(--bg-black)] transition-colors"
           >
-            UPGRADE
+            GET STARTED
           </a>
         </div>
 
@@ -59,7 +59,7 @@ export function NavigationBar() {
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="md:hidden flex flex-col gap-4 px-6 pb-6 bg-[#040404]">
+        <div className="md:hidden flex flex-col gap-4 px-6 pb-6 bg-[var(--bg-black)]">
           {navLinks.map((link) => (
             <a
               key={link.label}
@@ -74,9 +74,9 @@ export function NavigationBar() {
           <a
             href="#pricing"
             onClick={() => setMobileOpen(false)}
-            className="font-body text-[13px] font-bold text-[var(--text-inverted)] tracking-[1.5px] border-[1.5px] border-[var(--text-inverted)] px-5 py-2 no-underline text-center hover:bg-[var(--text-inverted)] hover:text-[#040404] transition-colors"
+            className="font-body text-[13px] font-bold text-[var(--text-inverted)] tracking-[1.5px] border-[1.5px] border-[var(--text-inverted)] px-5 py-2 no-underline text-center hover:bg-[var(--text-inverted)] hover:text-[var(--bg-black)] transition-colors"
           >
-            UPGRADE
+            GET STARTED
           </a>
         </div>
       )}

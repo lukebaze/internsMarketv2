@@ -1,5 +1,7 @@
 "use client";
 
+import { BUNDLE_PRICES } from "@/data/interns-data";
+
 export interface InternCardProps {
   name: string;
   role: string;
@@ -7,6 +9,7 @@ export interface InternCardProps {
   quote: string;
   skills: string[];
   image: string;
+  price: number;
   isLast?: boolean;
 }
 
@@ -16,6 +19,12 @@ const tierBgClass: Record<string, string> = {
   pro: "bg-[var(--pro-tier)]",
 };
 
+// Badge label: free shows "FREE", paid tiers show their price
+function tierBadgeLabel(tier: string, price: number): string {
+  if (tier === "free") return "FREE";
+  return `$${price}`;
+}
+
 export function InternCard({
   name,
   role,
@@ -23,6 +32,7 @@ export function InternCard({
   quote,
   skills,
   image,
+  price,
   isLast = false,
 }: InternCardProps) {
   const borderClass = isLast
@@ -58,7 +68,7 @@ export function InternCard({
             className="font-body text-[11px] font-bold text-[var(--text-inverted)] uppercase"
             style={{ letterSpacing: "0.5px" }}
           >
-            {tier}
+            {tierBadgeLabel(tier, price)}
           </span>
         </span>
       </div>
@@ -89,7 +99,7 @@ export function InternCard({
       </p>
 
       {/* CTA button */}
-      <div className="mt-auto pt-2">
+      <div className="mt-auto pt-2 flex flex-col gap-1">
         {tier === "free" ? (
           <a
             href="https://www.npmjs.com/package/internsmarket"
@@ -97,15 +107,23 @@ export function InternCard({
             rel="noopener noreferrer"
             className="block w-full bg-[var(--bg-black)] text-[var(--text-inverted)] font-body text-[13px] font-bold px-5 py-[10px] text-center no-underline hover:bg-[var(--brown-dark)] transition-colors"
           >
-            INSTALL NOW
+            INSTALL FREE
           </a>
         ) : (
-          <a
-            href="#pricing"
-            className="block w-full bg-transparent text-[var(--text-primary)] font-body text-[13px] font-bold px-5 py-[10px] text-center no-underline border-[1.5px] border-[var(--stroke)] hover:bg-black/5 transition-colors"
-          >
-            UPGRADE TO UNLOCK
-          </a>
+          <>
+            {/* TODO: Replace with real Lemon Squeezy individual checkout URL */}
+            <a
+              href={`https://internsmarket.lemonsqueezy.com/checkout/${name.toLowerCase().replace(/\s+/g, "-")}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block w-full bg-[var(--bg-black)] text-[var(--text-inverted)] font-body text-[13px] font-bold px-5 py-[10px] text-center no-underline hover:bg-[var(--brown-dark)] transition-colors"
+            >
+              BUY FOR ${price}
+            </a>
+            <span className="font-body text-[11px] text-[var(--text-muted-dark)] text-center">
+              or get all interns for ${BUNDLE_PRICES.starter}
+            </span>
+          </>
         )}
       </div>
     </div>

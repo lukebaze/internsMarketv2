@@ -80,7 +80,7 @@ export function FinalCtaSection() {
 
           {/* Subtitle */}
           <p className="font-body text-[16px] text-[var(--text-muted)] leading-[1.6] max-w-[480px]">
-            Deploy AI interns to your codebase in 60 seconds. One CLI command. Zero configuration. Full control.
+            Deploy AI interns to your codebase in 60 seconds. One CLI command. Zero configuration. No subscription. Pay once, own forever.
           </p>
 
           {/* Mini stats row */}
@@ -126,7 +126,7 @@ export function FinalCtaSection() {
 
           {/* Subtitle */}
           <p className="font-body text-[12px] text-[var(--brown-light)] text-center mt-3">
-            No credit card required · Free tier available
+            No subscription · Pay once, own forever · Free tier available
           </p>
         </div>
       </div>
@@ -145,7 +145,7 @@ export function FinalCtaSection() {
 
         {/* Subtitle */}
         <p className="font-body text-[16px] text-[var(--text-muted)] leading-[1.6]">
-          Deploy AI interns to your codebase in 60 seconds. One CLI command. Zero configuration. Full control.
+          Deploy AI interns to your codebase in 60 seconds. One CLI command. Zero configuration. No subscription. Pay once, own forever.
         </p>
 
         {/* Mini stats */}
@@ -180,7 +180,7 @@ export function FinalCtaSection() {
 
         {/* Subtitle */}
         <p className="font-body text-[12px] text-[var(--brown-light)] text-center">
-          No credit card required · Free tier available
+          No subscription · Pay once, own forever · Free tier available
         </p>
       </div>
     </section>

@@ -46,7 +46,7 @@ export function HeroSection() {
         className="absolute inset-0"
         style={{
           background:
-            "linear-gradient(to top, #000000FF 0%, #000000E6 25%, #000000B3 50%, #00000066 75%, #00000033 100%)",
+            "linear-gradient(to top, #1D1916FF 0%, #1D1916E6 25%, #1D1916B3 50%, #1D191666 75%, #1D191633 100%)",
         }}
       />
 
@@ -60,7 +60,7 @@ export function HeroSection() {
         {/* Subheadline */}
         <p className="font-body text-base text-[var(--text-muted-light)] leading-relaxed max-w-[600px]">
           InternsMarket ships full-stack AI personas — personality, skills,
-          memory, voice. Think Shopify Themes for AI Agents.
+          memory, voice. Install free. Buy once to unlock the full team.
         </p>
 
         {/* Button row */}
@@ -74,11 +74,10 @@ export function HeroSection() {
             INSTALL FREE
           </a>
           <a
-            href="#demo"
-            data-demo
+            href="#pricing"
             className="font-body text-[13px] font-bold text-[var(--text-inverted)] tracking-[1.5px] border-[1.5px] border-[var(--warm-white)] px-7 py-[14px] text-center bg-transparent hover:bg-white/10 transition-colors"
           >
-            WATCH 90S DEMO
+            SEE PRICING
           </a>
         </div>
 
