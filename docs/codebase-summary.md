@@ -76,21 +76,30 @@ React/Ink components that render TUI for each command:
 | `status-command.tsx` | `im status` | Display current tier + installed count |
 | `apply-command.tsx` | `im apply <id>` | Generate runtime config for ZeroClaw or OpenClaw |
 
-### src/services (11 files)
+### src/constants (1 file)
+
+| File | Purpose | Key Exports |
+|------|---------|-------------|
+| `signing-keys.ts` | Ed25519 public keys for package signature verification (hex-encoded, 32 bytes); supports key rotation | `TRUSTED_PUBLIC_KEYS` |
+
+### src/services (14 files)
 
 Business logic, no UI:
 
 | File | Purpose | Key Exports |
 |------|---------|-------------|
 | `runtime-installer.ts` | Detect, download, and install runtimes (ZeroClaw from GitHub releases, OpenClaw git clone) | `getRuntimeInfo()`, `installRuntime()`, `isRuntimeInstalled()` |
-| `config-store.ts` | XDG-compliant persistent config store (conf package); tier, license key, instance ID | `configStore` |
-| `license-constants.ts` | License tier settings: cache TTL, variant ID → tier mapping, API endpoints | `LS_VALIDATE_URL`, `VARIANT_TIER_MAP`, `CACHE_TTL_*_MS` |
-| `license-activator.ts` | Wizard interaction: prompt for license key, validate format, store in config | `activateLicense()` |
-| `license-validator.ts` | Check license validity: cache-first (24h TTL), network fallback, grace period (3 days) | `checkLicense()`, `getCurrentTier()` |
+| `config-store.ts` | XDG-compliant persistent config store (conf package); tier, license key, activationId | `configStore` |
+| `license-constants.ts` | Polar.sh URLs, org ID, TTLs, benefit→tier mapping, GitHub Releases constants | `POLAR_ACTIVATE_URL`, `POLAR_VALIDATE_URL`, `BENEFIT_TIER_MAP`, `CACHE_TTL_*_MS` |
+| `license-activator.ts` | Wizard interaction: prompt for Polar.sh license key, validate format, store in config | `activateLicense()` |
+| `license-validator.ts` | Check license validity via Polar.sh API: cache-first (24h TTL for paid, 1h for free), grace period (3 uses over 3 days) | `checkLicense()`, `getCurrentTier()` |
 | `license-tier-guard.ts` | Gate install/update by tier: raise `TierError` if tier < required | `guardTierRequired()` |
+| `package-signature-verifier.ts` | Ed25519 signature verification using node:crypto; compares signature against integrity string | `verifyPackageSignature()` |
+| `bundle-installer.ts` | Download tarball → extract → verify signature → validate → watermark → save to local store | `installIntern()` |
+| `registry-client.ts` | Fetch manifest + tarball URLs from GitHub Releases manifest.json (5-min ETag cache) | `fetchManifest()`, `fetchTarballUrl()` |
+| `npm-package-resolver.ts` | Resolve npm package names; detect shell vs. full packages; manage npm-local install flow | `resolveNpmPackage()`, `isShellPackage()` |
+| `package-watermarker.ts` | Inject activationId into manifest.json for installation tracking (no PII) | `watermarkPackage()` |
 | `local-store-manager.ts` | Read/write interns to XDG data directory (`~/.internsmarket/interns/`) | `saveIntern()`, `readIntern()`, `listInterns()`, `removeIntern()` |
-| `registry-client.ts` | Fetch manifest + tarball URL from registry (static JSON) | `fetchManifest()`, `fetchTarballUrl()` |
-| `bundle-installer.ts` | Download tarball → extract → validate → call local-store-manager to save | `installIntern()` |
 | `runtime-adapter-factory.ts` | Factory: return correct adapter (ZeroClaw or OpenClaw) based on flag | `getRuntimeAdapter()` |
 | `runtime-adapter-zeroclaw.ts` | Generate zeroclaw.toml config from aieos.json; compile neural matrix + linguistics | `ZeroClawAdapter` |
 | `runtime-adapter-openclaw.ts` | Generate openclaw.yaml config + identity.json from aieos.json | `OpenClawAdapter` |
@@ -184,6 +193,18 @@ Each intern has: `manifest.json`, `aieos.json`, `skills/`, `memory-seeds/`, `con
 
 ---
 
+## Scripts (5 files)
+
+Utility scripts for key signing and publishing:
+
+| File | Purpose | Input/Output |
+|------|---------|-------------|
+| `generate-signing-keypair.ts` | Generate Ed25519 keypair for package signing; prints PUBLIC_KEY_HEX for signing-keys.ts | Output: private key (secure storage), public key hex (to signing-keys.ts) |
+| `sign-package.ts` | Sign intern package tarball with Ed25519 private key; generates signature.json | Input: tarball path, private key; Output: signature hex |
+| `publish-to-github-releases.ts` | Publish intern tarballs + manifest.json to GitHub Releases (packages-v1 tag) | Input: intern list; Output: GitHub release assets |
+| `publish-free-intern.sh` | Bash script: npm publish free intern packages (3 full bundles) | Input: npm credentials; Output: published to npm registry |
+| `publish-paid-intern-shell.sh` | Bash script: npm publish paid tier shell packages (8 shells referencing GitHub Releases) | Input: npm credentials; Output: published to npm registry |
+
 ## Configuration & Root Files
 
 | File | Purpose |
@@ -195,6 +216,7 @@ Each intern has: `manifest.json`, `aieos.json`, `skills/`, `memory-seeds/`, `con
 | `packages/cli/package.json` | CLI app: Commander, Ink, React, Zod, conf, got |
 | `packages/cli/tsconfig.json` | TypeScript config: ESM, jsx: react-jsx |
 | `packages/interns/package.json` | Interns workspace (empty, no code) |
+| `scripts/` | Signing, publishing, and distribution scripts |
 | `.claude/commands/.md` | Claude Code command definitions |
 | `CLAUDE.md` | Project-specific Claude Code rules |
 | `.repomixignore` | Repomix ignore rules |
@@ -231,18 +253,19 @@ Tests are co-located with source files (`.test.ts`, `.test.tsx`).
 | Metric | Count |
 |--------|-------|
 | packages/core TypeScript files | 28 |
-| packages/cli TypeScript files | 25 |
+| packages/cli TypeScript files | 28 (includes new signing, watermarking, npm resolver) |
 | packages/website TypeScript/CSS | 15 |
 | React/Ink components (.tsx) | 22 |
 | Type definitions | 12 |
 | Validators/Compilers | 5 |
-| Services (CLI) | 11 |
+| Services (CLI) | 14 (added: signing-verifier, npm-resolver, watermarker) |
 | Commands | 8 |
-| .intern packages | 11 |
+| .intern packages | 11 (3 free full, 8 paid shell) |
+| Utility scripts | 5 (signing, publishing, distribution) |
 | Configuration files | 10 |
 | Documentation files | 7 |
-| **Total source files** | **~111** |
-| **Total source LOC** | **~5,141** |
+| **Total source files** | **~120** |
+| **Total source LOC** | **~5,600** |
 
 ---
 

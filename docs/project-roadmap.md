@@ -12,17 +12,53 @@ High-level development roadmap tracking phases, milestones, and progress toward 
 - CLI tool shipped (8 commands)
 - 11 AI interns released (content, code-review, data, devops, life-coach, ops, qa, research, social-media, tech-writer, ux-design)
 - Landing page live (Next.js 15)
-- License system operational (Lemon Squeezy integration)
+- License system migrated to Polar.sh (from Lemon Squeezy)
+- Package signing infrastructure (Ed25519 via node:crypto)
+- GitHub Releases distribution + registry client (5-min cache)
+- npm publishing (3 free full + 8 paid shell packages)
 - Runtime adapters complete (ZeroClaw + OpenClaw)
 
 **Metrics:**
-- ~5,141 LOC across 4 packages
-- 60+ source files
+- ~5,600 LOC across 4 packages + scripts
+- 120+ source files
 - 80%+ test coverage on validators/compilers
+- 22 unit tests for signing, licensing, watermarking
 
 ---
 
-## Phase 1: Landing Page (v1.1 — COMPLETE)
+## Phase 1: Install Flow, Licensing & Package Security (v1.1 — COMPLETE)
+
+**Timeline:** Feb 2026
+**Status:** ✅ COMPLETE
+
+**Deliverables:**
+- [x] Polar.sh license integration (replace Lemon Squeezy)
+- [x] Ed25519 package signing (node:crypto, zero npm deps)
+- [x] GitHub Releases distribution (manifest.json + ETag cache)
+- [x] Package signature verification at install
+- [x] Package watermarking (activationId injection)
+- [x] npm publishing (3 free full + 8 paid shell packages)
+- [x] npm package resolver (shell vs. full detection)
+- [x] Unit tests for all security components
+
+**Key Features:**
+- License activation via Polar.sh with tier gating
+- 24h cache for paid, 1h for free, 3-day grace period
+- Ed25519 signatures prevent tampering
+- GitHub Releases as main distribution channel
+- npm packages as secondary (with license gates)
+
+**Recent Updates:**
+- Migrated license-constants.ts to Polar.sh URLs + benefit mapping
+- Implemented package-signature-verifier.ts with key rotation support
+- Created sign-package.ts and generate-signing-keypair.ts scripts
+- Added registry-client with 5-min ETag cache
+- Implemented npm-package-resolver for shell package detection
+- Added package-watermarker for installation tracking
+
+---
+
+## Phase 2: Landing Page (v1.1 — COMPLETE)
 
 **Timeline:** Feb 2026
 **Status:** ✅ COMPLETE
@@ -46,14 +82,14 @@ High-level development roadmap tracking phases, milestones, and progress toward 
 
 ---
 
-## Phase 2: Marketplace MVP (v1.2 — Q2 2026)
+## Phase 3: Marketplace MVP (v1.2 — Q2 2026)
 
 **Timeline:** Mar–May 2026
 **Status:** 🔲 NOT STARTED
 
 **Objective:** Web-based marketplace with user accounts, intern discovery, and license management.
 
-### 2a: User Authentication (Estimated: 3 weeks)
+### 3a: User Authentication (Estimated: 3 weeks)
 
 **Requirements:**
 - Email-based sign-up and login
@@ -73,7 +109,7 @@ High-level development roadmap tracking phases, milestones, and progress toward 
 - Tier information persists across sessions
 - Failed login attempts handled gracefully
 
-### 2b: Marketplace Web UI (Estimated: 4 weeks)
+### 3b: Marketplace Web UI (Estimated: 4 weeks)
 
 **Requirements:**
 - Browse all interns by category or tag
@@ -95,7 +131,7 @@ High-level development roadmap tracking phases, milestones, and progress toward 
 - Install button shows tier requirement if needed
 - Dashboard shows all installed interns + versions
 
-### 2c: License Integration (Estimated: 2 weeks)
+### 3c: License Integration (Estimated: 2 weeks)
 
 **Requirements:**
 - Link Lemon Squeezy account to web dashboard
@@ -117,7 +153,7 @@ High-level development roadmap tracking phases, milestones, and progress toward 
 
 ---
 
-## Phase 3: Community Interns (v1.2+ — Q2/Q3 2026)
+## Phase 4: Community Interns (v1.2+ — Q2/Q3 2026)
 
 **Timeline:** Apr–Jun 2026
 **Status:** 🔲 NOT STARTED
@@ -145,7 +181,7 @@ High-level development roadmap tracking phases, milestones, and progress toward 
 
 ---
 
-## Phase 4: Customization UI (v1.2+ — Q3 2026)
+## Phase 5: Customization UI (v1.2+ — Q3 2026)
 
 **Timeline:** May–Jul 2026
 **Status:** 🔲 NOT STARTED
@@ -172,7 +208,7 @@ High-level development roadmap tracking phases, milestones, and progress toward 
 
 ---
 
-## Phase 5: Analytics & Insights (v1.2+ — Q3/Q4 2026)
+## Phase 6: Analytics & Insights (v1.2+ — Q3/Q4 2026)
 
 **Timeline:** Jun–Sep 2026
 **Status:** 🔲 NOT STARTED
@@ -199,7 +235,7 @@ High-level development roadmap tracking phases, milestones, and progress toward 
 
 ---
 
-## Phase 6: Advanced Automation (v1.3+ — Q4 2026+)
+## Phase 7: Advanced Automation (v1.3+ — Q4 2026+)
 
 **Timeline:** Q4 2026+
 **Status:** 🔲 PLANNED
@@ -226,7 +262,7 @@ High-level development roadmap tracking phases, milestones, and progress toward 
 
 ---
 
-## Phase 7: Mobile App (v1.4+ — 2027)
+## Phase 8: Mobile App (v1.4+ — 2027)
 
 **Timeline:** 2027 (exploratory)
 **Status:** 🔲 PLANNED
@@ -258,11 +294,11 @@ High-level development roadmap tracking phases, milestones, and progress toward 
 | Milestone | Phase | Timeline | Status | Key Metrics |
 |-----------|-------|----------|--------|------------|
 | **Launch (v1.0)** | Initial release | Q4 2025 | ✅ Complete | 1 intern, core + CLI |
-| **Expanded Roster (v1.1)** | v1.1 | Feb 2026 | ✅ Complete | 11 interns, landing page |
-| **Marketplace (v1.2)** | Phases 2–3 | Q2 2026 | 🔲 In Planning | Web UI, community, customization |
-| **Analytics (v1.3)** | Phases 4–5 | Q3 2026 | 🔲 Planned | Telemetry, metrics, insights |
-| **Automation (v1.4)** | Phase 6 | Q4 2026 | 🔲 Planned | Webhooks, orchestration, scheduling |
-| **Mobile (v1.5)** | Phase 7 | 2027 | 🔲 Exploratory | iOS + Android apps |
+| **Expanded Roster (v1.1)** | Phases 1–2 | Feb 2026 | ✅ Complete | 11 interns, licensing, signing, npm publishing |
+| **Marketplace (v1.2)** | Phases 3–4 | Q2 2026 | 🔲 In Planning | Web UI, community, customization |
+| **Analytics (v1.3)** | Phases 5–6 | Q3 2026 | 🔲 Planned | Telemetry, metrics, insights |
+| **Automation (v1.4)** | Phase 7 | Q4 2026 | 🔲 Planned | Webhooks, orchestration, scheduling |
+| **Mobile (v1.5)** | Phase 8 | 2027 | 🔲 Exploratory | iOS + Android apps |
 
 ---
 

@@ -76,19 +76,31 @@ User Command:
 ↓ (InstallCommand)
 
 Registry Lookup:
-  registry-client → fetch manifest + tarball URL
+  registry-client → fetch manifest + tarball URL from GitHub Releases
+  (5-min TTL cache via ETag)
 
 ↓
 
 License Check:
-  license-validator → Lemon Squeezy API (cached 24h)
+  license-validator → Polar.sh API (cached 24h, grace period 3 days)
   tier-guard → verify tier allows N interns
+
+↓
+
+Package Verification:
+  package-signature-verifier → Ed25519 signature check against TRUSTED_PUBLIC_KEYS
+  (integrity: "${internId}@${version}:${sha256}")
 
 ↓
 
 Bundle Install:
   bundle-installer → download tarball → extract → validate
   intern-package-validator → schema check (manifest.json + aieos.json)
+
+↓
+
+Watermarking:
+  package-watermarker → inject activationId into manifest for tracking
 
 ↓
 
@@ -212,7 +224,7 @@ tags: [content, seo, blogging]
 [Markdown description of what the skill does, usage, output format...]
 ```
 
-## License System
+## License System (Polar.sh)
 
 ### Tiers
 
@@ -224,21 +236,29 @@ tags: [content, seo, blogging]
 
 ### Flow
 
-1. **Activate**: User runs `im activate` → wizard prompts for Lemon Squeezy license key
-2. **Cache**: License key + tier stored in `~/.config/internsmarket/config.json` (24h TTL)
-3. **Validate**: On install, check cached tier. If stale, validate via Lemon Squeezy API
-4. **Fallback**: If network fails, grace period allows 3 days offline (maintains last valid tier)
+1. **Activate**: User runs `im activate` → wizard prompts for Polar.sh license key
+2. **Cache**: License key + tier stored in `~/.config/internsmarket/config.json` (24h TTL for paid, 1h for free)
+3. **Validate**: On install, check cached tier. If stale, validate via Polar.sh API
+4. **Fallback**: If network fails, grace period allows 3 days offline with up to 3 grace uses (maintains last valid tier)
 5. **Tier Gate**: If tier < required (e.g., pro-only intern), reject with upgrade link
+
+### Polar.sh Integration
+
+- **API Endpoints**: Activate, Validate, Deactivate via Polar Customer Portal API
+- **Benefit Mapping**: Each Polar benefit_id maps to CLI tier (Free/Starter/Pro)
+- **Org ID**: Configured in license-constants.ts (POLAR_ORG_ID)
+- **Tier Ranking**: Pro > Starter > Free (prevents downgrade attacks)
 
 ### Storage
 
 Config file at `~/.config/internsmarket/config.json`:
 ```json
 {
-  "licenseKey": "xxx-xxx-xxx",
+  "licenseKey": "pol_xxx_xxx",
   "tier": "starter",
   "validUntil": 1740123456000,
-  "instanceId": "uuid"
+  "activationId": "uuid",
+  "graceUsesRemaining": 3
 }
 ```
 
@@ -246,7 +266,7 @@ Interns stored at `~/.internsmarket/interns/`:
 ```
 ~/.internsmarket/interns/
 ├── content-marketing-intern/
-│   ├── manifest.json
+│   ├── manifest.json      (includes activationId for tracking)
 │   └── aieos.json
 └── ... (other installed interns)
 ```
@@ -304,12 +324,16 @@ All CLI commands follow this pattern:
 
 | Service | Purpose |
 |---------|---------|
-| `config-store` | XDG-compliant config/data store (conf package) |
-| `license-validator` | 24h cache + grace period for Lemon Squeezy |
-| `license-activator` | License key input + validation wizard |
+| `config-store` | XDG-compliant config/data store (conf package); holds license, tier, activationId |
+| `license-constants` | Polar.sh URLs, org ID, TTLs, benefit→tier mapping, GitHub Releases constants |
+| `license-validator` | 24h cache + grace period for Polar.sh Customer Portal API |
+| `license-activator` | License key input + validation wizard (supports Polar.sh format) |
 | `license-tier-guard` | Reject installs if tier < required |
-| `bundle-installer` | Download + extract + validate intern tarballs |
-| `registry-client` | Fetch manifest/tarball URLs from registry |
+| `package-signature-verifier` | Ed25519 signature verification (zero npm deps, uses node:crypto) |
+| `bundle-installer` | Download + extract + validate + verify signature → save to local store |
+| `registry-client` | Fetch manifest/tarball URLs from GitHub Releases (5-min ETag cache) |
+| `npm-package-resolver` | Resolve npm package names; shell vs. full detection for paid packages |
+| `package-watermarker` | Inject activationId into manifest for install tracking |
 | `local-store-manager` | Read/write interns to XDG data dir |
 | `runtime-adapter-factory` | Factory for ZeroClaw/OpenClaw |
 | `runtime-adapter-zeroclaw` | ZeroClaw config generation |
@@ -374,3 +398,41 @@ From AIEOS entity → system prompt:
 
 4. **OpenClaw Identity Compiler**: Extracts structured identity JSON
    - Name, role, personality traits, communication style
+
+## Package Security & Distribution
+
+### Ed25519 Signature Verification
+
+All intern packages are signed with Ed25519 (NIST standard, zero npm dependencies via node:crypto):
+
+- **Signing**: `scripts/sign-package.ts` generates signature over integrity string `${internId}@${version}:${sha256}`
+- **Verification**: `package-signature-verifier.ts` checks against `TRUSTED_PUBLIC_KEYS` (hardcoded hex-encoded keys)
+- **Key Rotation**: Add new key to array, keep old key active for N months, bump CLI major version when removing old key
+- **Fallback**: If TRUSTED_PUBLIC_KEYS empty (dev mode), signature check skipped with warning
+
+### GitHub Releases Distribution
+
+- **Registry**: manifest.json hosted on GitHub Releases (public, no auth)
+- **Caching**: 5-min ETag-based cache in registry-client
+- **URL**: `https://github.com/internsmarket/packages/releases/download/packages-v1/manifest.json`
+- **Tarballs**: Downloaded per-intern from manifest URLs
+- **Gate**: License check happens on CLI side before accepting install
+
+### npm Package Publishing
+
+- **Free Interns**: Full `.intern` bundles published to npm
+  - `@internsmarket/content-marketing-intern`
+  - `@internsmarket/code-review-intern`
+  - (3 total free packages)
+
+- **Paid Interns**: Shell packages published to npm with activation gate
+  - `@internsmarket/starter-bundle-shell` (5 Starter-tier interns)
+  - `@internsmarket/pro-bundle-shell` (8 Pro-tier interns)
+  - Actual content fetched from GitHub Releases at runtime after license validation
+
+### Package Watermarking
+
+- **Purpose**: Track installation activations and tier usage
+- **Implementation**: `package-watermarker.ts` injects `activationId` into manifest.json at install time
+- **Storage**: Watermarked manifest persists in local store (~/.internsmarket/interns/)
+- **Privacy**: activationId is random UUID; no PII collected

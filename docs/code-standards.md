@@ -444,11 +444,42 @@ const res = await fetch(url, { signal: controller.signal });
 
 ## Security Considerations
 
+### Authentication & Licensing
+
 1. **No credentials in code**: API keys, license keys → `conf` store only
-2. **Validate all input**: Use Zod before processing
-3. **No shell execution**: Use execa package (escapes args)
-4. **HTTPS only**: All API calls via HTTPS
-5. **Verify downloads**: Check manifest hash (future: GPG signatures)
+2. **Polar.sh Integration**: Use Polar Customer Portal API (no auth required, keyed by license-key + org-id)
+3. **Tier Fallback**: If network fails, grace period allows 3 offline uses before reverting to free tier
+4. **Tier Ranking**: Pro > Starter > Free; reject downgrades via tier-rank comparison
+
+### Package Security
+
+5. **Ed25519 Signatures**: All intern packages signed with Ed25519 (NIST standard)
+   - Uses Node.js built-in `crypto` module (zero npm dependencies)
+   - Public keys hardcoded in `signing-keys.ts` (allows rotation: add new key, deprecate old)
+   - Signature verifies over integrity string: `${internId}@${version}:${sha256}`
+   - Bump CLI major version when removing deprecated keys
+
+6. **Path Traversal Protection**: Validate intern IDs against kebab-case regex (`/^[a-z0-9][a-z0-9-]*[a-z0-9]$/`)
+   - Extract paths use `path.join()` + validation to prevent `../` escapes
+
+### Input Validation & Execution
+
+7. **Validate all input**: Use Zod before processing (manifest, config, license responses)
+8. **No shell execution**: Use execa package (escapes args, no shell injection)
+9. **HTTPS only**: All API calls via HTTPS (Polar.sh, GitHub Releases)
+10. **Verify downloads**: Check tarball hash against manifest SHA256; verify Ed25519 signature
+
+### Watermarking & Tracking
+
+11. **Package Watermarking**: Inject `activationId` (random UUID) into manifest at install time
+    - No PII collected; used for activation tracking only
+    - Watermarked manifest persists in local store
+
+### npm Publishing
+
+12. **Shell vs. Full Packages**: Free interns published as full bundles; paid interns as shell packages
+    - Shell packages reference GitHub Releases content (fetched at runtime after license check)
+    - Prevents free redistribution of paid content
 
 ## Dependencies
 
