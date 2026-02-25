@@ -1,6 +1,6 @@
 # Codebase Summary
 
-Complete file-by-file inventory of the InternsMarket monorepo (44 source files).
+Complete file-by-file inventory of the InternsMarket monorepo (~60 source files, 5,141 LOC).
 
 ## packages/core
 
@@ -74,7 +74,7 @@ React/Ink components that render TUI for each command:
 | `list-command.tsx` | `im list` | Show all installed interns + versions |
 | `activate-command.tsx` | `im activate` | License key wizard; store key in config |
 | `status-command.tsx` | `im status` | Display current tier + installed count |
-| `apply-command.tsx` | `im apply <id>` | Generate runtime config (zeroclaw.toml or openclaw.yaml) |
+| `apply-command.tsx` | `im apply <id>` | Generate runtime config for ZeroClaw or OpenClaw |
 
 ### src/services (11 files)
 
@@ -116,28 +116,71 @@ Entry point (shebang + require main). Installed as `npm bin` alias for `im` comm
 
 ---
 
+## packages/website
+
+Next.js 15 landing page with Tailwind CSS v4. Static site with component architecture.
+
+### src/app (2 files)
+
+| File | Purpose |
+|------|---------|
+| `layout.tsx` | Root layout with fonts (Anton, Inter, JetBrains Mono), global styles |
+| `page.tsx` | Home page (server component); imports and renders all sections |
+
+### src/components (9 files)
+
+Section-based components. Each exported as named function:
+
+| File | Purpose | Dependencies |
+|------|---------|--------------|
+| `navigation-bar.tsx` | Header with logo, nav links, CTA buttons | None (client component) |
+| `hero-section.tsx` | Main headline, subheading, hero image | None |
+| `feature-highlights-section.tsx` | 4 feature cards (with icons) | None |
+| `how-it-works-section.tsx` | 4-step process flow | None |
+| `intern-catalog-section.tsx` | Grid of all 11 interns | `intern-card.tsx`, `interns-data.ts` |
+| `intern-card.tsx` | Single intern preview card | None |
+| `pricing-section.tsx` | 3-tier pricing table with CTA buttons | None |
+| `social-proof-section.tsx` | Testimonials, trust badges | None |
+| `final-cta-section.tsx` | Last call-to-action before footer | None |
+| `footer-section.tsx` | Footer with links, branding | None |
+
+### src/data (1 file)
+
+| File | Purpose | Exports |
+|------|---------|---------|
+| `interns-data.ts` | Hardcoded list of 11 intern profiles (name, role, avatar, tags) | `InternsData[]` |
+
+### src/app/globals.css (1 file)
+
+CSS custom properties (design tokens) for colors, spacing, fonts. Tailwind v4 integration.
+
+### public/ (images, favicon)
+
+Static assets: hero image, intern avatars, icons, favicon.
+
+---
+
 ## packages/interns
 
-AI intern bundles (`.intern` packages).
+AI intern bundles (`.intern` packages). 11 intern personas, each a `.intern` directory.
 
-### content-marketing-intern
+### Intern List
 
-The launch intern (Jordan Lee).
+Each intern has: `manifest.json`, `aieos.json`, `skills/`, `memory-seeds/`, `config/`.
 
-| Subdir | Purpose | Files |
-|--------|---------|-------|
-| `manifest.json` | Package metadata | ID, name, version, tier, skills, tags |
-| `aieos.json` | AIEOS v1.1 entity | 9 layers: identity, psychology, linguistics, etc. |
-| `skills/` | 5 skill definitions | Each skill: `.../SKILL.md` (YAML frontmatter + markdown) |
-| `memory-seeds/` | Optional knowledge templates | Brand voice, content strategy templates (markdown) |
-| `config/` | Runtime configs | `zeroclaw.toml`, `openclaw.yaml` (auto-generated) |
-
-Skills:
-1. `blog-post-writer/SKILL.md` — SEO-optimized long-form content
-2. `social-media-content/SKILL.md` — Platform-specific social posts
-3. `email-copywriter/SKILL.md` — Email sequences, newsletters
-4. `seo-keyword-researcher/SKILL.md` — Keyword research, difficulty analysis
-5. `content-repurposer/SKILL.md` — Reuse content across formats
+| Intern | ID | Role | Status |
+|--------|----|----|--------|
+| Jordan Lee | `content-marketing-intern` | Content Marketing Intern | Launch (v1.0) |
+| (ProMax) | `code-review-intern` | Code Review Intern | v1.1 (ProMax upgrade) |
+| Data Analyst | `data-analyst-intern` | Data Analysis Intern | v1.1 |
+| DevOps Specialist | `devops-infrastructure-intern` | DevOps & Infrastructure Intern | v1.1 |
+| Luna Sage | `life-coach-intern` | Life OS Coach Intern | v1.1 |
+| Ops Manager | `ops-meetings-intern` | Ops & Meetings Coordinator | v1.1 |
+| QA Tester | `qa-testing-intern` | QA & Testing Intern | v1.1 |
+| Researcher | `research-intern` | Research Intern | v1.1 |
+| Social Media | `social-media-intern` | Social Media Intern | v1.1 |
+| Tech Writer | `technical-writer-intern` | Technical Writer Intern | v1.1 |
+| UX Designer | `ux-research-design-intern` | UX Research & Design Intern | v1.1 |
 
 ---
 
@@ -187,16 +230,19 @@ Tests are co-located with source files (`.test.ts`, `.test.tsx`).
 
 | Metric | Count |
 |--------|-------|
-| TypeScript source files (src/) | 29 |
-| React/Ink components (.tsx) | 12 |
+| packages/core TypeScript files | 28 |
+| packages/cli TypeScript files | 25 |
+| packages/website TypeScript/CSS | 15 |
+| React/Ink components (.tsx) | 22 |
 | Type definitions | 12 |
 | Validators/Compilers | 5 |
-| Services | 11 |
-| UI components | 4 |
+| Services (CLI) | 11 |
 | Commands | 8 |
+| .intern packages | 11 |
 | Configuration files | 10 |
-| Documentation files | 6 |
-| **Total source files** | **46** |
+| Documentation files | 7 |
+| **Total source files** | **~111** |
+| **Total source LOC** | **~5,141** |
 
 ---
 

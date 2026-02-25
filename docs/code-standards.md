@@ -115,7 +115,65 @@ export class TierError extends Error {
 }
 ```
 
-## React / Ink Components
+## Website / Frontend (packages/website)
+
+### Next.js App Router Conventions
+
+- **Server Components** (default): All page and layout files use server components
+- **Client Components**: Add `'use client'` directive at top of interactive components
+- **Page Structure**:
+  - `src/app/layout.tsx` — Root layout (fonts, globals.css, metadata)
+  - `src/app/page.tsx` — Home page (server component, imports section components)
+  - `src/app/not-found.tsx` — 404 page
+
+### Component Organization
+
+**Naming:**
+- Use **kebab-case** for file names: `navigation-bar.tsx`, `hero-section.tsx`
+- Section components end in `-section.tsx`
+- UI components are descriptive: `intern-card.tsx`, not `Card.tsx`
+
+**Structure:**
+- Each section is a standalone exported function
+- Components accept minimal props (prefer static data from `interns-data.ts`)
+- Example: `navigation-bar.tsx` imports nav links inline (no props)
+
+### Styling with Tailwind CSS v4
+
+**Design Tokens (CSS Custom Properties):**
+- Defined in `src/app/globals.css`
+- Colors, spacing, typography available as variables
+- Usage: `className="bg-[var(--color-primary)]"`
+
+**Fonts:**
+- `Anton` — Display/headlines (imported in layout.tsx)
+- `Inter` — Body text (default)
+- `JetBrains Mono` — Code blocks
+
+**Examples:**
+```tsx
+// ✓ Section component with Tailwind
+export function HeroSection() {
+  return (
+    <section className="py-20 bg-[var(--bg-gradient)]">
+      <h1 className="font-anton text-5xl">Hire AI Interns</h1>
+    </section>
+  );
+}
+
+// ✓ Use client for interactivity
+'use client';
+import { useState } from 'react';
+
+export function PricingToggle() {
+  const [yearly, setYearly] = useState(false);
+  return <button onClick={() => setYearly(!yearly)}>Annual Billing</button>;
+}
+```
+
+---
+
+## React / Ink Components (packages/cli)
 
 ### File Extension
 

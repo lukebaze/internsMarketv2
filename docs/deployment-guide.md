@@ -1,6 +1,6 @@
 # Deployment Guide
 
-How to bundle, host, and publish AI interns to the InternsMarket registry.
+How to deploy InternsMarket products: CLI, website, and AI intern packages.
 
 ## Overview
 
@@ -388,6 +388,69 @@ aws s3 sync . s3://internsmarket-bundles/bundles/ --exclude "*" --include "*.tar
 # Update registry with all entries
 # (registry.json contains all interns)
 ```
+
+---
+
+## Website Deployment (packages/website)
+
+InternsMarket's Next.js landing page is deployed to Vercel with automatic preview and production environments.
+
+### Prerequisites
+
+- Node.js 20+
+- Vercel account (free tier OK)
+- GitHub repo connected to Vercel
+
+### Build & Preview
+
+```bash
+# Install dependencies
+cd packages/website
+npm install
+
+# Build static site
+npm run build
+
+# Preview locally
+npm run dev  # Open http://localhost:3000
+```
+
+### Deploy to Vercel
+
+**Option A: Git Push (Recommended)**
+
+```bash
+# Vercel auto-deploys on push to main
+git add packages/website/src/
+git commit -m "feat: update landing page"
+git push origin main
+# → Vercel builds and deploys automatically
+# → Preview URL shown in GitHub PR
+```
+
+**Option B: Vercel CLI**
+
+```bash
+npm install -g vercel
+vercel  # Deploy to preview
+vercel --prod  # Deploy to production
+```
+
+### Environment Variables
+
+None required for landing page (static site). If adding dynamic features, create `packages/website/.env.local`:
+
+```env
+NEXT_PUBLIC_API_URL=https://api.internsmarket.com
+```
+
+### Monitoring
+
+- **Vercel Dashboard**: https://vercel.com/dashboard
+- **Analytics**: Real User Monitoring (Vercel Web Analytics)
+- **Logs**: Vercel Deployments tab shows build/runtime errors
+
+---
 
 ## Next Steps
 

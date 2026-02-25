@@ -1,29 +1,33 @@
 # System Architecture
 
-InternsMarket is a monorepo with three packages: **core** (shared types/validators), **cli** (Command-line tool), and **interns** (AI intern bundles).
+InternsMarket is a monorepo with four packages: **core** (shared types), **cli** (CLI tool), **website** (Next.js landing page), and **interns** (11 AI intern bundles).
 
 ## Monorepo Layout
 
 ```
 internsmarket/
 ├── packages/
-│   ├── core/              # Shared library
+│   ├── core/              # Shared library (AIEOS types, validators, compilers)
 │   │   ├── src/types/     # AIEOS schema (9 layers)
 │   │   ├── src/compiler/  # Neural matrix, linguistics, persona prompt
 │   │   ├── src/validators # Zod schemas
 │   │   └── src/package-io # Manifest reader/writer/validator
-│   ├── cli/               # CLI application
-│   │   ├── src/commands/  # 7 command handlers (Commander)
+│   ├── cli/               # CLI application (Commander + Ink)
+│   │   ├── src/commands/  # 8 command handlers
 │   │   ├── src/services/  # License, bundle, runtime adapters
 │   │   ├── src/ui/        # Ink React components
-│   │   └── bin/           # Entry point
-│   └── interns/           # Intern packages
-│       └── content-marketing-intern/
-│           ├── manifest.json      # Package metadata
-│           ├── aieos.json         # AIEOS v1.1 persona
-│           ├── skills/            # 5 skill definitions
-│           ├── memory-seeds/      # Knowledge templates
-│           └── config/            # ZeroClaw + OpenClaw configs
+│   │   └── bin/           # Entry point (im command)
+│   ├── website/           # Next.js 15 landing page
+│   │   ├── src/app/       # Layout, page (server components)
+│   │   ├── src/components # Section-based UI (navigation, hero, features, etc.)
+│   │   ├── src/data/      # Static data (interns-data.ts)
+│   │   └── public/        # Assets (images, favicon)
+│   └── interns/           # 11 .intern packages
+│       ├── content-marketing-intern/
+│       ├── code-review-intern/
+│       ├── data-analyst-intern/
+│       ├── ... (8 more)
+│       └── ux-research-design-intern/
 └── package.json          # npm workspaces
 ```
 
@@ -310,6 +314,42 @@ All CLI commands follow this pattern:
 | `runtime-adapter-factory` | Factory for ZeroClaw/OpenClaw |
 | `runtime-adapter-zeroclaw` | ZeroClaw config generation |
 | `runtime-adapter-openclaw` | OpenClaw config + identity generation |
+
+## Website Architecture
+
+### Tech Stack
+- **Framework**: Next.js 15.1.6 with App Router
+- **Styling**: Tailwind CSS v4 with CSS custom properties (design tokens)
+- **Fonts**: Anton (display), Inter (body), JetBrains Mono (code)
+- **Rendering**: Static site generation (server components)
+- **Deployment**: Vercel (preview + prod)
+
+### Component Hierarchy
+
+```
+layout.tsx (root layout with fonts + globals.css)
+  ├─ page.tsx (home page)
+  │   ├─ navigation-bar.tsx
+  │   ├─ hero-section.tsx
+  │   ├─ feature-highlights-section.tsx
+  │   ├─ how-it-works-section.tsx
+  │   ├─ intern-catalog-section.tsx
+  │   │   └─ intern-card.tsx (repeating)
+  │   ├─ pricing-section.tsx
+  │   ├─ social-proof-section.tsx
+  │   ├─ final-cta-section.tsx
+  │   └─ footer-section.tsx
+  └─ not-found.tsx (404 page)
+```
+
+### Data Flow
+
+All interns (11 profiles) are loaded from `src/data/interns-data.ts`. Each has:
+- Name, role, avatar URL
+- Tags (skills, specialties)
+- Link to CLI install command
+
+Design tokens (colors, spacing, typography) defined in `globals.css` via CSS custom properties, consumed by Tailwind v4.
 
 ## Testing Strategy
 
