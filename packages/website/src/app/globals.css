@@ -1,0 +1,45 @@
+@import "tailwindcss";
+
+:root {
+  --accent: #E8722A;
+  --accent-bright: #FF7A2F;
+  --accent-dark: #CC5A10;
+  --bg-black: #000000;
+  --bg-white: #FFFFFF;
+  --text-primary: #000000;
+  --text-inverted: #FFFFFF;
+  --text-muted: #A08B76;
+  --text-muted-dark: #6B5243;
+  --text-muted-light: #C4B09A;
+  --stroke: #000000;
+  --warm-white: #FDF6EC;
+  --warm-bg: #F0E6D6;
+  --brown-dark: #2D1810;
+  --brown-mid: #5C3A24;
+  --brown-light: #8B7A6B;
+  --terminal-bg: #0D0907;
+  --terminal-bar: #1A110C;
+  --terminal-border: #3D2518;
+  --free-tier: #10b981;
+  --starter-tier: #0080FF;
+  --pro-tier: #f59e0b;
+  --success-green: #4ADE80;
+}
+
+@layer base {
+  html, body {
+    height: 100%;
+  }
+
+  .font-display {
+    font-family: "Anton", sans-serif;
+  }
+
+  .font-body {
+    font-family: "Inter", sans-serif;
+  }
+
+  .font-mono {
+    font-family: "JetBrains Mono", monospace;
+  }
+}

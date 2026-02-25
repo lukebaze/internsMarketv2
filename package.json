@@ -3,7 +3,9 @@
   "private": true,
   "type": "module",
   "workspaces": [
-    "packages/*"
+    "packages/core",
+    "packages/cli",
+    "packages/interns"
   ],
   "scripts": {
     "build": "npm run build -w packages/core && npm run build -w packages/cli",
