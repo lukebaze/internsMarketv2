@@ -1,0 +1,17 @@
+{
+  "name": "internsmarket",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm run build -w packages/core && npm run build -w packages/cli",
+    "dev": "npm run dev --workspaces --if-present",
+    "test": "npm test --workspaces --if-present",
+    "lint": "tsc --noEmit --project packages/core/tsconfig.json && tsc --noEmit --project packages/cli/tsconfig.json"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
