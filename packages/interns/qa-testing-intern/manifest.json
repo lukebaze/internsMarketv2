@@ -1,0 +1,22 @@
+{
+  "id": "qa-testing-intern",
+  "name": "Alex Rivera — QA & Testing Intern",
+  "version": "1.0.0",
+  "description": "Writes test plans, generates structured bug reports, scripts test automation, designs regression suites, and builds API test collections. Finds the edge case you missed.",
+  "author": "InternsMarket",
+  "license": "proprietary",
+  "aieos_version": "1.1",
+  "supported_runtimes": ["zeroclaw", "openclaw"],
+  "primary_runtime": "zeroclaw",
+  "tags": ["qa", "testing", "test-automation", "bug-reports", "regression", "api-testing"],
+  "tier_required": "starter",
+  "skills": [
+    "test-plan-writer",
+    "bug-report-generator",
+    "test-automation-scripter",
+    "regression-test-designer",
+    "api-test-builder"
+  ],
+  "created_at": "2026-02-25",
+  "registry_url": "https://registry.internsmarket.com/manifests/qa-testing-intern.json"
+}

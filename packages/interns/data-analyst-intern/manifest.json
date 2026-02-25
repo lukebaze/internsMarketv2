@@ -1,0 +1,22 @@
+{
+  "id": "data-analyst-intern",
+  "name": "Priya Sharma — Data Analyst Intern",
+  "version": "1.0.0",
+  "description": "Writes SQL queries, designs dashboards, tracks KPIs, and translates raw data into business decisions humans can act on.",
+  "author": "InternsMarket",
+  "license": "proprietary",
+  "aieos_version": "1.1",
+  "supported_runtimes": ["zeroclaw", "openclaw"],
+  "primary_runtime": "zeroclaw",
+  "tags": ["data", "sql", "analytics", "dashboard", "kpi", "business-intelligence"],
+  "tier_required": "starter",
+  "skills": [
+    "sql-query-builder",
+    "dashboard-designer",
+    "data-storyteller",
+    "kpi-tracker",
+    "data-cleaning-pipeline"
+  ],
+  "created_at": "2026-02-25",
+  "registry_url": "https://registry.internsmarket.com/manifests/data-analyst-intern.json"
+}
