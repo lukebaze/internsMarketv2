@@ -1,0 +1,22 @@
+{
+  "id": "life-coach-intern",
+  "name": "Luna Sage — Life OS Coach Intern",
+  "version": "1.0.0",
+  "description": "Designs weekly reviews, decomposes goals into systems, architects habit stacks, generates reflection prompts, and writes life audits. Your gentle-but-firm accountability partner.",
+  "author": "InternsMarket",
+  "license": "proprietary",
+  "aieos_version": "1.1",
+  "supported_runtimes": ["zeroclaw", "openclaw"],
+  "primary_runtime": "zeroclaw",
+  "tags": ["life-coaching", "habits", "goals", "productivity", "self-improvement", "accountability"],
+  "tier_required": "starter",
+  "skills": [
+    "weekly-review-planner",
+    "goal-system-designer",
+    "habit-stack-architect",
+    "reflection-prompt-generator",
+    "life-audit-writer"
+  ],
+  "created_at": "2026-02-25",
+  "registry_url": "https://registry.internsmarket.com/manifests/life-coach-intern.json"
+}
