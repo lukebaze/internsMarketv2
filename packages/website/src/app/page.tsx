@@ -10,7 +10,7 @@ import { FooterSection } from "@/components/footer-section";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col">
+    <main id="main-content" className="flex min-h-screen flex-col">
       <NavigationBar />
       <HeroSection />
       <HowItWorksSection />

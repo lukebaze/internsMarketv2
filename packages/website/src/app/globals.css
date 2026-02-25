@@ -24,6 +24,7 @@
   --starter-tier: #0080FF;
   --pro-tier: #f59e0b;
   --success-green: #4ADE80;
+  --nav-height: 56px;
 }
 
 @layer base {
@@ -33,6 +34,24 @@
 
   html {
     scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  /* Global focus-visible style for all interactive elements */
+  a:focus-visible,
+  button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  /* Scroll offset for anchor targets behind sticky nav */
+  [id] {
+    scroll-margin-top: var(--nav-height);
   }
 
   .font-display {
@@ -45,5 +64,10 @@
 
   .font-mono {
     font-family: "JetBrains Mono", monospace;
+  }
+
+  /* Tabular numbers for stats and prices */
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
   }
 }

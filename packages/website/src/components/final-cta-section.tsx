@@ -17,7 +17,7 @@ const terminalLines = [
 function StatItem({ value, label, valueColor }: { value: string; label: string; valueColor: string }) {
   return (
     <div className="flex flex-col gap-0.5">
-      <span className={`font-display text-[36px] font-black leading-none ${valueColor}`}>{value}</span>
+      <span className={`font-display text-[36px] font-black leading-none tabular-nums ${valueColor}`}>{value}</span>
       <span className="font-body text-[11px] font-bold text-[var(--text-muted-dark)] tracking-[1px]">{label}</span>
     </div>
   );
@@ -69,14 +69,14 @@ export function FinalCtaSection() {
         {/* Left content */}
         <div className="absolute flex flex-col gap-8" style={{ left: 48, top: 80, width: 660 }}>
           {/* Headlines */}
-          <div className="flex flex-col gap-1">
-            <h2 className="font-display text-[80px] font-black text-[var(--warm-white)] leading-[0.95] uppercase">
+          <h2 className="flex flex-col gap-1">
+            <span className="font-display text-[80px] font-black text-[var(--warm-white)] leading-[0.95] uppercase">
               READY TO BUILD
-            </h2>
-            <h2 className="font-display text-[80px] font-black text-[var(--accent)] leading-[0.95] uppercase">
+            </span>
+            <span className="font-display text-[80px] font-black text-[var(--accent)] leading-[0.95] uppercase">
               YOUR AI TEAM?
-            </h2>
-          </div>
+            </span>
+          </h2>
 
           {/* Subtitle */}
           <p className="font-body text-[16px] text-[var(--text-muted)] leading-[1.6] max-w-[480px]">
@@ -92,7 +92,7 @@ export function FinalCtaSection() {
 
           {/* Tagline badge */}
           <div className="flex items-center gap-2">
-            <Terminal size={14} className="text-[var(--accent)]" />
+            <Terminal size={14} className="text-[var(--accent)]" aria-hidden="true" />
             <span className="font-body text-[11px] font-bold text-[var(--text-muted-dark)] tracking-[1px]">
               WORKS WITH ANY CODEBASE
             </span>
@@ -134,14 +134,14 @@ export function FinalCtaSection() {
       {/* Mobile layout: flex column */}
       <div className="lg:hidden flex flex-col gap-8 px-6 py-16">
         {/* Headlines */}
-        <div className="flex flex-col gap-1">
-          <h2 className="font-display text-[48px] font-black text-[var(--warm-white)] leading-[0.95] uppercase">
+        <h2 className="flex flex-col gap-1">
+          <span className="font-display text-[48px] font-black text-[var(--warm-white)] leading-[0.95] uppercase">
             READY TO BUILD
-          </h2>
-          <h2 className="font-display text-[48px] font-black text-[var(--accent)] leading-[0.95] uppercase">
+          </span>
+          <span className="font-display text-[48px] font-black text-[var(--accent)] leading-[0.95] uppercase">
             YOUR AI TEAM?
-          </h2>
-        </div>
+          </span>
+        </h2>
 
         {/* Subtitle */}
         <p className="font-body text-[16px] text-[var(--text-muted)] leading-[1.6]">

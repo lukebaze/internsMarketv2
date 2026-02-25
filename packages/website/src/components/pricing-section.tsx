@@ -74,7 +74,7 @@ export function PricingSection() {
               FREE
             </span>
             <div className="flex flex-col gap-0">
-              <span className="font-display text-[64px] font-black text-[var(--text-primary)] leading-[0.9]">
+              <span className="font-display text-[64px] font-black text-[var(--text-primary)] leading-[0.9] tabular-nums">
                 $0
               </span>
               <span className="font-body text-[11px] font-bold text-[var(--text-muted-dark)] tracking-[1.5px]">
@@ -106,7 +106,7 @@ export function PricingSection() {
               </span>
             </div>
             <div className="flex flex-col gap-0">
-              <span className="font-display text-[64px] font-black text-[var(--text-inverted)] leading-[0.9]">
+              <span className="font-display text-[64px] font-black text-[var(--text-inverted)] leading-[0.9] tabular-nums">
                 $9
               </span>
               <span className="font-body text-[11px] font-bold text-[var(--text-muted)] tracking-[1.5px]">
@@ -134,7 +134,7 @@ export function PricingSection() {
               PRO
             </span>
             <div className="flex flex-col gap-0">
-              <span className="font-display text-[64px] font-black text-[var(--text-primary)] leading-[0.9]">
+              <span className="font-display text-[64px] font-black text-[var(--text-primary)] leading-[0.9] tabular-nums">
                 $19
               </span>
               <span className="font-body text-[11px] font-bold text-[var(--text-muted-dark)] tracking-[1.5px]">
@@ -162,7 +162,7 @@ export function PricingSection() {
               ENTERPRISE
             </span>
             <div className="flex flex-col gap-0">
-              <span className="font-display text-[64px] font-black text-[var(--text-primary)] leading-[0.9]">
+              <span className="font-display text-[64px] font-black text-[var(--text-primary)] leading-[0.9] tabular-nums">
                 CUSTOM
               </span>
               <span className="font-body text-[11px] font-bold text-[var(--text-muted-dark)] tracking-[1.5px]">

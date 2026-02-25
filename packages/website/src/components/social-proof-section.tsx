@@ -42,7 +42,7 @@ export function SocialProofSection() {
         {stats.map((stat, index) => (
           <div key={stat.label} className="flex items-center gap-0 flex-1">
             <div className="flex flex-col items-center gap-2 flex-1">
-              <span className="font-display text-[64px] md:text-[64px] text-[36px] font-black text-[var(--text-inverted)] leading-[0.9]">
+              <span className="font-display text-[36px] md:text-[64px] font-black text-[var(--text-inverted)] leading-[0.9] tabular-nums">
                 {stat.number}
               </span>
               <span className="font-body text-[13px] font-bold text-[var(--text-muted)] tracking-[1.5px]">
@@ -79,7 +79,7 @@ export function SocialProofSection() {
       <div className="flex flex-col md:flex-row items-center justify-center gap-8">
         {trustItems.map(({ icon: Icon, text }) => (
           <div key={text} className="flex items-center gap-2">
-            <Icon size={16} className="text-[var(--text-muted)]" />
+            <Icon size={16} className="text-[var(--text-muted)]" aria-hidden="true" />
             <span className="font-body text-[11px] font-bold text-[var(--text-muted)] tracking-[1.5px]">
               {text}
             </span>

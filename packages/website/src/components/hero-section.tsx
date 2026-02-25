@@ -34,6 +34,8 @@ export function HeroSection() {
             key={i}
             src={src}
             alt=""
+            width={400}
+            height={233}
             className="w-full h-full object-cover"
           />
         ))}

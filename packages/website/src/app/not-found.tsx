@@ -8,7 +8,7 @@ export default function NotFound() {
         <p className="mt-4 text-[var(--text-muted)]">Page not found</p>
         <a
           href="/"
-          className="mt-8 inline-block bg-[var(--accent)] px-8 py-4 font-body text-sm font-bold tracking-[1.5px] text-[var(--text-primary)]"
+          className="mt-8 inline-block bg-[var(--accent)] px-8 py-4 font-body text-sm font-bold tracking-[1.5px] text-[var(--text-primary)] hover:bg-[var(--accent-bright)] transition-colors"
         >
           GO HOME
         </a>

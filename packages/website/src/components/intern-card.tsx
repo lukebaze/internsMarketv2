@@ -36,6 +36,9 @@ export function InternCard({
         <img
           src={image}
           alt={name}
+          width={400}
+          height={200}
+          loading="lazy"
           className="w-full h-full object-cover object-top"
         />
       </div>
@@ -92,14 +95,14 @@ export function InternCard({
             href="https://www.npmjs.com/package/internsmarket"
             target="_blank"
             rel="noopener noreferrer"
-            className="block w-full bg-[var(--bg-black)] text-[var(--text-inverted)] font-body text-[13px] font-bold px-5 py-[10px] text-center no-underline"
+            className="block w-full bg-[var(--bg-black)] text-[var(--text-inverted)] font-body text-[13px] font-bold px-5 py-[10px] text-center no-underline hover:bg-[var(--brown-dark)] transition-colors"
           >
             INSTALL NOW
           </a>
         ) : (
           <a
             href="#pricing"
-            className="block w-full bg-transparent text-[var(--text-primary)] font-body text-[13px] font-bold px-5 py-[10px] text-center no-underline border-[1.5px] border-[var(--stroke)]"
+            className="block w-full bg-transparent text-[var(--text-primary)] font-body text-[13px] font-bold px-5 py-[10px] text-center no-underline border-[1.5px] border-[var(--stroke)] hover:bg-black/5 transition-colors"
           >
             UPGRADE TO UNLOCK
           </a>

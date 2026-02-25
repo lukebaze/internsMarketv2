@@ -1,5 +1,8 @@
 "use client";
 
+import { useState } from "react";
+import { Menu, X } from "lucide-react";
+
 // Nav link definitions with explicit hrefs and optional external target
 const navLinks = [
   { label: "DOCS", href: "https://docs.internsmarket.com", external: true },
@@ -9,9 +12,11 @@ const navLinks = [
 ];
 
 export function NavigationBar() {
+  const [mobileOpen, setMobileOpen] = useState(false);
+
   return (
     <nav className="sticky top-0 z-50 w-full bg-[#040404]">
-      <div className="flex items-center justify-between px-12 py-4">
+      <div className="flex items-center justify-between px-6 md:px-12 py-4">
         {/* Logo */}
         <a
           href="/"
@@ -20,8 +25,8 @@ export function NavigationBar() {
           INTERNSMARKET
         </a>
 
-        {/* Right nav */}
-        <div className="flex items-center gap-8">
+        {/* Desktop nav */}
+        <div className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
             <a
               key={link.label}
@@ -41,7 +46,40 @@ export function NavigationBar() {
             UPGRADE
           </a>
         </div>
+
+        {/* Mobile hamburger */}
+        <button
+          onClick={() => setMobileOpen(!mobileOpen)}
+          aria-label={mobileOpen ? "Close menu" : "Open menu"}
+          className="md:hidden bg-transparent border-none p-1 text-[var(--text-inverted)] cursor-pointer"
+        >
+          {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
       </div>
+
+      {/* Mobile menu */}
+      {mobileOpen && (
+        <div className="md:hidden flex flex-col gap-4 px-6 pb-6 bg-[#040404]">
+          {navLinks.map((link) => (
+            <a
+              key={link.label}
+              href={link.href}
+              {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+              onClick={() => setMobileOpen(false)}
+              className="font-body text-[13px] font-bold text-[var(--text-inverted)] tracking-[1.5px] no-underline hover:text-[var(--accent)] transition-colors"
+            >
+              {link.label}
+            </a>
+          ))}
+          <a
+            href="#pricing"
+            onClick={() => setMobileOpen(false)}
+            className="font-body text-[13px] font-bold text-[var(--text-inverted)] tracking-[1.5px] border-[1.5px] border-[var(--text-inverted)] px-5 py-2 no-underline text-center hover:bg-[var(--text-inverted)] hover:text-[#040404] transition-colors"
+          >
+            UPGRADE
+          </a>
+        </div>
+      )}
     </nav>
   );
 }

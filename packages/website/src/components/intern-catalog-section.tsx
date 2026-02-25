@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { interns } from "@/data/interns-data";
 import { InternCard } from "@/components/intern-card";
 
@@ -59,7 +59,7 @@ function SubmitCard({ isLast }: { isLast: boolean }) {
 
       {/* CTA */}
       <div className="mt-auto pt-2">
-        <button className="w-full bg-[var(--accent)] text-[var(--text-primary)] font-body text-[13px] font-bold px-5 py-[10px] text-center cursor-pointer border-none">
+        <button className="w-full bg-[var(--accent)] text-[var(--text-primary)] font-body text-[13px] font-bold px-5 py-[10px] text-center cursor-pointer border-none hover:bg-[var(--accent-bright)] transition-colors">
           SUBMIT YOUR INTERN
         </button>
       </div>
@@ -69,6 +69,19 @@ function SubmitCard({ isLast }: { isLast: boolean }) {
 
 export function InternCatalogSection() {
   const [activeFilter, setActiveFilter] = useState<TierFilter>("ALL");
+
+  // Sync filter state with URL hash param for deep-linking
+  useEffect(() => {
+    const hash = window.location.hash;
+    const match = hash.match(/[?&]tier=(ALL|free|starter|pro)/);
+    if (match) setActiveFilter(match[1] as TierFilter);
+  }, []);
+
+  const handleFilterChange = (value: TierFilter) => {
+    setActiveFilter(value);
+    const base = "#gallery";
+    window.history.replaceState(null, "", value === "ALL" ? base : `${base}?tier=${value}`);
+  };
 
   const filtered =
     activeFilter === "ALL"
@@ -106,7 +119,7 @@ export function InternCatalogSection() {
             return (
               <button
                 key={value}
-                onClick={() => setActiveFilter(value)}
+                onClick={() => handleFilterChange(value)}
                 className={[
                   "font-body text-[11px] font-bold px-3 py-[6px] cursor-pointer border-none rounded-[4px] transition-colors",
                   "tracking-[0.5px]",
