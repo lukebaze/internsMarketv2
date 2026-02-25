@@ -80,4 +80,72 @@ _Anti-patterns, deprecated approaches, or project-specific no-gos._
 
 ---
 
+---
+
+## Verification Gate Priorities
+
+_Ethan runs 5 verification gates during review. Adjust weights to match your team's priorities._
+
+| Gate | Default Priority | Your Priority |
+|------|-----------------|---------------|
+| 1. Syntax & Types | Required (auto-fail) | |
+| 2. Logic & Correctness | Required (auto-fail) | |
+| 3. Security | Required (auto-fail) | |
+| 4. Performance | Warning | |
+| 5. Maintainability | Advisory | |
+
+**Custom gate rules:**
+- [Gate]: [custom rule for your project]
+
+---
+
+## Security Policy
+
+_Ethan uses this to calibrate security gate intensity._
+
+**Credential handling:** [env vars / secrets manager / vault / etc.]
+**Sensitive data types:** [PII, payment data, health data, etc.]
+**OWASP concerns most relevant to this project:**
+- [ ] Injection (SQL, XSS, command)
+- [ ] Broken Authentication
+- [ ] Sensitive Data Exposure
+- [ ] Broken Access Control
+- [ ] Security Misconfiguration
+- [ ] Other: [specify]
+**Pre-commit secret scanning:** [enabled / disabled — tool name]
+
+---
+
+## Test Requirements (Expanded)
+
+**Minimum coverage:** [%] on [unit / integration / critical paths]
+**Required test types:** [ ] Unit [ ] Integration [ ] E2E [ ] Contract [ ] Performance [ ] Security
+**Testing framework:** [Jest / pytest / Go testing / Vitest / etc.]
+**Test file location:** [co-located / separate __tests__ dir / etc.]
+**What requires tests:** [all new behavior / all bug fixes / critical paths only]
+**Coverage tool:** [Istanbul/c8/nyc / pytest-cov / go cover]
+**CI test command:** [the exact command CI runs]
+
+---
+
+## CI/CD Pipeline Overview
+
+_Ethan uses this to understand how code reaches production and what gates exist._
+
+**CI provider:** [GitHub Actions / GitLab CI / CircleCI / Jenkins / etc.]
+**Pipeline stages:**
+1. [ ] Lint
+2. [ ] Type check
+3. [ ] Unit tests
+4. [ ] Integration tests
+5. [ ] Build
+6. [ ] Deploy (staging)
+7. [ ] Deploy (production)
+
+**Required checks before merge:** [list]
+**Deploy trigger:** [merge to main / manual / scheduled]
+**Rollback strategy:** [feature flags / blue-green / revert commit]
+
+---
+
 _Last updated: [date] by [name]_

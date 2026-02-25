@@ -92,4 +92,68 @@ _Things that trip up new contributors and that Ethan should flag in reviews._
 
 ---
 
+---
+
+## Impact Zones
+
+_Areas where changes have outsized risk. Ethan gives these extra scout attention._
+
+| Zone | Files/Modules | Risk Level | Why |
+|------|---------------|-----------|-----|
+| | | High | |
+| | | Medium | |
+| | | Low | |
+
+**Shared utilities that affect everything:**
+- [utility]: [who depends on it]
+
+**Files that should NEVER be changed without review:**
+- [file]: [reason]
+
+---
+
+## Technical Debt Map
+
+_Known issues Ethan should flag but not over-refactor. Updated as debt is paid down._
+
+| Area | File/Module | Issue | Severity | Age | Owner |
+|------|-------------|-------|----------|-----|-------|
+| | | | Critical | | |
+| | | | High | | |
+| | | | Medium | | |
+
+**Recurring issues (3+ occurrences):**
+- [issue]: [count] — [architectural root cause if known]
+
+**Intentional tradeoffs (do NOT refactor):**
+- [area]: [reason — performance, compatibility, external dep]
+
+---
+
+## Deployment Pipeline
+
+_How code gets from PR to production — Ethan uses this for risk assessment._
+
+**Environments:** [ ] Local -> [ ] Dev -> [ ] Staging -> [ ] Production
+**Deploy trigger:** [merge to main / manual / scheduled]
+**Rollback strategy:** [feature flags / blue-green / revert commit]
+**Deployment frequency:** [multiple per day / weekly / etc.]
+**Feature flags:** [enabled / disabled — tool name]
+**Canary/gradual rollout:** [yes/no — strategy]
+
+---
+
+## Monitoring & Alerting
+
+_What's watched in production — helps Ethan assess post-deploy risk._
+
+**APM tool:** [Datadog / New Relic / Sentry / etc.]
+**Key metrics monitored:**
+- [metric]: [threshold / alert condition]
+**Error tracking:** [Sentry / Bugsnag / etc.]
+**Log aggregation:** [ELK / CloudWatch / Datadog / etc.]
+**On-call rotation:** [yes/no — who to escalate to]
+
+---
+
 _Last updated: [date] by [name]_
