@@ -1,14 +1,17 @@
-/** License validation with 24h offline cache and grace period */
+/** License validation with 24h offline cache and grace period — Polar.sh backend */
 import type { Tier } from './config-store.js';
 import { configStore } from './config-store.js';
 import {
-  LS_VALIDATE_URL, VARIANT_TIER_MAP,
-  CACHE_TTL_PAID_MS, CACHE_TTL_FREE_MS,
+  POLAR_VALIDATE_URL, POLAR_ORG_ID, BENEFIT_TIER_MAP,
+  CACHE_TTL_PAID_MS, CACHE_TTL_FREE_MS, GRACE_USES,
 } from './license-constants.js';
 
-interface LsValidateResponse {
-  valid: boolean;
-  license_key: { variant_id: number; status: string };
+interface PolarValidateResponse {
+  id: string;
+  status: 'active' | 'inactive' | 'expired';
+  benefit_id: string;
+  benefits: Array<{ id: string; type: string }>;
+  activation?: { id: string };
 }
 
 /** Reset config to free tier */
@@ -22,38 +25,52 @@ export function getCurrentTier(): Tier {
   return configStore.get('tier') ?? 'free';
 }
 
-/** Validate license: cache-first, network if stale, grace period on failure */
+/** Validate license: cache-first → Polar API if stale → grace period on failure */
 export async function checkLicense(): Promise<Tier> {
   const key = configStore.get('licenseKey');
   if (!key) return 'free';
 
-  // Cache hit — return without network
+  // Cache hit
   if (Date.now() < configStore.get('validUntil')) {
     return configStore.get('tier');
   }
 
-  // Cache stale — validate via network
-  try {
-    const body: Record<string, string> = { license_key: key };
-    const instanceId = configStore.get('instanceId');
-    if (instanceId) body.instance_id = instanceId;
+  // Cache stale — call Polar
+  // Guard: skip network call if POLAR_ORG_ID is placeholder — avoids burning grace uses
+  if (!POLAR_ORG_ID || POLAR_ORG_ID === 'REPLACE_WITH_POLAR_ORG_ID') {
+    return configStore.get('tier');
+  }
 
-    const res = await fetch(LS_VALIDATE_URL, {
+  try {
+    const activationId = configStore.get('activationId');
+    const body: Record<string, string> = { key, organization_id: POLAR_ORG_ID };
+    if (activationId) body.activation_id = activationId;
+
+    const res = await fetch(POLAR_VALIDATE_URL, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams(body),
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
     });
 
-    const data = await res.json() as LsValidateResponse;
-    if (!data.valid) { resetToFree(); return 'free'; }
+    if (!res.ok) { resetToFree(); return 'free'; }
 
-    const tier = VARIANT_TIER_MAP[String(data.license_key.variant_id)] ?? 'starter';
+    const data = await res.json() as PolarValidateResponse;
+    if (data.status !== 'active') { resetToFree(); return 'free'; }
+
+    // Resolve tier from benefits array — fallback to 'free'
+    let tier: Tier = 'free';
+    for (const benefit of data.benefits) {
+      const mapped = BENEFIT_TIER_MAP[benefit.id];
+      if (mapped) { tier = mapped; break; }
+    }
+
     const ttl = tier === 'free' ? CACHE_TTL_FREE_MS : CACHE_TTL_PAID_MS;
     configStore.set('tier', tier);
     configStore.set('validUntil', Date.now() + ttl);
+    configStore.set('graceUsesRemaining', GRACE_USES); // reset grace on success
     return tier;
   } catch {
-    // Network error — use grace period
+    // Network failure — grace period
     const grace = configStore.get('graceUsesRemaining') ?? 0;
     if (grace > 0) {
       configStore.set('graceUsesRemaining', grace - 1);

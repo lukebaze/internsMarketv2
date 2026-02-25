@@ -1,0 +1,12 @@
+{
+  "name": "@internsmarket/devops-infrastructure-intern",
+  "version": "1.0.0",
+  "description": "Marcus Chen — DevOps & Infrastructure Intern (requires InternsMarket license)",
+  "keywords": ["internsmarket", "ai-intern", "devops"],
+  "license": "SEE LICENSE IN LICENSE",
+  "author": "InternsMarket",
+  "files": ["manifest.json", "README.md"],
+  "publishConfig": {
+    "access": "public"
+  }
+}

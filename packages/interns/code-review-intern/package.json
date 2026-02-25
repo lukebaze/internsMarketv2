@@ -1,0 +1,12 @@
+{
+  "name": "@internsmarket/code-review-intern",
+  "version": "1.0.0",
+  "description": "Ethan Hale — Code Review Intern (requires InternsMarket license)",
+  "keywords": ["internsmarket", "ai-intern", "code-review"],
+  "license": "SEE LICENSE IN LICENSE",
+  "author": "InternsMarket",
+  "files": ["manifest.json", "README.md"],
+  "publishConfig": {
+    "access": "public"
+  }
+}

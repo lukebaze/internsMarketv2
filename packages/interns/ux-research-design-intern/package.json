@@ -1,0 +1,12 @@
+{
+  "name": "@internsmarket/ux-research-design-intern",
+  "version": "1.0.0",
+  "description": "Sofia Reyes — UX Research & Design Intern (requires InternsMarket license)",
+  "keywords": ["internsmarket", "ai-intern", "ux-design"],
+  "license": "SEE LICENSE IN LICENSE",
+  "author": "InternsMarket",
+  "files": ["manifest.json", "README.md"],
+  "publishConfig": {
+    "access": "public"
+  }
+}

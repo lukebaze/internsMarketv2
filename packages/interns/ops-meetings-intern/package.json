@@ -1,0 +1,12 @@
+{
+  "name": "@internsmarket/ops-meetings-intern",
+  "version": "1.0.0",
+  "description": "Sam Patel — Ops/Meetings Intern (requires InternsMarket license)",
+  "keywords": ["internsmarket", "ai-intern", "ops-meetings"],
+  "license": "SEE LICENSE IN LICENSE",
+  "author": "InternsMarket",
+  "files": ["manifest.json", "README.md"],
+  "publishConfig": {
+    "access": "public"
+  }
+}

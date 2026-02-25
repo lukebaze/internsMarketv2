@@ -1,0 +1,16 @@
+{
+  "name": "@internsmarket/content-marketing-intern",
+  "version": "1.0.0",
+  "description": "Jordan Lee — Content Marketing Intern (AIEOS v1.1)",
+  "keywords": ["internsmarket", "ai-intern", "content-marketing", "aieos"],
+  "license": "SEE LICENSE IN LICENSE",
+  "author": "InternsMarket",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/internsmarket/internsai"
+  },
+  "files": ["**", "!*.sh", "!*.log"],
+  "publishConfig": {
+    "access": "public"
+  }
+}

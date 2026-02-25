@@ -1,0 +1,12 @@
+{
+  "name": "@internsmarket/research-intern",
+  "version": "1.0.0",
+  "description": "Nadia Okafor — Research Intern (requires InternsMarket license)",
+  "keywords": ["internsmarket", "ai-intern", "research"],
+  "license": "SEE LICENSE IN LICENSE",
+  "author": "InternsMarket",
+  "files": ["manifest.json", "README.md"],
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "@internsmarket/data-analyst-intern",
+  "version": "1.0.0",
+  "description": "Priya Sharma — Data Analyst Intern (requires InternsMarket license)",
+  "keywords": ["internsmarket", "ai-intern", "data-analysis"],
+  "license": "SEE LICENSE IN LICENSE",
+  "author": "InternsMarket",
+  "files": ["manifest.json", "README.md"],
+  "publishConfig": {
+    "access": "public"
+  }
+}

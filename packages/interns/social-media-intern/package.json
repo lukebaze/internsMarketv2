@@ -1,0 +1,16 @@
+{
+  "name": "@internsmarket/social-media-intern",
+  "version": "1.0.0",
+  "description": "Mia Santos — Social Media Intern (AIEOS v1.1)",
+  "keywords": ["internsmarket", "ai-intern", "social-media", "aieos"],
+  "license": "SEE LICENSE IN LICENSE",
+  "author": "InternsMarket",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/internsmarket/internsai"
+  },
+  "files": ["**", "!*.sh", "!*.log"],
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "@internsmarket/qa-testing-intern",
+  "version": "1.0.0",
+  "description": "Alex Rivera — QA & Testing Intern (requires InternsMarket license)",
+  "keywords": ["internsmarket", "ai-intern", "qa-testing"],
+  "license": "SEE LICENSE IN LICENSE",
+  "author": "InternsMarket",
+  "files": ["manifest.json", "README.md"],
+  "publishConfig": {
+    "access": "public"
+  }
+}

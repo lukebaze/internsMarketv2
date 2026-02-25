@@ -1,10 +1,15 @@
-/** HTTP client for the InternsMarket registry — fetch index, manifests, download bundles */
+/** HTTP client for InternsMarket package registry — fetches manifest from GitHub Releases */
 import got from 'got';
 import { pipeline } from 'node:stream/promises';
 import { createWriteStream } from 'node:fs';
 import fs from 'node:fs';
 import { join } from 'node:path';
-import { configStore } from './config-store.js';
+import { GITHUB_MANIFEST_URL } from './license-constants.js';
+
+export interface RegistryEntryDist {
+  sha256: string;
+  signature: string;
+}
 
 export interface RegistryEntry {
   id: string;
@@ -14,7 +19,7 @@ export interface RegistryEntry {
   description: string;
   tags: string[];
   download_url: string;
-  manifest_url: string;
+  dist?: RegistryEntryDist;
 }
 
 export interface RegistryIndex {
@@ -23,20 +28,22 @@ export interface RegistryIndex {
   interns: RegistryEntry[];
 }
 
-function getRegistryBase(): string {
-  return configStore.get('apiEndpoint') ?? 'https://registry.internsmarket.com';
-}
-
 const HTTP_OPTS = { timeout: { request: 30_000 }, retry: { limit: 2 } };
 
-/** Fetches the full registry index */
-export async function fetchRegistryIndex(): Promise<RegistryIndex> {
-  const url = `${getRegistryBase()}/index.json`;
-  const data = await got.get(url, HTTP_OPTS).json<RegistryIndex>();
-  return data;
+// In-process cache with 5-min TTL — prevents stale data in long sessions
+let cachedIndex: RegistryIndex | null = null;
+let cachedAt = 0;
+const CACHE_TTL_MS = 5 * 60 * 1000;
+
+/** Fetches the registry manifest from GitHub Releases (TTL-cached per session) */
+export async function fetchRegistryIndex(force = false): Promise<RegistryIndex> {
+  if (!force && cachedIndex && (Date.now() - cachedAt) < CACHE_TTL_MS) return cachedIndex;
+  cachedIndex = await got.get(GITHUB_MANIFEST_URL, HTTP_OPTS).json<RegistryIndex>();
+  cachedAt = Date.now();
+  return cachedIndex;
 }
 
-/** Finds a single intern entry from the registry index */
+/** Finds a single intern entry from the registry manifest */
 export async function fetchInternEntry(id: string): Promise<RegistryEntry> {
   const index = await fetchRegistryIndex();
   const entry = index.interns.find(i => i.id === id);
