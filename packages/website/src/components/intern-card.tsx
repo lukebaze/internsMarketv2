@@ -104,9 +104,7 @@ export function InternCard({
       <div className="mt-auto pt-2 flex flex-col gap-1">
         {tier === "free" ? (
           <a
-            href="https://www.npmjs.com/package/internsmarket"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="#install"
             className="block w-full bg-[var(--bg-black)] text-[var(--text-inverted)] font-body text-[13px] font-bold px-5 py-[10px] text-center no-underline hover:bg-[var(--brown-dark)] transition-colors"
           >
             INSTALL FREE

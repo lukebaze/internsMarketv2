@@ -57,9 +57,7 @@ export function HeroSection() {
         {/* Button row */}
         <div className="flex flex-col md:flex-row gap-4">
           <a
-            href="https://www.npmjs.com/package/internsmarket"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="#install"
             className="font-body text-[13px] font-bold text-[var(--text-primary)] tracking-[1.5px] bg-[var(--accent)] px-7 py-[14px] text-center hover:bg-[var(--accent-bright)] transition-colors"
           >
             HIRE YOUR FIRST INTERN FREE

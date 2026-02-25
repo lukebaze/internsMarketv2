@@ -98,9 +98,7 @@ export function FinalCtaSection() {
 
           {/* CTA Button */}
           <a
-            href="https://www.npmjs.com/package/internsmarket"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="#install"
             className="block w-full bg-[var(--accent-bright)] py-[22px] px-8 text-center no-underline mt-0 hover:opacity-90 transition-opacity"
           >
             <span className="font-display text-[26px] font-black text-white tracking-wide">
@@ -157,9 +155,7 @@ export function FinalCtaSection() {
 
         {/* CTA Button */}
         <a
-          href="https://www.npmjs.com/package/internsmarket"
-          target="_blank"
-          rel="noopener noreferrer"
+          href="#install"
           className="block w-full bg-[var(--accent-bright)] py-5 px-8 text-center no-underline hover:opacity-90 transition-opacity"
         >
           <span className="font-display text-[22px] font-black text-white tracking-wide">

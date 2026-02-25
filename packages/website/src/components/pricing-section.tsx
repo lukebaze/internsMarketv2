@@ -87,9 +87,7 @@ export function PricingSection() {
             <FeatureList features={freeFeatures} textClass="text-[var(--text-primary)]" />
           </div>
           <a
-            href="https://www.npmjs.com/package/internsmarket"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="#install"
             className="block w-full font-body text-[13px] font-bold text-[var(--text-primary)] tracking-[1.5px] border-[1.5px] border-[var(--stroke)] px-6 py-[14px] text-center bg-transparent hover:bg-black/5 transition-colors no-underline"
           >
             INSTALL FREE
