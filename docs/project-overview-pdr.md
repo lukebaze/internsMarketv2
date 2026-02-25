@@ -28,7 +28,7 @@ InternsMarket sells AI intern personas as CLI-installable packages. Each intern 
 2. **Personality-First Design** — Each intern has voice, personality, and communication style baked in
 3. **Flexible Runtimes** — Works with ZeroClaw (local) or OpenClaw (enterprise)
 4. **CLI-First** — Lightweight, easy to automate and integrate into workflows
-5. **Licensing Model** — Tier-based access (Free/Starter/Pro) via Lemon Squeezy
+5. **Licensing Model** — Tier-based access (Free/Starter/Pro) via Polar.sh
 
 ---
 
@@ -63,7 +63,7 @@ InternsMarket sells AI intern personas as CLI-installable packages. Each intern 
 - **CLI**: Commander + Ink (React-based TUI)
 - **Core**: Zod validators, AIEOS schema, compilers
 - **Website**: Next.js 15 + Tailwind CSS v4
-- **License**: Lemon Squeezy payment + license validation
+- **License**: Polar.sh payment + license validation
 - **Testing**: Vitest
 
 ### Monorepo Structure
@@ -93,8 +93,8 @@ packages/
 | **Pro** | $19 | Unlimited | Enterprise | internsmarket.com/upgrade |
 
 **License Activation Flow:**
-1. User runs `im activate` → pastes Lemon Squeezy license key
-2. Key validated via Lemon Squeezy API (cached 24h)
+1. User runs `im activate` → pastes Polar.sh license key
+2. Key validated via Polar.sh API (cached 24h)
 3. Tier cached locally; grace period allows 3 days offline
 4. Install gated by tier: "Pro required" → show upgrade link
 
@@ -106,7 +106,7 @@ packages/
 - Core library (types, validators, compilers)
 - CLI tool with 8 commands
 - 11 AI intern personas (content, code-review, data, devops, life-coach, ops, qa, research, social-media, tech-writer, ux-design)
-- License system (Lemon Squeezy integration)
+- License system (Polar.sh integration)
 - Runtime adapters (ZeroClaw + OpenClaw)
 - Landing page with intern discovery
 - Comprehensive documentation
@@ -142,7 +142,7 @@ packages/
 ## Dependencies & Integrations
 
 ### External Services
-- **Lemon Squeezy** — Payment processing + license management
+- **Polar.sh** — Payment processing + license management
 - **GitHub** — Code repository, releases for intern bundles
 - **Vercel** — Landing page hosting
 - **ZeroClaw / OpenClaw** — Runtime platforms (customer installs)
@@ -162,7 +162,7 @@ packages/
   - *Mitigation*: Version pinning, integration tests, customer communication
 
 ### Medium Risk
-- **License validation failures** — Lemon Squeezy API downtime
+- **License validation failures** — Polar.sh API downtime
   - *Mitigation*: Grace period (3 days), local caching, fallback to free tier
 - **Intern discovery** — Low adoption if interns aren't discoverable enough
   - *Mitigation*: Showcase on landing page, SEO, community marketing
@@ -181,7 +181,7 @@ packages/
 - No telemetry by default
 
 ### API Security
-- Lemon Squeezy API calls via HTTPS only
+- Polar.sh API calls via HTTPS only
 - License key validation with rate limiting (on roadmap)
 - No credentials in code or git
 

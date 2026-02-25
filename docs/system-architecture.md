@@ -94,13 +94,14 @@ Package Verification:
 ↓
 
 Bundle Install:
-  bundle-installer → download tarball → extract → validate
+  bundle-installer → download tarball → extract → validate → verify signature
   intern-package-validator → schema check (manifest.json + aieos.json)
 
 ↓
 
-Watermarking:
+Watermarking & Cleanup:
   package-watermarker → inject activationId into manifest for tracking
+  (if post-rename failure → cleanup orphaned installPath to prevent stale files)
 
 ↓
 
@@ -332,8 +333,9 @@ All CLI commands follow this pattern:
 | `package-signature-verifier` | Ed25519 signature verification (zero npm deps, uses node:crypto) |
 | `bundle-installer` | Download + extract + validate + verify signature → save to local store |
 | `registry-client` | Fetch manifest/tarball URLs from GitHub Releases (5-min ETag cache) |
-| `npm-package-resolver` | Resolve npm package names; shell vs. full detection for paid packages |
+| `npm-package-resolver` | Resolve npm package names; shell vs. full detection for paid packages; skip symlinks on copy |
 | `package-watermarker` | Inject activationId into manifest for install tracking |
+| `intern-id-validator` | Shared validation for intern IDs (kebab-case); prevents path traversal |
 | `local-store-manager` | Read/write interns to XDG data dir |
 | `runtime-adapter-factory` | Factory for ZeroClaw/OpenClaw |
 | `runtime-adapter-zeroclaw` | ZeroClaw config generation |
@@ -408,14 +410,27 @@ All intern packages are signed with Ed25519 (NIST standard, zero npm dependencie
 - **Signing**: `scripts/sign-package.ts` generates signature over integrity string `${internId}@${version}:${sha256}`
 - **Verification**: `package-signature-verifier.ts` checks against `TRUSTED_PUBLIC_KEYS` (hardcoded hex-encoded keys)
 - **Key Rotation**: Add new key to array, keep old key active for N months, bump CLI major version when removing old key
-- **Fallback**: If TRUSTED_PUBLIC_KEYS empty (dev mode), signature check skipped with warning
+- **Build-Time Enforcement**: `signing-keys.ts` throws (not warns) if `TRUSTED_PUBLIC_KEYS` empty in non-test environments (prevents unsigned packages in production)
+
+### Download URL Validation
+
+- **URL Prefix Whitelisting**: `registry-client.ts` validates all `download_url` fields against expected GitHub repo prefix before fetching
+- **Allowed Prefix**: `https://github.com/${GITHUB_OWNER}/${GITHUB_REPO}/` (configurable via `license-constants.ts`)
+- **Prevents**: Manifest injection attacks that redirect to arbitrary domains
+- **Implementation**: Check before instantiating HTTP client (reject early)
+
+### Path Traversal Protection
+
+- **Symlink Rejection**: `copyDirSync()` in `npm-package-resolver.ts` skips symlinks to prevent traversal attacks
+- **Intern ID Validation**: `intern-id-validator.ts` enforces kebab-case regex `/^[a-z0-9-]+$/` on all intern IDs
+- **Path Sanitization**: `path.join()` + validation prevent `../` escapes in extract paths
 
 ### GitHub Releases Distribution
 
 - **Registry**: manifest.json hosted on GitHub Releases (public, no auth)
 - **Caching**: 5-min ETag-based cache in registry-client
 - **URL**: `https://github.com/internsmarket/packages/releases/download/packages-v1/manifest.json`
-- **Tarballs**: Downloaded per-intern from manifest URLs
+- **Tarballs**: Downloaded per-intern from manifest URLs (with URL validation)
 - **Gate**: License check happens on CLI side before accepting install
 
 ### npm Package Publishing

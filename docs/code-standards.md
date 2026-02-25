@@ -456,28 +456,45 @@ const res = await fetch(url, { signal: controller.signal });
 5. **Ed25519 Signatures**: All intern packages signed with Ed25519 (NIST standard)
    - Uses Node.js built-in `crypto` module (zero npm dependencies)
    - Public keys hardcoded in `signing-keys.ts` (allows rotation: add new key, deprecate old)
+   - **Build-Time Enforcement**: `signing-keys.ts` throws error (not warns) if `TRUSTED_PUBLIC_KEYS` empty in non-test environments
    - Signature verifies over integrity string: `${internId}@${version}:${sha256}`
    - Bump CLI major version when removing deprecated keys
 
-6. **Path Traversal Protection**: Validate intern IDs against kebab-case regex (`/^[a-z0-9][a-z0-9-]*[a-z0-9]$/`)
+6. **Download URL Validation**: Prevent manifest injection attacks
+   - `registry-client.ts` validates all `download_url` fields against expected GitHub repo prefix
+   - Allowed prefix: `https://github.com/${GITHUB_OWNER}/${GITHUB_REPO}/` (configured in `license-constants.ts`)
+   - Rejects URLs pointing to arbitrary domains before HTTP client instantiation
+
+7. **Path Traversal Protection**: Validate intern IDs against kebab-case regex (`/^[a-z0-9-]+$/`)
    - Extract paths use `path.join()` + validation to prevent `../` escapes
+   - Shared validator in `intern-id-validator.ts` eliminates duplication
+
+8. **Symlink Rejection**: Prevent symlink traversal attacks
+   - `copyDirSync()` in `npm-package-resolver.ts` skips symlinks during copy operations
+   - Prevents attackers from using symlinks to escape install directory
 
 ### Input Validation & Execution
 
-7. **Validate all input**: Use Zod before processing (manifest, config, license responses)
-8. **No shell execution**: Use execa package (escapes args, no shell injection)
-9. **HTTPS only**: All API calls via HTTPS (Polar.sh, GitHub Releases)
-10. **Verify downloads**: Check tarball hash against manifest SHA256; verify Ed25519 signature
+9. **Validate all input**: Use Zod before processing (manifest, config, license responses)
+10. **No shell execution**: Use execa package (escapes args, no shell injection)
+11. **HTTPS only**: All API calls via HTTPS (Polar.sh, GitHub Releases)
+12. **Verify downloads**: Check tarball hash against manifest SHA256; verify Ed25519 signature
+
+### Installation Cleanup
+
+13. **Failure Recovery**: Post-rename watermark/config failures cleanup orphaned installPath
+    - Prevents stale partial installations from consuming disk space
+    - Implemented in `bundle-installer.ts` with try-catch cleanup pattern
 
 ### Watermarking & Tracking
 
-11. **Package Watermarking**: Inject `activationId` (random UUID) into manifest at install time
+14. **Package Watermarking**: Inject `activationId` (random UUID) into manifest at install time
     - No PII collected; used for activation tracking only
     - Watermarked manifest persists in local store
 
 ### npm Publishing
 
-12. **Shell vs. Full Packages**: Free interns published as full bundles; paid interns as shell packages
+15. **Shell vs. Full Packages**: Free interns published as full bundles; paid interns as shell packages
     - Shell packages reference GitHub Releases content (fetched at runtime after license check)
     - Prevents free redistribution of paid content
 

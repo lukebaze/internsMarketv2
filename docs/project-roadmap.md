@@ -48,13 +48,15 @@ High-level development roadmap tracking phases, milestones, and progress toward 
 - GitHub Releases as main distribution channel
 - npm packages as secondary (with license gates)
 
-**Recent Updates:**
-- Migrated license-constants.ts to Polar.sh URLs + benefit mapping
-- Implemented package-signature-verifier.ts with key rotation support
-- Created sign-package.ts and generate-signing-keypair.ts scripts
-- Added registry-client with 5-min ETag cache
-- Implemented npm-package-resolver for shell package detection
-- Added package-watermarker for installation tracking
+**Recent Updates (Feb 25, 2026):**
+- Security Hardening (7 improvements):
+  - H1: Build-time enforcement — signing-keys.ts throws error on empty TRUSTED_PUBLIC_KEYS in production
+  - H2: Download URL validation — registry-client.ts checks domain prefix before fetching
+  - M1: Extracted shared intern-id-validator.ts (eliminates regex duplication)
+  - M2: License fallback fixed — placeholder POLAR_ORG_ID now returns 'free' instead of stale tier
+  - M3: Symlink protection — copyDirSync skips symlinks to prevent traversal attacks
+  - M4: Cleanup orphaned installPath on post-rename watermark/config failure
+  - M5: Extracted shared cli-version.ts (single createRequire source of truth)
 
 ---
 
@@ -73,10 +75,15 @@ High-level development roadmap tracking phases, milestones, and progress toward 
 - [x] Design guidelines & component library
 - [x] Deployed to Vercel with auto-preview
 
-**Recent Updates:**
-- Added landing page specification doc (1,004 LOC)
-- Created design guidelines (fonts, colors, spacing)
-- Wired navigation & CTA buttons to landing page
+**Recent Updates (Feb 25, 2026):**
+- Landing page design sync with Pencil:
+  - Hero section: amber glow code block with rounded corners & border, "WATCH 90S DEMO" button
+  - Hero subtitle: updated to "Think Shopify Themes for AI Agents"
+  - CopyableCodeBlock component: reusable across hero, how-it-works, CTA sections
+  - How It Works: code blocks now copyable on hover with copy icon
+  - CTA terminal: command lines copyable with hover icons, colors match Pencil design
+  - CTA subtitle: "No credit card required · Free tier available"
+  - Gradient overlay updated (darker gradient from black to match design)
 
 **Next:** Wire remaining button interactions (pricing, upgrade flow) in v1.2
 

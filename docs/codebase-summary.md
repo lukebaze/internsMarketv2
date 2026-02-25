@@ -76,13 +76,14 @@ React/Ink components that render TUI for each command:
 | `status-command.tsx` | `im status` | Display current tier + installed count |
 | `apply-command.tsx` | `im apply <id>` | Generate runtime config for ZeroClaw or OpenClaw |
 
-### src/constants (1 file)
+### src/constants (2 files)
 
 | File | Purpose | Key Exports |
 |------|---------|-------------|
-| `signing-keys.ts` | Ed25519 public keys for package signature verification (hex-encoded, 32 bytes); supports key rotation | `TRUSTED_PUBLIC_KEYS` |
+| `signing-keys.ts` | Ed25519 public keys for package signature verification (hex-encoded, 32 bytes); throws error if empty in production | `TRUSTED_PUBLIC_KEYS` |
+| `cli-version.ts` | Single source of truth for CLI version (via createRequire from package.json) | `CLI_VERSION` |
 
-### src/services (14 files)
+### src/services (15 files)
 
 Business logic, no UI:
 
@@ -95,10 +96,11 @@ Business logic, no UI:
 | `license-validator.ts` | Check license validity via Polar.sh API: cache-first (24h TTL for paid, 1h for free), grace period (3 uses over 3 days) | `checkLicense()`, `getCurrentTier()` |
 | `license-tier-guard.ts` | Gate install/update by tier: raise `TierError` if tier < required | `guardTierRequired()` |
 | `package-signature-verifier.ts` | Ed25519 signature verification using node:crypto; compares signature against integrity string | `verifyPackageSignature()` |
-| `bundle-installer.ts` | Download tarball → extract → verify signature → validate → watermark → save to local store | `installIntern()` |
-| `registry-client.ts` | Fetch manifest + tarball URLs from GitHub Releases manifest.json (5-min ETag cache) | `fetchManifest()`, `fetchTarballUrl()` |
-| `npm-package-resolver.ts` | Resolve npm package names; detect shell vs. full packages; manage npm-local install flow | `resolveNpmPackage()`, `isShellPackage()` |
+| `bundle-installer.ts` | Download tarball → extract → verify signature → validate → watermark → cleanup orphaned paths on failure → save to local store | `installIntern()` |
+| `registry-client.ts` | Fetch manifest + tarball URLs from GitHub Releases manifest.json; validate URL domain prefix (5-min ETag cache) | `fetchManifest()`, `fetchTarballUrl()` |
+| `npm-package-resolver.ts` | Resolve npm package names; detect shell vs. full packages; skip symlinks on copy; manage npm-local install flow | `resolveNpmPackage()`, `isShellPackage()` |
 | `package-watermarker.ts` | Inject activationId into manifest.json for installation tracking (no PII) | `watermarkPackage()` |
+| `intern-id-validator.ts` | Shared validation for intern IDs (kebab-case pattern); prevents path traversal | `validateInternId()`, `isValidInternId()` |
 | `local-store-manager.ts` | Read/write interns to XDG data directory (`~/.internsmarket/interns/`) | `saveIntern()`, `readIntern()`, `listInterns()`, `removeIntern()` |
 | `runtime-adapter-factory.ts` | Factory: return correct adapter (ZeroClaw or OpenClaw) based on flag | `getRuntimeAdapter()` |
 | `runtime-adapter-zeroclaw.ts` | Generate zeroclaw.toml config from aieos.json; compile neural matrix + linguistics | `ZeroClawAdapter` |
@@ -136,21 +138,22 @@ Next.js 15 landing page with Tailwind CSS v4. Static site with component archite
 | `layout.tsx` | Root layout with fonts (Anton, Inter, JetBrains Mono), global styles |
 | `page.tsx` | Home page (server component); imports and renders all sections |
 
-### src/components (9 files)
+### src/components (10 files)
 
 Section-based components. Each exported as named function:
 
 | File | Purpose | Dependencies |
 |------|---------|--------------|
 | `navigation-bar.tsx` | Header with logo, nav links, CTA buttons | None (client component) |
-| `hero-section.tsx` | Main headline, subheading, hero image | None |
+| `hero-section.tsx` | Main headline, subheading, hero code block with amber glow, CTA button | `copyable-code-block.tsx` |
 | `feature-highlights-section.tsx` | 4 feature cards (with icons) | None |
-| `how-it-works-section.tsx` | 4-step process flow | None |
+| `how-it-works-section.tsx` | 4-step process flow with copyable code blocks | `copyable-code-block.tsx` |
+| `copyable-code-block.tsx` | Reusable code block with copy-to-clipboard (hero/card/terminal variants) | `lucide-react` (Copy, Check icons) |
 | `intern-catalog-section.tsx` | Grid of all 11 interns | `intern-card.tsx`, `interns-data.ts` |
 | `intern-card.tsx` | Single intern preview card | None |
 | `pricing-section.tsx` | 3-tier pricing table with CTA buttons | None |
 | `social-proof-section.tsx` | Testimonials, trust badges | None |
-| `final-cta-section.tsx` | Last call-to-action before footer | None |
+| `final-cta-section.tsx` | Terminal-style CTA with copyable commands, updated subtitle | `copyable-code-block.tsx` |
 | `footer-section.tsx` | Footer with links, branding | None |
 
 ### src/data (1 file)
@@ -253,19 +256,20 @@ Tests are co-located with source files (`.test.ts`, `.test.tsx`).
 | Metric | Count |
 |--------|-------|
 | packages/core TypeScript files | 28 |
-| packages/cli TypeScript files | 28 (includes new signing, watermarking, npm resolver) |
-| packages/website TypeScript/CSS | 15 |
-| React/Ink components (.tsx) | 22 |
+| packages/cli TypeScript files | 30 (includes signing, watermarking, npm resolver, intern-id-validator, cli-version) |
+| packages/website TypeScript/CSS | 17 (added: copyable-code-block.tsx) |
+| React/Ink components (.tsx) | 23 |
 | Type definitions | 12 |
 | Validators/Compilers | 5 |
-| Services (CLI) | 14 (added: signing-verifier, npm-resolver, watermarker) |
+| Services (CLI) | 15 (added: intern-id-validator) |
+| Constants (CLI) | 2 (added: cli-version.ts) |
 | Commands | 8 |
 | .intern packages | 11 (3 free full, 8 paid shell) |
 | Utility scripts | 5 (signing, publishing, distribution) |
 | Configuration files | 10 |
 | Documentation files | 7 |
-| **Total source files** | **~120** |
-| **Total source LOC** | **~5,600** |
+| **Total source files** | **~123** |
+| **Total source LOC** | **~5,700** |
 
 ---
 
