@@ -36,9 +36,9 @@ export async function checkLicense(): Promise<Tier> {
   }
 
   // Cache stale — call Polar
-  // Guard: skip network call if POLAR_ORG_ID is placeholder — avoids burning grace uses
+  // Guard: skip network call if POLAR_ORG_ID is placeholder — return free (not cached tier)
   if (!POLAR_ORG_ID || POLAR_ORG_ID === 'REPLACE_WITH_POLAR_ORG_ID') {
-    return configStore.get('tier');
+    return 'free';
   }
 
   try {

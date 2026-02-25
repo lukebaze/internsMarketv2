@@ -2,7 +2,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
-import { createRequire } from 'node:module';
 import { readInternPackage, validateInternPackage } from '@internsmarket/core';
 import type { InternManifest } from '@internsmarket/core';
 import { requireTier } from './license-tier-guard.js';
@@ -20,9 +19,8 @@ import { verifyPackageSignature } from './package-signature-verifier.js';
 import { checkLicense } from './license-validator.js';
 import { watermarkInstall } from './package-watermarker.js';
 import { resolveNpmPackagePath, installFromNpmPackage, copyDirSync } from './npm-package-resolver.js';
-
-// Read CLI version from package.json (not hardcoded)
-const { version: CLI_VERSION } = createRequire(import.meta.url)('../../package.json') as { version: string };
+import { validateInternId } from './intern-id-validator.js';
+import { CLI_VERSION } from '../constants/cli-version.js';
 
 export interface InstallOptions {
   force?: boolean;
@@ -32,13 +30,6 @@ export interface InstallOptions {
 }
 
 export type ProgressCallback = (pct: number, status: string) => void;
-
-/** Validate intern id format — prevents path traversal */
-function validateInternId(id: string): void {
-  if (!/^[a-z0-9-]+$/.test(id)) {
-    throw new Error(`Invalid intern id "${id}" — must be lowercase alphanumeric with hyphens`);
-  }
-}
 
 /** Installs an intern from the registry or a local path */
 export async function installIntern(
@@ -176,18 +167,26 @@ async function installFromRegistry(
     }
     fs.renameSync(sourceDir, installPath);
 
-    onProgress(91, 'Watermarking...');
-    watermarkInstall(installPath, CLI_VERSION);
+    try {
+      onProgress(91, 'Watermarking...');
+      watermarkInstall(installPath, CLI_VERSION);
 
-    onProgress(93, 'Generating runtime config...');
-    const installedPkg = readInternPackage(installPath);
-    const runtime = opts.runtime ?? installedPkg.manifest.primary_runtime;
-    getAdapter(runtime).generate(installedPkg, installPath);
+      onProgress(93, 'Generating runtime config...');
+      const installedPkg = readInternPackage(installPath);
+      const runtime = opts.runtime ?? installedPkg.manifest.primary_runtime;
+      getAdapter(runtime).generate(installedPkg, installPath);
 
-    onProgress(97, 'Registering...');
-    registerIntern(id);
-    onProgress(100, 'Done');
-    return installedPkg.manifest;
+      onProgress(97, 'Registering...');
+      registerIntern(id);
+      onProgress(100, 'Done');
+      return installedPkg.manifest;
+    } catch (err) {
+      // Cleanup orphaned installPath on post-rename failure
+      if (fs.existsSync(installPath)) {
+        fs.rmSync(installPath, { recursive: true, force: true });
+      }
+      throw err;
+    }
   } finally {
     if (fs.existsSync(tmpDir)) {
       fs.rmSync(tmpDir, { recursive: true, force: true });

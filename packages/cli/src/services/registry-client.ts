@@ -4,7 +4,10 @@ import { pipeline } from 'node:stream/promises';
 import { createWriteStream } from 'node:fs';
 import fs from 'node:fs';
 import { join } from 'node:path';
-import { GITHUB_MANIFEST_URL } from './license-constants.js';
+import { GITHUB_MANIFEST_URL, GITHUB_OWNER, GITHUB_REPO } from './license-constants.js';
+
+/** Allowed download URL prefix — prevents manifest injection redirecting to arbitrary hosts */
+const ALLOWED_DOWNLOAD_PREFIX = `https://github.com/${GITHUB_OWNER}/${GITHUB_REPO}/`;
 
 export interface RegistryEntryDist {
   sha256: string;
@@ -57,6 +60,9 @@ export async function downloadBundle(
   destDir: string,
   onProgress: (pct: number) => void,
 ): Promise<string> {
+  if (!url.startsWith(ALLOWED_DOWNLOAD_PREFIX)) {
+    throw new Error(`Untrusted download URL: ${url} — must start with ${ALLOWED_DOWNLOAD_PREFIX}`);
+  }
   fs.mkdirSync(destDir, { recursive: true });
   const tarPath = join(destDir, '_bundle.tar.gz');
   const stream = got.stream(url, HTTP_OPTS);

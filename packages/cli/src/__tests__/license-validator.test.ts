@@ -25,6 +25,7 @@ vi.mock('../services/license-constants.js', () => ({
   BENEFIT_TIER_MAP: { 'STARTER_BENEFIT_ID': 'starter' as const },
   CACHE_TTL_PAID_MS: 86400000,
   CACHE_TTL_FREE_MS: 3600000,
+  GRACE_USES: 3,
 }));
 
 import { checkLicense, getCurrentTier } from '../services/license-validator.js';

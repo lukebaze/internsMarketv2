@@ -9,14 +9,15 @@ import type { Tier } from './config-store.js';
 import { registerIntern } from './local-store-manager.js';
 import { getAdapter } from './runtime-adapter-factory.js';
 import { watermarkInstall } from './package-watermarker.js';
+import { isValidInternId } from './intern-id-validator.js';
+import { CLI_VERSION } from '../constants/cli-version.js';
 import type { InstallOptions, ProgressCallback } from './bundle-installer.js';
 
 const esmRequire = createRequire(import.meta.url);
-const { version: CLI_VERSION } = esmRequire('../../package.json') as { version: string };
 
 /** Resolve npm-installed package path for an intern (returns null if not installed) */
 export function resolveNpmPackagePath(id: string): string | null {
-  if (!/^[a-z0-9-]+$/.test(id)) return null;
+  if (!isValidInternId(id)) return null;
   try {
     const manifestPath = esmRequire.resolve(`@internsmarket/${id}/manifest.json`);
     return path.dirname(manifestPath);
@@ -64,10 +65,11 @@ export async function installFromNpmPackage(
   return installedPkg.manifest;
 }
 
-/** Recursively copies a directory */
+/** Recursively copies a directory (skips symlinks to prevent traversal attacks) */
 export function copyDirSync(src: string, dest: string): void {
   fs.mkdirSync(dest, { recursive: true });
   for (const entry of fs.readdirSync(src, { withFileTypes: true })) {
+    if (entry.isSymbolicLink()) continue; // skip symlinks — security guard
     const srcPath = path.join(src, entry.name);
     const destPath = path.join(dest, entry.name);
     if (entry.isDirectory()) {
