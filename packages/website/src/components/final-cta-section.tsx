@@ -8,12 +8,12 @@ const terminalLines = [
   { text: "$ npm install -g internsmarket", color: "text-[var(--text-inverted)]", copyable: "npm install -g internsmarket" },
   { text: "✓ installed v2.4.0", color: "text-[#84CC6A]" },
   { spacer: true },
-  { text: "$ internsmarket init", color: "text-[var(--text-inverted)]", copyable: "internsmarket init" },
-  { text: "→ Scanning project...", color: "text-[#B0A08E]" },
-  { text: "→ 3 interns matched", color: "text-[#B0A08E]" },
+  { text: "$ im install content-marketing-intern", color: "text-[var(--text-inverted)]", copyable: "im install content-marketing-intern" },
+  { text: "→ Verifying signature... ✓", color: "text-[#B0A08E]" },
+  { text: "→ Jordan Lee ready for interview", color: "text-[#B0A08E]" },
   { spacer: true },
-  { text: "$ internsmarket deploy --intern jordan", color: "text-[var(--text-inverted)]", copyable: "internsmarket deploy --intern jordan" },
-  { text: "🚀 Jordan deployed successfully!", color: "text-[#F5B041]" },
+  { text: "$ im apply content-marketing-intern", color: "text-[var(--text-inverted)]", copyable: "im apply content-marketing-intern" },
+  { text: "🚀 Jordan deployed — \"Let me craft that narrative.\"", color: "text-[#F5B041]" },
 ] as const;
 
 // Mini stat item
@@ -100,16 +100,16 @@ export function FinalCtaSection() {
           {/* Headlines */}
           <h2 className="flex flex-col gap-1">
             <span className="font-display text-[80px] font-black text-[var(--warm-white)] leading-[0.95] uppercase">
-              READY TO BUILD
+              STOP PROMPTING.
             </span>
             <span className="font-display text-[80px] font-black text-[var(--accent)] leading-[0.95] uppercase">
-              YOUR AI TEAM?
+              START HIRING.
             </span>
           </h2>
 
           {/* Subtitle */}
           <p className="font-body text-[16px] text-[var(--text-muted)] leading-[1.6] max-w-[480px]">
-            Deploy AI interns to your codebase in 60 seconds. One CLI command. Zero configuration. Full control.
+            Your next teammate has a name, a voice, and opinions. Interview them in 30 seconds. Deploy in one command. Walk away.
           </p>
 
           {/* Mini stats row */}
@@ -123,7 +123,7 @@ export function FinalCtaSection() {
           <div className="flex items-center gap-2">
             <Terminal size={14} className="text-[var(--accent)]" aria-hidden="true" />
             <span className="font-body text-[11px] font-bold text-[var(--text-muted-dark)] tracking-[1px]">
-              WORKS WITH ANY CODEBASE
+              FULL IDENTITY · ONE COMMAND · YOUR RUNTIME
             </span>
           </div>
         </div>
@@ -149,13 +149,13 @@ export function FinalCtaSection() {
             className="block w-full bg-[var(--accent-bright)] py-[22px] px-8 text-center no-underline mt-0 hover:opacity-90 transition-opacity"
           >
             <span className="font-display text-[26px] font-black text-white tracking-wide">
-              GET STARTED FREE →
+              HIRE YOUR FIRST INTERN FREE →
             </span>
           </a>
 
           {/* Subtitle */}
           <p className="font-body text-[12px] text-[var(--brown-light)] text-center mt-3">
-            No credit card required · Free tier available
+            3 interns free forever · No credit card · No subscription
           </p>
         </div>
       </div>
@@ -165,16 +165,16 @@ export function FinalCtaSection() {
         {/* Headlines */}
         <h2 className="flex flex-col gap-1">
           <span className="font-display text-[48px] font-black text-[var(--warm-white)] leading-[0.95] uppercase">
-            READY TO BUILD
+            STOP PROMPTING.
           </span>
           <span className="font-display text-[48px] font-black text-[var(--accent)] leading-[0.95] uppercase">
-            YOUR AI TEAM?
+            START HIRING.
           </span>
         </h2>
 
         {/* Subtitle */}
         <p className="font-body text-[16px] text-[var(--text-muted)] leading-[1.6]">
-          Deploy AI interns to your codebase in 60 seconds. One CLI command. Zero configuration. Full control.
+          Your next teammate has a name, a voice, and opinions. Interview them in 30 seconds. Deploy in one command. Walk away.
         </p>
 
         {/* Mini stats */}
@@ -188,7 +188,7 @@ export function FinalCtaSection() {
         <div className="flex items-center gap-2">
           <Terminal size={14} className="text-[var(--accent)]" />
           <span className="font-body text-[11px] font-bold text-[var(--text-muted-dark)] tracking-[1px]">
-            WORKS WITH ANY CODEBASE
+            FULL IDENTITY · ONE COMMAND · YOUR RUNTIME
           </span>
         </div>
 
@@ -203,13 +203,13 @@ export function FinalCtaSection() {
           className="block w-full bg-[var(--accent-bright)] py-5 px-8 text-center no-underline hover:opacity-90 transition-opacity"
         >
           <span className="font-display text-[22px] font-black text-white tracking-wide">
-            GET STARTED FREE →
+            HIRE YOUR FIRST INTERN FREE →
           </span>
         </a>
 
         {/* Subtitle */}
         <p className="font-body text-[12px] text-[var(--brown-light)] text-center">
-          No credit card required · Free tier available
+          3 interns free forever · No credit card · No subscription
         </p>
       </div>
     </section>

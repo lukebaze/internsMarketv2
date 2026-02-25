@@ -103,13 +103,13 @@ export function InternCatalogSection() {
       {/* Header */}
       <div className="flex flex-col gap-4 px-12 pt-12 pb-8">
         <span className="font-body text-[13px] font-bold text-[var(--text-primary)] tracking-[1.5px]">
-          THE INTERN ROSTER
+          THE INTERVIEW ROOM
         </span>
         <h2 className="font-display text-[32px] md:text-[64px] font-black text-[var(--text-primary)] leading-none">
-          MEET YOUR AI TEAM
+          MEET THEM BEFORE YOU HIRE THEM
         </h2>
         <p className="font-body text-[13px] text-[var(--text-primary)]">
-          11 specialized personas. 55 skills. Pick your team.
+          11 AI personas. Real personalities. Real catchphrases. 3 are free — no strings attached.
         </p>
 
         {/* Filter row */}

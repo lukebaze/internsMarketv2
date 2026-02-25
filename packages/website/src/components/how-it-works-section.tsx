@@ -5,21 +5,21 @@ const cards = [
     number: "01",
     title: "INSTALL THE CLI",
     description:
-      "One command to install the InternsMarket CLI globally. Works with npm, yarn, or pnpm.",
+      "One command. 60 seconds. You now have access to 11 AI interns with full personalities, skills, and voice.",
     code: "npm install -g internsmarket",
   },
   {
     number: "02",
-    title: "CHOOSE YOUR INTERNS",
+    title: "INTERVIEW YOUR INTERN",
     description:
-      "Browse the roster and install specialized AI personas with pre-built skills and personalities.",
+      "Browse the roster. Read their bios, catchphrases, and skill sets. Pick the right person for the job — 3 are free to try.",
     code: "im install content-marketing-intern",
   },
   {
     number: "03",
-    title: "DEPLOY & RUN",
+    title: "DEPLOY & WALK AWAY",
     description:
-      "Apply your intern configuration and watch them execute tasks autonomously across your stack.",
+      "One command. Your intern is live — writing content, reviewing code, or running pipelines. No babysitting required.",
     code: "im apply content-marketing-intern",
   },
 ];
@@ -33,7 +33,7 @@ export function HowItWorksSection() {
           HOW IT WORKS
         </span>
         <h2 className="font-display text-[32px] md:text-[64px] font-black text-[var(--text-primary)] leading-none max-w-[800px]">
-          THREE COMMANDS. YOUR AI TEAM IS LIVE.
+          INTERVIEW. HIRE. DEPLOY. DONE.
         </h2>
       </div>
 

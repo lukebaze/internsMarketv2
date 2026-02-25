@@ -43,13 +43,15 @@ export function HeroSection() {
       <div className="relative z-10 w-full flex flex-col gap-8 justify-center px-6 py-12 md:px-16 md:py-20">
         {/* Headline */}
         <h1 className="font-display text-5xl md:text-[96px] font-black text-[var(--text-inverted)] leading-none max-w-[900px] uppercase">
-          Hire, Train &amp; Deploy Your Personal AI Intern in One Click
+          AI Agents With Real Identity. Not Just Skills.
         </h1>
 
         {/* Subheadline */}
         <p className="font-body text-base text-[var(--text-muted-light)] leading-relaxed max-w-[600px]">
-          InternsMarket ships full-stack AI personas — personality, skills,
-          memory, voice. Think Shopify Themes for AI Agents.
+          Other tools give you prompts. We give you people. Each intern has a
+          personality, voice, catchphrases, mood triggers, and backstory that
+          shapes how they think, write, and decide. Interview them. Then deploy
+          in one command.
         </p>
 
         {/* Button row */}
@@ -60,13 +62,13 @@ export function HeroSection() {
             rel="noopener noreferrer"
             className="font-body text-[13px] font-bold text-[var(--text-primary)] tracking-[1.5px] bg-[var(--accent)] px-7 py-[14px] text-center hover:bg-[var(--accent-bright)] transition-colors"
           >
-            INSTALL FREE
+            HIRE YOUR FIRST INTERN FREE
           </a>
           <a
-            href="#demo"
+            href="#gallery"
             className="font-body text-[13px] font-bold text-[var(--text-inverted)] tracking-[1.5px] border-[1.5px] border-[var(--warm-white)] px-7 py-[14px] text-center bg-transparent hover:bg-white/10 transition-colors"
           >
-            WATCH 90S DEMO
+            MEET THE TEAM
           </a>
         </div>
 

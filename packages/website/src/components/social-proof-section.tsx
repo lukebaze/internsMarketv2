@@ -10,19 +10,19 @@ const stats = [
 const testimonials = [
   {
     quote:
-      '"I replaced my freelance content writer with Jordan. Ship time dropped 60%. Cost: $0."',
+      '"Jordan has a writing voice. An actual voice — not a prompt template. Ship time dropped 60% because I stopped rewriting AI output. Cost: $0."',
     attribution: "ALEX CHEN, SOLO FOUNDER",
     hasBorder: true,
   },
   {
     quote:
-      '"Marcus automated our entire CI/CD pipeline in a weekend. It just works."',
+      '"I interviewed Marcus, liked his style, deployed him in 30 seconds. He automated our CI/CD pipeline by the weekend. No hand-holding."',
     attribution: "SARAH KIM, CTO @ DEVSTACK",
     hasBorder: true,
   },
   {
     quote:
-      '"No more ChatGPT prompt loops. Install, apply, done. This is how AI tools should work."',
+      '"These aren\'t chatbots. They have personality, catchphrases, opinions. Ethan literally told me my PR needed work — and he was right."',
     attribution: "JAMES PARK, INDIE HACKER",
     hasBorder: false,
   },

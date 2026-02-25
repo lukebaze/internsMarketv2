@@ -57,10 +57,10 @@ export function PricingSection() {
           PRICING
         </span>
         <h2 className="font-display text-[32px] md:text-[64px] font-black text-[var(--text-primary)] leading-none">
-          SIMPLE, TRANSPARENT PRICING
+          PAY ONCE. KEEP FOREVER.
         </h2>
         <p className="font-body text-[13px] text-[var(--text-muted-dark)]">
-          Start free. Pay once to unlock more.
+          Interview 3 interns free. No subscription. No credit card. Upgrade when they prove their worth.
         </p>
       </div>
 

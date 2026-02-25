@@ -10,33 +10,33 @@ interface FeatureCard {
 const features: FeatureCard[] = [
   {
     icon: User,
-    title: "FULL PERSONALITY",
+    title: "BORN, NOT CONFIGURED",
     description:
-      "Each intern ships with a complete persona — voice, tone, decision-making style, and memory. No more prompt loops.",
+      "Each intern has a neural personality matrix — creativity, empathy, logic, charisma scores that shape every decision. Catchphrases. Mood triggers. Backstory. This isn't a prompt template. It's a person.",
   },
   {
     icon: Monitor,
-    title: "MULTI-RUNTIME",
+    title: "INTERVIEW BEFORE YOU HIRE",
     description:
-      "Deploy interns to Claude, GPT, Gemini, local models, or your own custom runtime. Works everywhere.",
+      "Browse the roster. Read their quotes. Check their skills and personality traits. Know exactly who you're deploying before you commit. Try free interns first — no credit card.",
   },
   {
     icon: Terminal,
-    title: "CLI-NATIVE",
+    title: "ONE COMMAND. DEPLOYED.",
     description:
-      "Built for developers who live in the terminal. Install, configure, and deploy without leaving your workflow.",
+      "Install → Apply → Done. Your intern is live in your runtime in under 60 seconds. No config files. No API keys. No setup wizard. Just the terminal.",
   },
   {
     icon: Cpu,
-    title: "INDEPENDENT AGENTS",
+    title: "AUTONOMOUS, NOT ASSISTIVE",
     description:
-      "Each intern runs as an independent agent with its own context, memory, and execution thread. Run your whole team in parallel.",
+      "These aren't chatbots waiting for your prompt. Each intern runs independently with its own memory, context, and execution thread. Delegate and walk away.",
   },
   {
     icon: Puzzle,
-    title: "MODULAR SKILLS",
+    title: "55+ REAL SKILLS. 10+ HRS SAVED/WEEK.",
     description:
-      "55+ specialized abilities across writing, coding, research, design, and operations. Mix and match skills across your intern team.",
+      "Blog writing. CI/CD pipelines. Code reviews. Data analysis. UX research. Each intern ships with 3–5 battle-tested skills that replace real workflows — not demo toys.",
   },
 ];
 
@@ -70,10 +70,10 @@ export function FeatureHighlightsSection() {
       {/* Header */}
       <div className="flex flex-col gap-4 px-12 pt-12 pb-8">
         <span className="font-body text-[13px] font-bold text-[var(--text-primary)] tracking-[1.5px]">
-          WHY INTERNSMARKET?
+          NOT ANOTHER AI WRAPPER
         </span>
         <h2 className="font-display text-[32px] md:text-[64px] font-black text-[var(--text-primary)] leading-none">
-          BUILT FOR BUILDERS
+          FULL IDENTITY. NOT RAW SKILLS.
         </h2>
       </div>
 
