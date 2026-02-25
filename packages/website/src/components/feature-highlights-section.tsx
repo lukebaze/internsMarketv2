@@ -1,5 +1,8 @@
+"use client";
+
 import { User, Monitor, Terminal, Cpu, Puzzle } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import { ScrollReveal } from "./scroll-reveal";
 
 interface FeatureCard {
   icon: LucideIcon;
@@ -68,14 +71,14 @@ export function FeatureHighlightsSection() {
   return (
     <section className="w-full bg-[var(--warm-white)] border-t-2 border-[var(--stroke)]">
       {/* Header */}
-      <div className="flex flex-col gap-4 px-12 pt-12 pb-8">
+      <ScrollReveal className="flex flex-col gap-4 px-12 pt-12 pb-8">
         <span className="font-body text-[13px] font-bold text-[var(--text-primary)] tracking-[1.5px]">
           NOT ANOTHER AI WRAPPER
         </span>
         <h2 className="font-display text-[32px] md:text-[64px] font-black text-[var(--text-primary)] leading-none">
           FULL IDENTITY. NOT RAW SKILLS.
         </h2>
-      </div>
+      </ScrollReveal>
 
       {/* Top row: 3 cards */}
       <div className="flex flex-col md:flex-row w-full">
@@ -85,11 +88,12 @@ export function FeatureHighlightsSection() {
             ? "border-b-2 border-[var(--stroke)]"
             : "border-r-2 border-b-2 border-[var(--stroke)]";
           return (
-            <FeatureCard
-              key={feature.title}
-              feature={feature}
-              borderClass={borderClass}
-            />
+            <ScrollReveal key={feature.title} delay={index * 0.1} className="flex-1">
+              <FeatureCard
+                feature={feature}
+                borderClass={borderClass}
+              />
+            </ScrollReveal>
           );
         })}
       </div>
@@ -102,11 +106,12 @@ export function FeatureHighlightsSection() {
             ? "border-b-2 border-[var(--stroke)]"
             : "border-r-2 border-b-2 border-[var(--stroke)]";
           return (
-            <FeatureCard
-              key={feature.title}
-              feature={feature}
-              borderClass={borderClass}
-            />
+            <ScrollReveal key={feature.title} delay={index * 0.1} className="flex-1">
+              <FeatureCard
+                feature={feature}
+                borderClass={borderClass}
+              />
+            </ScrollReveal>
           );
         })}
       </div>

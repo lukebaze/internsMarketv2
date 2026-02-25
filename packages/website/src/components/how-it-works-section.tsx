@@ -1,4 +1,7 @@
+"use client";
+
 import { CopyableCodeBlock } from "./copyable-code-block";
+import { ScrollReveal } from "./scroll-reveal";
 
 const cards = [
   {
@@ -28,14 +31,14 @@ export function HowItWorksSection() {
   return (
     <section className="w-full bg-[var(--warm-white)] border-t-2 border-[var(--stroke)]">
       {/* Header */}
-      <div className="flex flex-col gap-4 px-12 pt-12 pb-8">
+      <ScrollReveal className="flex flex-col gap-4 px-12 pt-12 pb-8">
         <span className="font-body text-[13px] font-bold text-[var(--text-primary)] tracking-[1.5px]">
           HOW IT WORKS
         </span>
         <h2 className="font-display text-[32px] md:text-[64px] font-black text-[var(--text-primary)] leading-none max-w-[800px]">
           INTERVIEW. HIRE. DEPLOY. DONE.
         </h2>
-      </div>
+      </ScrollReveal>
 
       {/* Cards row */}
       <div className="flex flex-col md:flex-row w-full">
@@ -46,21 +49,20 @@ export function HowItWorksSection() {
             : "border-r-2 border-b-2 border-[var(--stroke)]";
 
           return (
-            <div
-              key={card.number}
-              className={`flex-1 flex flex-col gap-5 p-6 ${borderClass}`}
-            >
-              <span className="font-display text-[64px] font-black text-[var(--text-primary)] leading-[0.9]">
-                {card.number}
-              </span>
-              <span className="font-display text-[22px] font-black text-[var(--text-primary)] tracking-[1px]">
-                {card.title}
-              </span>
-              <p className="font-body text-[13px] text-[var(--text-primary)] leading-[1.5]">
-                {card.description}
-              </p>
-              <CopyableCodeBlock code={card.code} variant="card" />
-            </div>
+            <ScrollReveal key={card.number} delay={index * 0.15} className="flex-1">
+              <div className={`flex flex-col gap-5 p-6 ${borderClass}`}>
+                <span className="font-display text-[64px] font-black text-[var(--text-primary)] leading-[0.9]">
+                  {card.number}
+                </span>
+                <span className="font-display text-[22px] font-black text-[var(--text-primary)] tracking-[1px]">
+                  {card.title}
+                </span>
+                <p className="font-body text-[13px] text-[var(--text-primary)] leading-[1.5]">
+                  {card.description}
+                </p>
+                <CopyableCodeBlock code={card.code} variant="card" />
+              </div>
+            </ScrollReveal>
           );
         })}
       </div>

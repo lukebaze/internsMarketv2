@@ -1,4 +1,7 @@
+"use client";
+
 import { BUNDLE_PRICES, BUNDLE_CHECKOUT_URLS } from "@/data/interns-data";
+import { ScrollReveal } from "./scroll-reveal";
 
 const freeFeatures = [
   "✓  3 free interns included",
@@ -52,7 +55,7 @@ export function PricingSection() {
   return (
     <section id="pricing" className="w-full bg-[var(--warm-white)] border-t-2 border-[var(--stroke)] px-12 py-16 flex flex-col gap-10">
       {/* Header */}
-      <div className="flex flex-col gap-3 w-full">
+      <ScrollReveal className="flex flex-col gap-3 w-full">
         <span className="font-body text-[13px] font-bold text-[var(--text-primary)] tracking-[1.5px]">
           PRICING
         </span>
@@ -62,7 +65,7 @@ export function PricingSection() {
         <p className="font-body text-[13px] text-[var(--text-muted-dark)]">
           Interview 3 interns free. No subscription. No credit card. Upgrade when they prove their worth.
         </p>
-      </div>
+      </ScrollReveal>
 
       {/* Pricing Tiers */}
       <div className="flex flex-col md:flex-row w-full">

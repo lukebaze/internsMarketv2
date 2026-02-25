@@ -3,6 +3,8 @@
 import { useState, useEffect } from "react";
 import { interns } from "@/data/interns-data";
 import { InternCard } from "@/components/intern-card";
+import { ScrollReveal } from "@/components/scroll-reveal";
+import { StaggeredGrid, StaggeredItem } from "@/components/staggered-intern-grid";
 
 type TierFilter = "ALL" | "free" | "starter" | "pro";
 
@@ -101,7 +103,7 @@ export function InternCatalogSection() {
   return (
     <section id="gallery" className="w-full bg-[var(--warm-white)] border-t-2 border-[var(--stroke)]">
       {/* Header */}
-      <div className="flex flex-col gap-4 px-12 pt-12 pb-8">
+      <ScrollReveal className="flex flex-col gap-4 px-12 pt-12 pb-8">
         <span className="font-body text-[13px] font-bold text-[var(--text-primary)] tracking-[1.5px]">
           THE INTERVIEW ROOM
         </span>
@@ -134,22 +136,25 @@ export function InternCatalogSection() {
             );
           })}
         </div>
-      </div>
+      </ScrollReveal>
 
-      {/* Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 w-full">
+      {/* Grid with staggered animation */}
+      <StaggeredGrid className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 w-full">
         {filtered.map((intern, index) => (
-          <InternCard
-            key={intern.name}
-            {...intern}
-            price={intern.price}
-            isLast={isLastInRow(index)}
-          />
+          <StaggeredItem key={intern.name}>
+            <InternCard
+              {...intern}
+              price={intern.price}
+              isLast={isLastInRow(index)}
+            />
+          </StaggeredItem>
         ))}
         {showSubmit && (
-          <SubmitCard isLast={isLastInRow(filtered.length)} />
+          <StaggeredItem>
+            <SubmitCard isLast={isLastInRow(filtered.length)} />
+          </StaggeredItem>
         )}
-      </div>
+      </StaggeredGrid>
     </section>
   );
 }

@@ -1,10 +1,14 @@
+"use client";
+
 import { ShieldCheck, Lock, EyeOff } from "lucide-react";
+import { ScrollReveal } from "./scroll-reveal";
+import { AnimatedCounter } from "./animated-counter";
 
 const stats = [
-  { number: "500+", label: "GITHUB STARS" },
-  { number: "1.2K", label: "DISCORD MEMBERS" },
-  { number: "55+", label: "SPECIALIZED SKILLS" },
-  { number: "11", label: "AI INTERNS READY" },
+  { target: 500, suffix: "+", label: "GITHUB STARS" },
+  { target: 1.2, suffix: "K", label: "DISCORD MEMBERS" },
+  { target: 55, suffix: "+", label: "SPECIALIZED SKILLS" },
+  { target: 11, suffix: "", label: "AI INTERNS READY" },
 ];
 
 const testimonials = [
@@ -42,9 +46,12 @@ export function SocialProofSection() {
         {stats.map((stat, index) => (
           <div key={stat.label} className="flex items-center gap-0 flex-1">
             <div className="flex flex-col items-center gap-2 flex-1">
-              <span className="font-display text-[36px] md:text-[64px] font-black text-[var(--text-inverted)] leading-[0.9] tabular-nums">
-                {stat.number}
-              </span>
+              <AnimatedCounter
+                target={stat.target}
+                suffix={stat.suffix}
+                duration={1.8}
+                className="font-display text-[36px] md:text-[64px] font-black text-[var(--text-inverted)] leading-[0.9] tabular-nums"
+              />
               <span className="font-body text-[13px] font-bold text-[var(--text-muted)] tracking-[1.5px]">
                 {stat.label}
               </span>
@@ -58,34 +65,37 @@ export function SocialProofSection() {
 
       {/* Testimonials Row */}
       <div className="flex flex-col md:flex-row w-full">
-        {testimonials.map((t) => (
-          <div
-            key={t.attribution}
-            className={`flex-1 flex flex-col gap-4 p-6 ${
-              t.hasBorder ? "md:border-r-2 border-[var(--text-muted-dark)]" : ""
-            }`}
-          >
-            <p className="font-body text-[13px] text-[var(--text-inverted)] leading-[1.5]">
-              {t.quote}
-            </p>
-            <span className="font-body text-[11px] font-bold text-[var(--text-muted)] tracking-[1.5px]">
-              {t.attribution}
-            </span>
-          </div>
+        {testimonials.map((t, i) => (
+          <ScrollReveal key={t.attribution} delay={i * 0.15} className="flex-1">
+            <div
+              className={`flex flex-col gap-4 p-6 h-full ${
+                t.hasBorder ? "md:border-r-2 border-[var(--text-muted-dark)]" : ""
+              }`}
+            >
+              <p className="font-body text-[13px] text-[var(--text-inverted)] leading-[1.5]">
+                {t.quote}
+              </p>
+              <span className="font-body text-[11px] font-bold text-[var(--text-muted)] tracking-[1.5px]">
+                {t.attribution}
+              </span>
+            </div>
+          </ScrollReveal>
         ))}
       </div>
 
       {/* Trust Bar */}
-      <div className="flex flex-col md:flex-row items-center justify-center gap-8">
-        {trustItems.map(({ icon: Icon, text }) => (
-          <div key={text} className="flex items-center gap-2">
-            <Icon size={16} className="text-[var(--text-muted)]" aria-hidden="true" />
-            <span className="font-body text-[11px] font-bold text-[var(--text-muted)] tracking-[1.5px]">
-              {text}
-            </span>
-          </div>
-        ))}
-      </div>
+      <ScrollReveal delay={0.2}>
+        <div className="flex flex-col md:flex-row items-center justify-center gap-8">
+          {trustItems.map(({ icon: Icon, text }) => (
+            <div key={text} className="flex items-center gap-2">
+              <Icon size={16} className="text-[var(--text-muted)]" aria-hidden="true" />
+              <span className="font-body text-[11px] font-bold text-[var(--text-muted)] tracking-[1.5px]">
+                {text}
+              </span>
+            </div>
+          ))}
+        </div>
+      </ScrollReveal>
     </section>
   );
 }
