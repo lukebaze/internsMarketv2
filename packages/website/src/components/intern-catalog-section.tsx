@@ -22,7 +22,7 @@ function SubmitCard({ isLast }: { isLast: boolean }) {
     : "border-b-2 border-r-2 border-[var(--stroke)]";
 
   return (
-    <div className={`flex flex-col gap-3 p-6 bg-[var(--warm-white)] ${borderClass}`}>
+    <div className={`flex flex-col gap-3 p-6 h-full bg-[var(--warm-white)] ${borderClass}`}>
       {/* Avatar area */}
       <div className="w-full h-[200px] bg-[var(--warm-bg)] flex items-center justify-center flex-shrink-0">
         <span className="font-display text-[48px] font-black text-[var(--text-muted-dark)] leading-none">

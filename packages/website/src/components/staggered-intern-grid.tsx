@@ -44,7 +44,7 @@ export function StaggeredGrid({ children, className }: StaggeredGridProps) {
 /** Wrap each grid item in this for stagger effect */
 export function StaggeredItem({ children, className }: { children: ReactNode; className?: string }) {
   return (
-    <motion.div className={className} variants={itemVariants}>
+    <motion.div className={`h-full ${className ?? ""}`} variants={itemVariants}>
       {children}
     </motion.div>
   );

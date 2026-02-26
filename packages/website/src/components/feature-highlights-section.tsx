@@ -52,7 +52,7 @@ function FeatureCard({
 }) {
   const Icon = feature.icon;
   return (
-    <div className={`flex-1 flex flex-col gap-4 p-6 ${borderClass}`}>
+    <div className={`h-full flex flex-col gap-4 p-6 ${borderClass}`}>
       <Icon size={24} className="text-[var(--text-primary)]" strokeWidth={2} aria-hidden="true" />
       <span className="font-display text-[22px] font-black text-[var(--text-primary)] tracking-[1px]">
         {feature.title}

@@ -42,7 +42,7 @@ export function InternCard({
     : "border-b-2 border-r-2 border-[var(--stroke)]";
 
   return (
-    <div className={`flex flex-col gap-3 p-6 bg-[var(--warm-white)] ${borderClass}`}>
+    <div className={`flex flex-col gap-3 p-6 h-full bg-[var(--warm-white)] ${borderClass}`}>
       {/* Avatar image */}
       <div className="w-full h-[200px] overflow-hidden flex-shrink-0">
         <img
