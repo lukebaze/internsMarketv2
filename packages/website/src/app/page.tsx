@@ -5,6 +5,7 @@ import { InternCatalogSection } from "@/components/intern-catalog-section";
 import { FeatureHighlightsSection } from "@/components/feature-highlights-section";
 import { SocialProofSection } from "@/components/social-proof-section";
 import { PricingSection } from "@/components/pricing-section";
+import { DocsSection } from "@/components/docs-section";
 import { FinalCtaSection } from "@/components/final-cta-section";
 import { FooterSection } from "@/components/footer-section";
 
@@ -18,6 +19,7 @@ export default function Home() {
       <FeatureHighlightsSection />
       <SocialProofSection />
       <PricingSection />
+      <DocsSection />
       <FinalCtaSection />
       <FooterSection />
     </main>

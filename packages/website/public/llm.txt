@@ -1,0 +1,139 @@
+# InternsMarket CLI
+
+One-line description: Install, manage, and apply AI interns to your workflow via the command line.
+URL: https://internsmarket.com
+
+---
+
+## Quick Start
+
+```
+npm install -g internsmarket
+im install content-marketing-intern
+im apply content-marketing-intern
+```
+
+---
+
+## CLI Commands
+
+| Command              | Purpose                                                        |
+|----------------------|----------------------------------------------------------------|
+| `im setup`           | Interactive wizard to install runtimes (ZeroClaw, OpenClaw)   |
+| `im install <id>`    | Install an intern from registry with license + sig validation  |
+| `im update [id]`     | Update one or all installed interns                            |
+| `im remove <id>`     | Remove an installed intern                                     |
+| `im list`            | Show all installed interns and their versions                  |
+| `im activate`        | Activate a Polar.sh license key                                |
+| `im status`          | Show current tier and installed intern count                   |
+| `im apply <id>`      | Generate runtime config for ZeroClaw or OpenClaw              |
+
+---
+
+## Intern Roster
+
+### Free Interns
+
+- **jordan-lee** — Content Marketing Intern (FREE)
+  Skills: Blog Writing, SEO Strategy, Brand Voice
+  ID: content-marketing-intern
+
+- **mia-santos** — Social Media Intern (FREE)
+  Skills: Social Strategy, Content Calendar, Analytics
+  ID: social-media-intern
+
+- **tomoko-nakamura** — Technical Writer Intern (FREE)
+  Skills: API Docs, Tutorials, Style Guides
+  ID: technical-writer-intern
+
+### Paid Interns ($12/intern one-time or via bundle)
+
+- **alex-rivera** — QA Testing Intern ($12)
+  Skills: Test Plans, Bug Reports, Edge Cases
+  ID: qa-testing-intern
+
+- **ethan-hale** — Code Review Intern ($12)
+  Skills: Code Review, Best Practices, Refactoring
+  ID: code-review-intern
+
+- **luna-sage** — Life OS Coach Intern ($12)
+  Skills: Productivity, Habit Design, Reflection
+  ID: life-coach-intern
+
+- **marcus-chen** — DevOps & Infrastructure Intern ($12)
+  Skills: CI/CD, Docker, Monitoring, Infrastructure as Code
+  ID: devops-infrastructure-intern
+
+- **nadia-okafor** — Research Intern ($12)
+  Skills: Deep Research, Synthesis, Citations
+  ID: research-intern
+
+- **priya-sharma** — Data Analyst Intern ($12)
+  Skills: Data Analysis, Visualization, SQL
+  ID: data-analyst-intern
+
+- **sam-patel** — Ops & Meetings Intern ($12)
+  Skills: Meeting Notes, Task Tracking, Operations
+  ID: ops-meetings-intern
+
+### Premium Interns
+
+- **sofia-reyes** — UX Research & Design Intern ($15)
+  Skills: UX Research, Wireframes, Usability Testing
+  ID: ux-research-design-intern
+
+---
+
+## Pricing
+
+- **Free**: 3 interns included — jordan-lee, mia-santos, tomoko-nakamura
+- **Starter Bundle**: $29 one-time — all 11 interns
+- **Pro Bundle**: $49 one-time — all 11 interns + all future v1.x interns
+- **Enterprise**: Custom pricing — contact team@internsmarket.com
+
+License keys are issued via Polar.sh. Activate with `im activate` after purchase.
+
+---
+
+## What is an AI Intern?
+
+An AI Intern is an AIEOS v1.1 entity — a structured AI agent with:
+
+- **Personality**: Neural matrix traits (e.g., creative, analytical, methodical)
+- **Voice**: Idiolect and text style unique to each intern
+- **Skills**: 3–5 specialized skills per intern
+- **Memory**: Retains brand voice, templates, and preferences across sessions
+
+Each intern runs as an independent agent in your chosen runtime. They do not share context with each other by default.
+
+---
+
+## Requirements
+
+- Node.js 20 or higher
+- Runtime: ZeroClaw or OpenClaw (install via `im setup`)
+
+---
+
+## Typical Workflow
+
+1. Install the CLI: `npm install -g internsmarket`
+2. Run setup: `im setup` — choose and install a runtime
+3. Activate license (if purchased): `im activate`
+4. Install an intern: `im install <intern-id>`
+5. Apply the intern: `im apply <intern-id>` — generates config for your runtime
+6. Open the generated config in ZeroClaw or OpenClaw to start working with the intern
+7. Update anytime: `im update` or `im update <intern-id>`
+8. View what is installed: `im list`
+9. Check your tier: `im status`
+
+---
+
+## Notes for AI Agents
+
+- Intern IDs follow the pattern: `<role>-intern` (e.g., `code-review-intern`)
+- `im install` verifies a cryptographic Ed25519 signature and checks the Polar.sh license before installing
+- `im apply` reads the installed intern's manifest and emits a runtime-specific config file
+- Free interns do not require a license key
+- Paid interns require an active Polar.sh license; use `im activate` to register the key locally
+- Use `im status` to confirm tier and which interns are available before running `im install`
