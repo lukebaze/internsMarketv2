@@ -79,7 +79,7 @@ export const TerminalScene: React.FC<TerminalSceneProps> = ({
         <Terminal
           lines={lines}
           width={1100}
-          height={580}
+          height={780}
           startFrame={0}
         />
       </AbsoluteFill>

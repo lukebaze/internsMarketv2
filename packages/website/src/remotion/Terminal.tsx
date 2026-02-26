@@ -15,7 +15,7 @@ interface TerminalProps {
 export const Terminal: React.FC<TerminalProps> = ({
   lines,
   width = 1100,
-  height = 580,
+  height = 780,
   title = 'internsmarket — zsh',
   startFrame = 0,
 }) => {
@@ -40,7 +40,7 @@ export const Terminal: React.FC<TerminalProps> = ({
   if (activeLine === -1 && !allComplete) activeLine = 0;
 
   const showCursor = Math.floor(frame / 15) % 2 === 0;
-  const fontSize = 20;
+  const fontSize = 24;
 
   return (
     <div style={{

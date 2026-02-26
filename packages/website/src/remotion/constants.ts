@@ -1,6 +1,6 @@
 // Video dimensions and timing constants
-export const VIDEO_WIDTH = 1920;
-export const VIDEO_HEIGHT = 1080;
+export const VIDEO_WIDTH = 1280;
+export const VIDEO_HEIGHT = 960;
 export const VIDEO_FPS = 30;
 export const VIDEO_DURATION_FRAMES = 2100; // 70 seconds
 

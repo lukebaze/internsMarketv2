@@ -1,7 +1,7 @@
 "use client";
 
 import { Terminal } from "lucide-react";
-import { DemoVideoPlayer } from "./demo-video-player";
+import { AnimatedTerminal } from "./animated-terminal";
 import { ScrollReveal } from "./scroll-reveal";
 import { AnimatedCounter } from "./animated-counter";
 
@@ -94,7 +94,7 @@ export function FinalCtaSection() {
           className="absolute flex flex-col"
           style={{ left: 760, top: 60, width: 620, height: 480 }}
         >
-          <DemoVideoPlayer />
+          <AnimatedTerminal />
 
           {/* CTA Button */}
           <a
@@ -151,7 +151,7 @@ export function FinalCtaSection() {
         </ScrollReveal>
 
         {/* Demo video player */}
-        <DemoVideoPlayer />
+        <AnimatedTerminal />
 
         {/* CTA Button */}
         <a
