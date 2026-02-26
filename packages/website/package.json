@@ -10,11 +10,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@remotion/player": "^4.0.429",
     "framer-motion": "^12.34.3",
     "lucide-react": "^0.468.0",
     "next": "^16.1.6",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "remotion": "^4.0.429"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.0.0",

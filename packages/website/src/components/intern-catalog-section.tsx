@@ -138,8 +138,9 @@ export function InternCatalogSection() {
         </div>
       </ScrollReveal>
 
-      {/* Grid with staggered animation */}
-      <StaggeredGrid className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 w-full">
+      {/* Grid with staggered animation; key forces remount on filter change so
+          whileInView fires again and items animate in from hidden state */}
+      <StaggeredGrid key={activeFilter} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 w-full">
         {filtered.map((intern, index) => (
           <StaggeredItem key={intern.name}>
             <InternCard
