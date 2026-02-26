@@ -1,6 +1,7 @@
 "use client";
 
-import { BUNDLE_PRICES, BUNDLE_CHECKOUT_URLS } from "@/data/interns-data";
+import { motion } from "framer-motion";
+import { BUNDLE_PRICES, BUNDLE_CHECKOUT_URLS, tierBgClass } from "@/data/interns-data";
 
 export interface InternCardProps {
   name: string;
@@ -12,13 +13,8 @@ export interface InternCardProps {
   price: number;
   checkoutUrl?: string;
   isLast?: boolean;
+  onClick?: () => void;
 }
-
-const tierBgClass: Record<string, string> = {
-  free: "bg-[var(--free-tier)]",
-  starter: "bg-[var(--starter-tier)]",
-  pro: "bg-[var(--pro-tier)]",
-};
 
 // Badge label: free shows "FREE", paid tiers show their price
 function tierBadgeLabel(tier: string, price: number): string {
@@ -36,13 +32,18 @@ export function InternCard({
   price,
   checkoutUrl,
   isLast = false,
+  onClick,
 }: InternCardProps) {
   const borderClass = isLast
     ? "border-b-2 border-[var(--stroke)]"
     : "border-b-2 border-r-2 border-[var(--stroke)]";
 
   return (
-    <div className={`flex flex-col gap-3 p-6 h-full bg-[var(--warm-white)] ${borderClass}`}>
+    <motion.div
+      layoutId={name}
+      onClick={onClick}
+      className={`flex flex-col gap-3 p-6 h-full bg-[var(--warm-white)] cursor-pointer ${borderClass}`}
+    >
       {/* Avatar image */}
       <div className="w-full h-[200px] overflow-hidden flex-shrink-0">
         <img
@@ -105,6 +106,7 @@ export function InternCard({
         {tier === "free" ? (
           <a
             href="#install"
+            onClick={(e) => e.stopPropagation()}
             className="block w-full bg-[var(--bg-black)] text-[var(--text-inverted)] font-body text-[13px] font-bold px-5 py-[10px] text-center no-underline hover:bg-[var(--brown-dark)] transition-colors"
           >
             INSTALL FREE
@@ -115,6 +117,7 @@ export function InternCard({
               href={checkoutUrl || "#pricing"}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
               className="block w-full bg-[var(--bg-black)] text-[var(--text-inverted)] font-body text-[13px] font-bold px-5 py-[10px] text-center no-underline hover:bg-[var(--brown-dark)] transition-colors"
             >
               BUY FOR ${price}
@@ -123,6 +126,7 @@ export function InternCard({
               href={BUNDLE_CHECKOUT_URLS.starter}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
               className="font-body text-[11px] text-[var(--text-muted-dark)] text-center no-underline hover:text-[var(--text-primary)] transition-colors"
             >
               or get all interns for ${BUNDLE_PRICES.starter}
@@ -130,6 +134,6 @@ export function InternCard({
           </>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 }

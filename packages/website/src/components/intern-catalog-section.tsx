@@ -1,8 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { interns } from "@/data/interns-data";
+import { AnimatePresence } from "framer-motion";
+import { interns, type Intern } from "@/data/interns-data";
 import { InternCard } from "@/components/intern-card";
+import { InternDetailOverlay } from "@/components/intern-detail-overlay";
 import { ScrollReveal } from "@/components/scroll-reveal";
 import { StaggeredGrid, StaggeredItem } from "@/components/staggered-intern-grid";
 
@@ -71,6 +73,7 @@ function SubmitCard({ isLast }: { isLast: boolean }) {
 
 export function InternCatalogSection() {
   const [activeFilter, setActiveFilter] = useState<TierFilter>("ALL");
+  const [selectedIntern, setSelectedIntern] = useState<Intern | null>(null);
 
   // Sync filter state with URL hash param for deep-linking
   useEffect(() => {
@@ -81,6 +84,7 @@ export function InternCatalogSection() {
 
   const handleFilterChange = (value: TierFilter) => {
     setActiveFilter(value);
+    setSelectedIntern(null);
     const base = "#gallery";
     window.history.replaceState(null, "", value === "ALL" ? base : `${base}?tier=${value}`);
   };
@@ -145,8 +149,8 @@ export function InternCatalogSection() {
           <StaggeredItem key={intern.name}>
             <InternCard
               {...intern}
-              price={intern.price}
               isLast={isLastInRow(index)}
+              onClick={() => setSelectedIntern(intern)}
             />
           </StaggeredItem>
         ))}
@@ -156,6 +160,16 @@ export function InternCatalogSection() {
           </StaggeredItem>
         )}
       </StaggeredGrid>
+
+      {/* Fly-out overlay */}
+      <AnimatePresence>
+        {selectedIntern && (
+          <InternDetailOverlay
+            intern={selectedIntern}
+            onClose={() => setSelectedIntern(null)}
+          />
+        )}
+      </AnimatePresence>
     </section>
   );
 }
