@@ -1,8 +1,9 @@
-/** ZeroClaw runtime adapter — generates zeroclaw.toml config from an InternPackage */
+/** ZeroClaw runtime adapter — generates zeroclaw.toml config + workspace files from an InternPackage */
 import fs from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';
-import type { InternPackage } from '@internsmarket/core';
+import type { InternPackage, AieosEntity } from '@internsmarket/core';
+import { compileIdentityMd, compileSoulMd } from '@internsmarket/core';
 import { getInternPath } from './local-store-manager.js';
 
 /** Builds a TOML string for ZeroClaw config (no external dep — simple enough for manual serialization) */
@@ -41,9 +42,48 @@ export function generateZeroClawConfig(pkg: InternPackage, installPath: string):
   fs.writeFileSync(path.join(configDir, 'zeroclaw.toml'), toml, 'utf-8');
 }
 
+/** Reads and parses aieos.json from the intern's install directory */
+function loadAieos(internPath: string): AieosEntity {
+  const aieosPath = path.join(internPath, 'aieos.json');
+  if (!fs.existsSync(aieosPath)) {
+    throw new Error(`aieos.json not found at "${aieosPath}". Re-install the intern first.`);
+  }
+  return JSON.parse(fs.readFileSync(aieosPath, 'utf-8')) as AieosEntity;
+}
+
+/** Compiles SOUL.md + IDENTITY.md and writes to ~/.zeroclaw/workspace/<intern-id>/ */
+function writeWorkspaceFiles(zeroClawDir: string, internId: string, aieos: AieosEntity): void {
+  const workspaceDir = path.join(zeroClawDir, 'workspace', internId);
+  fs.mkdirSync(workspaceDir, { recursive: true });
+
+  fs.writeFileSync(path.join(workspaceDir, 'IDENTITY.md'), compileIdentityMd(aieos), 'utf-8');
+  fs.writeFileSync(path.join(workspaceDir, 'SOUL.md'), compileSoulMd(aieos), 'utf-8');
+}
+
+/** Copies all skill directories from intern install to ~/.zeroclaw/skills/<intern-id>/ */
+function copySkillsToRuntime(zeroClawDir: string, internId: string, internPath: string): void {
+  const srcSkills = path.join(internPath, 'skills');
+  if (!fs.existsSync(srcSkills)) return;
+
+  const destSkills = path.join(zeroClawDir, 'skills', internId);
+  fs.mkdirSync(destSkills, { recursive: true });
+
+  for (const skillName of fs.readdirSync(srcSkills)) {
+    const srcDir = path.join(srcSkills, skillName);
+    if (!fs.statSync(srcDir).isDirectory()) continue;
+
+    const destDir = path.join(destSkills, skillName);
+    fs.mkdirSync(destDir, { recursive: true });
+
+    for (const file of fs.readdirSync(srcDir)) {
+      fs.copyFileSync(path.join(srcDir, file), path.join(destDir, file));
+    }
+  }
+}
+
 /**
- * Appends an include directive to ~/.zeroclaw/config.toml.
- * Throws if ZeroClaw is not installed at the expected path.
+ * Generates workspace files (SOUL.md, IDENTITY.md), copies skills,
+ * and appends an include directive to ~/.zeroclaw/config.toml.
  */
 export function applyToZeroClaw(internId: string): void {
   const internPath = getInternPath(internId);
@@ -61,10 +101,17 @@ export function applyToZeroClaw(internId: string): void {
     );
   }
 
+  // Compile AIEOS → workspace files (SOUL.md + IDENTITY.md)
+  const aieos = loadAieos(internPath);
+  writeWorkspaceFiles(zeroClawDir, internId, aieos);
+
+  // Copy skills to ~/.zeroclaw/skills/<intern-id>/
+  copySkillsToRuntime(zeroClawDir, internId, internPath);
+
+  // Append config include directive (idempotent)
   const configToml = path.join(zeroClawDir, 'config.toml');
   const includeDirective = `\n# InternsMarket: ${internId}\ninclude = "${tomlSrc.replace(/\\/g, '/')}"\n`;
 
-  // Avoid duplicate includes
   if (fs.existsSync(configToml)) {
     const existing = fs.readFileSync(configToml, 'utf-8');
     if (existing.includes(`# InternsMarket: ${internId}`)) return;
