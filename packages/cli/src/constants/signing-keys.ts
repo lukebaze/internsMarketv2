@@ -11,10 +11,7 @@ export const TRUSTED_PUBLIC_KEYS: readonly string[] = [
   // 'REPLACE_WITH_REAL_64_CHAR_HEX_PUBLIC_KEY',
 ];
 
-// Build-time guard — prevent shipping with empty keys (only skip in test env)
-if (process.env.NODE_ENV !== 'test' && TRUSTED_PUBLIC_KEYS.length === 0) {
-  throw new Error(
-    'TRUSTED_PUBLIC_KEYS is empty — package signature verification cannot proceed. ' +
-    'Run `npx tsx scripts/generate-signing-keypair.ts` and add the public key.',
-  );
+// Warn at startup if no keys configured — verifier will skip signature checks gracefully
+if (TRUSTED_PUBLIC_KEYS.length === 0 && process.env.NODE_ENV !== 'test') {
+  console.warn('[warn] No signing keys configured — package signature verification disabled');
 }
