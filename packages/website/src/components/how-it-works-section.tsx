@@ -35,9 +35,21 @@ export function HowItWorksSection() {
         <span className="font-body text-[13px] font-bold text-[var(--text-primary)] tracking-[1.5px]">
           HOW IT WORKS
         </span>
-        <h2 className="font-display text-[32px] md:text-[64px] font-black text-[var(--text-primary)] leading-none max-w-[800px]">
-          INTERVIEW. HIRE. DEPLOY. DONE.
-        </h2>
+        {/* Flowgram: inline tag blocks with breadcrumb arrows */}
+        <div className="flex flex-wrap items-center gap-3 md:gap-4">
+          {["INTERVIEW", "HIRE", "DEPLOY", "DONE"].map((step, i) => (
+            <div key={step} className="flex items-center gap-3 md:gap-4">
+              <span className="font-display text-[28px] md:text-[48px] lg:text-[64px] font-black text-[var(--text-primary)] leading-none border-b-[3px] md:border-b-4 border-[var(--text-primary)] pb-1 md:pb-2">
+                {step}
+              </span>
+              {i < 3 && (
+                <span className="font-display text-[28px] md:text-[48px] lg:text-[64px] font-black text-[var(--text-muted-dark)] leading-none select-none">
+                  ›
+                </span>
+              )}
+            </div>
+          ))}
+        </div>
       </ScrollReveal>
 
       {/* Cards row */}

@@ -1,13 +1,33 @@
 {
-  "name": "@internsmarket/cli",
-  "version": "0.1.0",
+  "name": "internsmarket",
+  "version": "0.1.4",
+  "description": "Hire, train & deploy your personal AI intern in one click. AIEOS-powered AI intern personas as CLI-installable packages.",
   "type": "module",
   "bin": {
     "im": "bin/im.js"
   },
   "main": "dist/cli.js",
+  "keywords": [
+    "ai",
+    "intern",
+    "agent",
+    "cli",
+    "aieos",
+    "automation"
+  ],
+  "homepage": "https://internsmarket.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/internsmarket/cli.git"
+  },
+  "license": "SEE LICENSE IN LICENSE",
+  "files": [
+    "bin/",
+    "dist/",
+    "README.md"
+  ],
   "scripts": {
-    "build": "tsc",
+    "build": "tsup",
     "dev": "tsc --watch",
     "start": "node bin/internsai.js",
     "test": "vitest run",
@@ -15,7 +35,6 @@
   },
   "dependencies": {
     "@inkjs/ui": "^2.0.0",
-    "@internsmarket/core": "^0.1.0",
     "commander": "^14.0.0",
     "conf": "^13.0.0",
     "got": "^14.4.0",
@@ -24,10 +43,12 @@
     "zod": "^3.24.0"
   },
   "devDependencies": {
+    "@internsmarket/core": "^0.1.0",
     "@types/node": "^20.0.0",
     "@types/react": "^18.3.0",
     "@vitest/coverage-v8": "^4.0.18",
     "execa": "^9.6.1",
+    "tsup": "^8.5.1",
     "typescript": "^5.7.0",
     "vitest": "^4.0.18"
   }
