@@ -29,8 +29,8 @@ export const BENEFIT_TIER_MAP: Record<string, Tier> = {
 export const TIER_RANK: Record<Tier, number> = { free: 0, starter: 1, pro: 2 };
 
 // GitHub Releases distribution — public repo, CLI-side license gate
-export const GITHUB_OWNER = 'internsmarket';
-export const GITHUB_REPO = 'packages';
+export const GITHUB_OWNER = 'lukebaze';
+export const GITHUB_REPO = 'internsMarketv2';
 export const GITHUB_RELEASE_TAG = 'packages-v1';
 export const GITHUB_MANIFEST_URL =
   `https://github.com/${GITHUB_OWNER}/${GITHUB_REPO}/releases/download/${GITHUB_RELEASE_TAG}/manifest.json`;
