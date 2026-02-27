@@ -50,11 +50,9 @@ export function applyToZeroClaw(internId: string): void {
   const tomlSrc = path.join(internPath, 'config', 'zeroclaw.toml');
   const zeroClawDir = path.join(os.homedir(), '.zeroclaw');
 
+  // Auto-create ~/.zeroclaw if it doesn't exist
   if (!fs.existsSync(zeroClawDir)) {
-    throw new Error(
-      `ZeroClaw not found at ~/.zeroclaw\n` +
-      `Install ZeroClaw first, then run this command again.`,
-    );
+    fs.mkdirSync(zeroClawDir, { recursive: true });
   }
 
   if (!fs.existsSync(tomlSrc)) {
