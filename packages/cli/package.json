@@ -1,6 +1,6 @@
 {
   "name": "internsmarket",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Hire, train & deploy your personal AI intern in one click. AIEOS-powered AI intern personas as CLI-installable packages.",
   "type": "module",
   "bin": {
