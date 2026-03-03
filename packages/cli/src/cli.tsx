@@ -12,6 +12,10 @@ import { StatusCommand } from './commands/status-command.js';
 import { ApplyCommand } from './commands/apply-command.js';
 import { SetupCommand } from './commands/setup-command.js';
 import type { SupportedRuntime } from './services/runtime-adapter-factory.js';
+import { skillInit } from './commands/skill-init-command.js';
+import { skillValidate } from './commands/skill-validate-command.js';
+import { skillPack } from './commands/skill-pack-command.js';
+import { SkillInstallCommand } from './commands/skill-install-command.js';
 
 const program = new Command();
 
@@ -101,6 +105,41 @@ program
         directRuntime={opts.runtime as SupportedRuntime | undefined}
         autoConfirm={opts.yes}
       />,
+    );
+    await waitUntilExit();
+  });
+
+const skill = program.command('skill').description('Manage AI agent skills');
+
+skill
+  .command('init [dir]')
+  .description('Scaffold a new skill directory')
+  .action(async (dir?: string) => {
+    await skillInit(dir ?? '.');
+  });
+
+skill
+  .command('validate [dir]')
+  .description('Validate a skill directory')
+  .action(async (dir?: string) => {
+    await skillValidate(dir ?? '.');
+  });
+
+skill
+  .command('pack [dir]')
+  .description('Pack a skill directory into a .tgz archive')
+  .option('-o, --output <dir>', 'Output directory', '.')
+  .action(async (dir?: string, opts?: { output?: string }) => {
+    await skillPack(dir ?? '.', opts?.output ?? '.');
+  });
+
+skill
+  .command('install <name>')
+  .description('Install a skill from the registry')
+  .option('-v, --version <range>', 'Version range', '*')
+  .action(async (name: string, opts: { version?: string }) => {
+    const { waitUntilExit } = render(
+      <SkillInstallCommand name={name} versionRange={opts.version ?? '*'} />,
     );
     await waitUntilExit();
   });

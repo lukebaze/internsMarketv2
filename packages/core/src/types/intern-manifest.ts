@@ -19,6 +19,7 @@ export interface InternManifest {
   readonly skills: string[];
   readonly created_at: string;
   readonly registry_url?: string;
+  readonly skillDependencies?: Record<string, string>;
 }
 
 /** Safe slug pattern: lowercase alphanumeric + hyphens only */
@@ -39,4 +40,5 @@ export const InternManifestSchema = z.object({
   skills: z.array(z.string()),
   created_at: z.string(),
   registry_url: z.string().optional(),
+  skillDependencies: z.record(z.string(), z.string()).optional(),
 });

@@ -2,8 +2,17 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';
-import type { InternPackage, AieosEntity } from '@internsmarket/core';
-import { compileIdentityMd, compileSoulMd } from '@internsmarket/core';
+import type { InternPackage, AieosEntity, InternManifest } from '@internsmarket/core';
+import {
+  compileIdentityMd,
+  compileSoulMd,
+  fetchSkillRegistryIndex,
+  resolveSkillDependencies,
+  getSkillDownloadUrl,
+  downloadSkillTgz,
+  deployResolvedSkills,
+  cleanStaleRegistrySkills,
+} from '@internsmarket/core';
 import { getInternPath } from './local-store-manager.js';
 
 /** Builds a TOML string for ZeroClaw config (no external dep — simple enough for manual serialization) */
@@ -73,11 +82,8 @@ function copySkillsToRuntime(zeroClawDir: string, internId: string, internPath: 
     if (!fs.statSync(srcDir).isDirectory()) continue;
 
     const destDir = path.join(destSkills, skillName);
-    fs.mkdirSync(destDir, { recursive: true });
-
-    for (const file of fs.readdirSync(srcDir)) {
-      fs.copyFileSync(path.join(srcDir, file), path.join(destDir, file));
-    }
+    // Use recursive copy to preserve subdirectory structure within each skill
+    fs.cpSync(srcDir, destDir, { recursive: true });
   }
 }
 
@@ -118,4 +124,64 @@ export function applyToZeroClaw(internId: string): void {
   }
 
   fs.appendFileSync(configToml, includeDirective, 'utf-8');
+}
+
+/**
+ * Reads manifest.json from intern install directory.
+ * Returns null if not found or unreadable.
+ */
+function loadManifest(internPath: string): InternManifest | null {
+  const manifestPath = path.join(internPath, 'manifest.json');
+  if (!fs.existsSync(manifestPath)) return null;
+  try {
+    return JSON.parse(fs.readFileSync(manifestPath, 'utf-8')) as InternManifest;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Enhanced apply: runs existing applyToZeroClaw (embedded skills),
+ * then resolves and deploys any skillDependencies from the registry.
+ * Backward compatible — interns without skillDependencies work exactly as before.
+ */
+export async function applyToZeroClawWithSkills(
+  internId: string,
+  onProgress?: (step: string) => void,
+): Promise<void> {
+  const internPath = getInternPath(internId);
+
+  // Apply embedded skills + workspace files (existing sync flow)
+  applyToZeroClaw(internId);
+
+  const manifest = loadManifest(internPath);
+  if (!manifest?.skillDependencies || Object.keys(manifest.skillDependencies).length === 0) {
+    // No registry deps — nothing more to do
+    return;
+  }
+
+  onProgress?.('Resolving skill dependencies...');
+
+  const index = await fetchSkillRegistryIndex();
+  const resolution = resolveSkillDependencies(manifest.skillDependencies, index);
+
+  // Download tarballs to ~/.internsmarket/tgz-cache/
+  const tgzCacheDir = path.join(os.homedir(), '.internsmarket', 'tgz-cache');
+  fs.mkdirSync(tgzCacheDir, { recursive: true });
+
+  for (const skill of resolution.resolved) {
+    const tgzPath = path.join(tgzCacheDir, `${skill.name}-${skill.version}.tgz`);
+    if (!fs.existsSync(tgzPath)) {
+      const url = getSkillDownloadUrl(skill.name, skill.version);
+      await downloadSkillTgz(url, tgzPath);
+    }
+  }
+
+  onProgress?.('Deploying registry skills...');
+
+  const zeroClawDir = path.join(os.homedir(), '.zeroclaw');
+  const internSkillsDir = path.join(zeroClawDir, 'skills', internId);
+
+  await deployResolvedSkills(resolution, internSkillsDir, tgzCacheDir);
+  cleanStaleRegistrySkills(internSkillsDir, resolution);
 }

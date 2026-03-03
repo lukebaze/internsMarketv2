@@ -11,7 +11,15 @@ interface Props {
   runtime: SupportedRuntime;
 }
 
-type Step = 'applying' | 'success' | 'error';
+type Step = 'applying' | 'resolving-skills' | 'deploying-skills' | 'success' | 'error';
+
+const STEP_LABELS: Record<Step, string> = {
+  'applying': 'Applying to runtime...',
+  'resolving-skills': 'Resolving skill dependencies...',
+  'deploying-skills': 'Deploying registry skills...',
+  'success': '',
+  'error': '',
+};
 
 export function ApplyCommand({ internId, runtime }: Props) {
   const { exit } = useApp();
@@ -19,15 +27,32 @@ export function ApplyCommand({ internId, runtime }: Props) {
   const [errorMsg, setErrorMsg] = useState('');
 
   useEffect(() => {
-    try {
-      getAdapter(runtime).apply(internId);
-      setStep('success');
-      setTimeout(() => exit(), 1200);
-    } catch (err) {
-      setErrorMsg(err instanceof Error ? err.message : String(err));
-      setStep('error');
-      setTimeout(() => exit(), 3000);
-    }
+    const run = async () => {
+      try {
+        const adapter = getAdapter(runtime);
+
+        if (adapter.applyWithSkills) {
+          await adapter.applyWithSkills(internId, (progressStep) => {
+            if (progressStep.toLowerCase().includes('resolving')) {
+              setStep('resolving-skills');
+            } else if (progressStep.toLowerCase().includes('deploying')) {
+              setStep('deploying-skills');
+            }
+          });
+        } else {
+          adapter.apply(internId);
+        }
+
+        setStep('success');
+        setTimeout(() => exit(), 1200);
+      } catch (err) {
+        setErrorMsg(err instanceof Error ? err.message : String(err));
+        setStep('error');
+        setTimeout(() => exit(), 3000);
+      }
+    };
+
+    run();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -35,9 +60,10 @@ export function ApplyCommand({ internId, runtime }: Props) {
     <Box flexDirection="column">
       <Text bold color="cyan">InternsMarket Apply</Text>
 
-      {step === 'applying' && (
+      {(step === 'applying' || step === 'resolving-skills' || step === 'deploying-skills') && (
         <Text color="yellow">
-          Applying <Text bold>{internId}</Text> to <Text bold>{runtime}</Text>...
+          {STEP_LABELS[step]}{' '}
+          <Text bold>{internId}</Text> → <Text bold>{runtime}</Text>
         </Text>
       )}
 

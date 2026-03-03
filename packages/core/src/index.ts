@@ -21,6 +21,11 @@ export type { SupportedRuntime, TierRequired, InternManifest } from './types/int
 export { InternManifestSchema } from './types/intern-manifest.js';
 export type { SkillFile, InternPackage } from './types/intern-package.js';
 
+// Skill package types
+export type { SkillRuntime, SkillManifest } from './types/skill-manifest.js';
+export { SkillManifestSchema, SLUG_REGEX } from './types/skill-manifest.js';
+export type { SkillPackage } from './types/skill-package-composite-type.js';
+
 // Validators
 export { AieosEntitySchema, validateAieos } from './validators/aieos-zod-schema.js';
 
@@ -35,3 +40,38 @@ export { readInternPackage } from './package-io/intern-package-reader.js';
 export { writeInternPackage } from './package-io/intern-package-writer.js';
 export { validateInternPackage } from './package-io/intern-package-validator.js';
 export type { ValidationResult } from './package-io/intern-package-validator.js';
+
+// Skill packaging
+export { readSkillPackage } from './skill-packaging/skill-reader.js';
+export { packSkill } from './skill-packaging/skill-directory-to-tgz-packer.js';
+export type { PackResult } from './skill-packaging/skill-directory-to-tgz-packer.js';
+export { installSkillFromTgz } from './skill-packaging/skill-tgz-to-directory-installer.js';
+
+// Skill registry
+export type {
+  SkillRegistryVersion,
+  SkillRegistryEntry,
+  SkillRegistryIndex,
+} from './skill-registry/skill-registry-types.js';
+export {
+  fetchSkillRegistryIndex,
+  fetchSkillEntry,
+  searchSkills,
+  getSkillDownloadUrl,
+  downloadSkillTgz,
+} from './skill-registry/skill-registry-fetch-client.js';
+export type {
+  ResolvedSkill,
+  ResolutionResult,
+} from './skill-registry/skill-dependency-resolver.js';
+export {
+  VersionConflictError,
+  SkillNotFoundError,
+  resolveSkillDependencies,
+} from './skill-registry/skill-dependency-resolver.js';
+
+// Skill adapters
+export {
+  deployResolvedSkills,
+  cleanStaleRegistrySkills,
+} from './skill-adapters/skill-deployer-zeroclaw.js';

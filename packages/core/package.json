@@ -17,10 +17,14 @@
     "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
+    "semver": "^7.7.1",
+    "tar": "^7.5.9",
     "zod": "^3.24.0"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",
+    "@types/semver": "^7.5.8",
+    "@types/tar": "^6.1.13",
     "@vitest/coverage-v8": "^4.0.18",
     "execa": "^9.6.1",
     "typescript": "^5.7.0",

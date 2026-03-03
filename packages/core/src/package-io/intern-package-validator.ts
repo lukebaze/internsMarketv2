@@ -49,6 +49,19 @@ export function validateInternPackage(dir: string): ValidationResult {
       }
     }
 
+    // Validate skillDependencies format if present
+    if (manifest.skillDependencies) {
+      const slugRegex = /^[a-z0-9][a-z0-9-]*[a-z0-9]$/;
+      for (const [name, range] of Object.entries(manifest.skillDependencies)) {
+        if (!slugRegex.test(name)) {
+          errors.push(`Invalid skill dependency name: "${name}" (must be kebab-case)`);
+        }
+        if (!range || typeof range !== 'string') {
+          errors.push(`Invalid version range for skill "${name}"`);
+        }
+      }
+    }
+
     // Check optional files
     if (!existsSync(join(dir, 'profile.png'))) {
       warnings.push('No profile.png found (optional but recommended)');
