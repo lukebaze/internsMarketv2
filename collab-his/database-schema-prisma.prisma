@@ -1,0 +1,123 @@
+// DATABASE SCHEMA (PRISMA) CHO TICKET 2.1
+// Muc tieu: Ho tro luong MVP thue Agent va Instant Deploy Clawbot
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// -----------------------------------------------------------------------------
+// 1. NGUOI DUNG & GIAO DICH
+// -----------------------------------------------------------------------------
+
+model User {
+  id             String        @id @default(uuid())
+  email          String        @unique
+  wallet_address String?       // Ho tro thanh toan Crypto/Web3
+  created_at     DateTime      @default(now())
+
+  transactions   Transaction[]
+  rentals        Rental[]
+}
+
+model Transaction {
+  id         String   @id @default(uuid())
+  user_id    String
+  amount     Decimal
+  currency   String   // USD, USDT...
+  status     TxStatus @default(PENDING)
+  created_at DateTime @default(now())
+
+  user       User     @relation(fields: [user_id], references: [id])
+  rentals    Rental[]
+}
+
+enum TxStatus {
+  PENDING
+  SUCCESS
+  FAILED
+}
+
+// -----------------------------------------------------------------------------
+// 2. SAN PHAM & KY NANG (GTM & SKILL SETS)
+// -----------------------------------------------------------------------------
+
+model Skill {
+  id            String       @id @default(uuid())
+  name          String       // VD: "Crawl Twitter", "Auto Reply"
+  config_schema Json         // Dinh nghia parameters dau vao cua skill
+
+  agents        AgentSkill[]
+}
+
+model Agent {
+  id         String       @id @default(uuid())
+  name       String
+  base_price Decimal
+  status     AgentStatus  @default(DRAFT)
+
+  skills     AgentSkill[]
+  rentals    Rental[]
+}
+
+model AgentSkill {
+  agent_id String
+  skill_id String
+
+  agent    Agent @relation(fields: [agent_id], references: [id])
+  skill    Skill @relation(fields: [skill_id], references: [id])
+
+  @@id([agent_id, skill_id])
+}
+
+enum AgentStatus {
+  ACTIVE
+  DRAFT
+}
+
+// -----------------------------------------------------------------------------
+// 3. VAN HANH & DASHBOARD (INSTANT DEPLOY)
+// -----------------------------------------------------------------------------
+
+model Rental {
+  id             String        @id @default(uuid())
+  user_id        String
+  agent_id       String
+  transaction_id String
+  status         RentalStatus  @default(ACTIVE)
+  start_date     DateTime      @default(now())
+  end_date       DateTime?
+
+  user           User          @relation(fields: [user_id], references: [id])
+  agent          Agent         @relation(fields: [agent_id], references: [id])
+  transaction    Transaction   @relation(fields: [transaction_id], references: [id])
+  bot_instances  BotInstance[]
+}
+
+enum RentalStatus {
+  ACTIVE
+  EXPIRED
+}
+
+model BotInstance {
+  id               String      @id @default(uuid())
+  rental_id        String
+  status           BotStatus   @default(STARTING)
+  user_configs     Json?       // Cau hinh custom cua user non-dev
+  provider_task_id String?     // ID quan ly instance tren Server (Docker/AWS)
+  created_at       DateTime    @default(now())
+  updated_at       DateTime    @updatedAt
+
+  rental           Rental      @relation(fields: [rental_id], references: [id])
+}
+
+enum BotStatus {
+  STARTING
+  RUNNING
+  STOPPED
+  ERROR
+}
