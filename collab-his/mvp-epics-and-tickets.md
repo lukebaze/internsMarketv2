@@ -1,52 +1,52 @@
-# EPIC 1: UX/UI DESIGN & USER JOURNEY
-**Muc tieu:** Toi uu hoa diem cham, dam bao End-user (Non-dev) thao tac muot ma nhat.
+# 🟢 EPIC 1: UX/UI DESIGN & USER JOURNEY
+**Mục tiêu:** Tối ưu hóa điểm chạm, đảm bảo End-user (Non-dev) thao tác mượt mà nhất.
 
 ## Ticket 1.1: Re-design Onboarding Flow
-**User Story:** La mot nguoi dung moi (khong biet code), toi muon trai qua mot luong dang ky va tim hieu san pham don gian de co the nhanh chong su dung Intern Agent.
+**User Story:** Là một người dùng mới (không biết code), tôi muốn trải qua một luồng đăng ký và tìm hiểu sản phẩm đơn giản để có thể nhanh chóng sử dụng Intern Agent.
 
 **Acceptance Criteria (AC):**
-- [ ] Hoan thien UI/UX luong Sign-up/Login.
-- [ ] Co man hinh gioi thieu (Walkthrough/Tooltip) ngan gon ve cach van hanh Clawbot.
-- [ ] Luong tu luc mo app den khi vao Dashboard toi da 3-4 steps.
+- [ ] Hoàn thiện UI/UX luồng Sign-up/Login.
+- [ ] Có màn hình giới thiệu (Walkthrough/Tooltip) ngắn gọn về cách vận hành Clawbot.
+- [ ] Luồng từ lúc mở app đến khi vào Dashboard tối đa 3-4 steps.
 
 ## Ticket 1.2: Design Management Dashboard & Instant Deploy Interface
-**User Story:** La mot nguoi dung, toi muon co mot Dashboard truc quan de theo doi trang thai va kich hoat Clawbot chi bang 1 nut bam.
+**User Story:** Là một người dùng, tôi muốn có một Dashboard trực quan để theo dõi trạng thái và kích hoạt Clawbot chỉ bằng 1 nút bấm.
 
 **Acceptance Criteria (AC):**
-- [ ] Hoan thien UI Dashboard quan ly danh sach Agent da thue.
-- [ ] Nut "Deploy" hoac "Start/Stop" duoc thiet ke noi bat, ro rang.
-- [ ] Co khu vuc hien thi trang thai bot (Active/Idle/Error) va thong so co ban.
+- [ ] Hoàn thiện UI Dashboard quản lý danh sách Agent đã thuê.
+- [ ] Nút "Deploy" hoặc "Start/Stop" được thiết kế nổi bật, rõ ràng.
+- [ ] Có khu vực hiển thị trạng thái bot (Active/Idle/Error) và thông số cơ bản.
 
 ---
 
-# EPIC 2: BACKEND ARCHITECTURE & INFRASTRUCTURE
-**Muc tieu:** Chuan bi nen tang loi vung chac cho MVP.
+# 🔵 EPIC 2: BACKEND ARCHITECTURE & INFRASTRUCTURE
+**Mục tiêu:** Chuẩn bị nền tảng lõi vững chắc cho MVP.
 
 ## Ticket 2.1: Re-build Backend Architecture
-**User Story:** La mot he thong, backend can duoc tai cau truc de xu ly muot ma luong request tang cao va ho tro viec tu dong hoa (automation) khi deploy bot.
+**User Story:** Là một hệ thống, backend cần được tái cấu trúc để xử lý mượt mà lượng request tăng cao và hỗ trợ việc tự động hóa (automation) khi deploy bot.
 
 **Acceptance Criteria (AC):**
-- [ ] Hoan thien tai lieu so do kien truc he thong moi.
-- [ ] Setup thanh cong moi truong Database (Users, Transactions, Bot status, Skill sets).
-- [ ] Xay dung luong logic de giao tiep muot ma voi server chay Clawbot.
+- [ ] Hoàn thiện tài liệu sơ đồ kiến trúc hệ thống mới.
+- [ ] Setup thành công môi trường Database (Users, Transactions, Bot status, Skill sets).
+- [ ] Xây dựng luồng logic để giao tiếp mượt mà với server chạy Clawbot.
 
 ---
 
-# EPIC 3: CORE MVP FEATURES (DEVELOPMENT)
-**Muc tieu:** Code cac tinh nang thiet yeu khep kin luong nguoi dung.
+# 🔴 EPIC 3: CORE MVP FEATURES (DEVELOPMENT)
+**Mục tiêu:** Code các tính năng thiết yếu khép kín luồng người dùng.
 
 ## Ticket 3.1: Develop "Rent Intern Agent" Flow & Payment Integration
-**User Story:** La mot nguoi dung, toi muon chon mot Intern Agent phu hop (dua tren skill sets) va tien hanh thanh toan an toan.
+**User Story:** Là một người dùng, tôi muốn chọn một Intern Agent phù hợp (dựa trên skill sets) và tiến hành thanh toán an toàn.
 
 **Acceptance Criteria (AC):**
-- [ ] He thong goi API hien thi dung danh sach va thong tin Agent/Skill sets (tu data cua Tiger).
-- [ ] Tich hop thanh cong module thanh toan (Payment Gateway).
-- [ ] Xu ly logic cap nhat trang thai "Da thanh toan" va cap quyen so huu bot cho user trong Database.
+- [ ] Hệ thống gọi API hiển thị đúng danh sách và thông tin Agent/Skill sets (từ data của Tiger).
+- [ ] Tích hợp thành công module thanh toán (Payment Gateway).
+- [ ] Xử lý logic cập nhật trạng thái "Đã thanh toán" và cấp quyền sở hữu bot cho user trong Database.
 
 ## Ticket 3.2: Develop Instant Deploy Mechanism & Dashboard Logic
-**User Story:** La mot nguoi dung non-dev, sau khi thue xong, toi muon an mot nut de bot tu dong chay (Instant Deploy) ma khong can cau hinh server hay go lenh.
+**User Story:** Là một người dùng non-dev, sau khi thuê xong, tôi muốn ấn một nút để bot tự động chạy (Instant Deploy) mà không cần cấu hình server hay gõ lệnh.
 
 **Acceptance Criteria (AC):**
-- [ ] API xu ly lenh "Deploy": Tu dong kich hoat instance cua Clawbot tuong ung voi user.
-- [ ] Thoi gian tu luc bam nut den luc bot chuyen trang thai "Active" duoi 2 phut.
-- [ ] Giao dien Dashboard nhan duoc tin hieu Real-time (hoac polling) tu Backend de hien thi dung tinh trang hien tai cua bot.
+- [ ] API xử lý lệnh "Deploy": Tự động kích hoạt instance của Clawbot tương ứng với user.
+- [ ] Thời gian từ lúc bấm nút đến lúc bot chuyển trạng thái "Active" dưới 2 phút.
+- [ ] Giao diện Dashboard nhận được tín hiệu Real-time (hoặc polling) từ Backend để hiển thị đúng tình trạng hiện tại của bot.
