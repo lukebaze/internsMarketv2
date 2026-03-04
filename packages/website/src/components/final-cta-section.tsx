@@ -1,7 +1,5 @@
 "use client";
 
-import { Terminal } from "lucide-react";
-import { AnimatedTerminal } from "./animated-terminal";
 import { ScrollReveal } from "./scroll-reveal";
 import { AnimatedCounter } from "./animated-counter";
 
@@ -42,129 +40,53 @@ export function FinalCtaSection() {
       {/* Bottom accent bar */}
       <div className="absolute bottom-0 left-0 right-0 h-[6px] bg-[var(--accent)]" />
 
-      {/* Desktop layout */}
-      <div className="hidden lg:block relative h-[600px]">
-        {/* Left content */}
-        <div className="absolute flex flex-col gap-8" style={{ left: 48, top: 80, width: 660 }}>
-          <ScrollReveal>
-            <h2 className="flex flex-col gap-1">
-              <span className="font-display text-[80px] font-black text-[var(--warm-white)] leading-[0.95] uppercase">
-                STOP PROMPTING.
-              </span>
-              <span className="font-display text-[80px] font-black text-[var(--accent)] leading-[0.95] uppercase">
-                START HIRING.
-              </span>
-            </h2>
-          </ScrollReveal>
-
-          <ScrollReveal delay={0.15}>
-            <p className="font-body text-[16px] text-[var(--text-muted)] leading-[1.6] max-w-[480px]">
-              Your next teammate has a name, a voice, and opinions. Interview them in 30 seconds. Deploy in one command. Walk away.
-            </p>
-          </ScrollReveal>
-
-          {/* Mini stats row */}
-          <ScrollReveal delay={0.3}>
-            <div className="flex items-start gap-10">
-              <StatItem target={500} suffix="+" label="GITHUB STARS" valueColor="text-[var(--warm-white)]" />
-              <StatItem target={1.2} suffix="K" label="USERS" valueColor="text-[var(--warm-white)]" />
-              <StatItem target={11} suffix="" label="AI INTERNS" valueColor="text-[var(--accent)]" />
-            </div>
-          </ScrollReveal>
-
-          {/* Tagline badge */}
-          <ScrollReveal delay={0.4}>
-            <div className="flex items-center gap-2">
-              <Terminal size={14} className="text-[var(--accent)]" aria-hidden="true" />
-              <span className="font-body text-[11px] font-bold text-[var(--text-muted-dark)] tracking-[1px]">
-                FULL IDENTITY · ONE COMMAND · YOUR RUNTIME
-              </span>
-            </div>
-          </ScrollReveal>
-        </div>
-
-        {/* Vertical divider */}
-        <div
-          className="absolute bg-[var(--brown-mid)]"
-          style={{ left: 730, top: 80, width: 2, height: 440 }}
-        />
-
-        {/* Right panel */}
-        <div
-          className="absolute flex flex-col"
-          style={{ left: 760, top: 60, width: 620, height: 480 }}
-        >
-          <AnimatedTerminal />
-
-          {/* CTA Button */}
-          <a
-            href="#install"
-            className="block w-full bg-[var(--accent-bright)] py-[22px] px-8 text-center no-underline mt-0 hover:opacity-90 transition-opacity"
-          >
-            <span className="font-display text-[26px] font-black text-white tracking-wide">
-              HIRE YOUR FIRST INTERN FREE →
-            </span>
-          </a>
-
-          <p className="font-body text-[12px] text-[var(--brown-light)] text-center mt-3">
-            3 interns free forever · No credit card · No subscription
-          </p>
-        </div>
-      </div>
-
-      {/* Mobile layout */}
-      <div className="lg:hidden flex flex-col gap-8 px-6 py-16">
+      {/* Single responsive centered layout */}
+      <div className="flex flex-col items-center text-center gap-8 px-6 md:px-16 py-16 md:py-20 max-w-[800px] mx-auto">
         <ScrollReveal>
           <h2 className="flex flex-col gap-1">
-            <span className="font-display text-[48px] font-black text-[var(--warm-white)] leading-[0.95] uppercase">
+            <span className="font-display text-[48px] md:text-[80px] font-black text-[var(--text-primary)] leading-[0.95] uppercase">
               STOP PROMPTING.
             </span>
-            <span className="font-display text-[48px] font-black text-[var(--accent)] leading-[0.95] uppercase">
+            <span className="font-display text-[48px] md:text-[80px] font-black text-[var(--accent)] leading-[0.95] uppercase">
               START HIRING.
             </span>
           </h2>
         </ScrollReveal>
 
-        <ScrollReveal delay={0.1}>
-          <p className="font-body text-[16px] text-[var(--text-muted)] leading-[1.6]">
-            Your next teammate has a name, a voice, and opinions. Interview them in 30 seconds. Deploy in one command. Walk away.
+        <ScrollReveal delay={0.15}>
+          <p className="font-body text-[16px] text-[var(--text-muted)] leading-[1.6] max-w-[480px] mx-auto">
+            Your next teammate has a name, a voice, and opinions. Browse the roster. Start your free trial. Walk away.
           </p>
         </ScrollReveal>
 
-        {/* Mini stats */}
-        <ScrollReveal delay={0.2}>
-          <div className="flex items-start gap-8">
-            <StatItem target={500} suffix="+" label="GITHUB STARS" valueColor="text-[var(--warm-white)]" />
-            <StatItem target={1.2} suffix="K" label="USERS" valueColor="text-[var(--warm-white)]" />
+        {/* Mini stats row */}
+        <ScrollReveal delay={0.3}>
+          <div className="flex items-start gap-8 md:gap-10 justify-center">
+            <StatItem target={1.2} suffix="K" label="USERS" valueColor="text-[var(--text-primary)]" />
             <StatItem target={11} suffix="" label="AI INTERNS" valueColor="text-[var(--accent)]" />
+            <StatItem target={55} suffix="+" label="SKILLS" valueColor="text-[var(--text-primary)]" />
           </div>
         </ScrollReveal>
 
         {/* Tagline badge */}
-        <ScrollReveal delay={0.3}>
-          <div className="flex items-center gap-2">
-            <Terminal size={14} className="text-[var(--accent)]" />
-            <span className="font-body text-[11px] font-bold text-[var(--text-muted-dark)] tracking-[1px]">
-              FULL IDENTITY · ONE COMMAND · YOUR RUNTIME
-            </span>
-          </div>
+        <ScrollReveal delay={0.4}>
+          <span className="font-body text-[11px] font-bold text-[var(--text-muted-dark)] tracking-[1px]">
+            FULL IDENTITY &middot; 3-DAY TRIAL &middot; CANCEL ANYTIME
+          </span>
         </ScrollReveal>
 
-        {/* Demo video player */}
-        <AnimatedTerminal />
-
-        {/* CTA Button */}
+        {/* CTA */}
         <a
-          href="#install"
-          className="block w-full bg-[var(--accent-bright)] py-5 px-8 text-center no-underline hover:opacity-90 transition-opacity"
+          href="#gallery"
+          className="block w-full max-w-[400px] bg-[var(--accent-bright)] py-5 px-8 text-center no-underline hover:opacity-90 transition-opacity"
         >
-          <span className="font-display text-[22px] font-black text-white tracking-wide">
-            HIRE YOUR FIRST INTERN FREE →
+          <span className="font-display text-[22px] md:text-[26px] font-black text-white tracking-wide">
+            BROWSE INTERNS &rarr;
           </span>
         </a>
 
-        <p className="font-body text-[12px] text-[var(--brown-light)] text-center">
-          3 interns free forever · No credit card · No subscription
+        <p className="font-body text-[12px] text-[var(--text-muted)] text-center">
+          3-day free trial &middot; No credit card &middot; Cancel anytime
         </p>
       </div>
     </section>

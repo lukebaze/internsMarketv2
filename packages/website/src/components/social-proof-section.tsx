@@ -33,8 +33,8 @@ const testimonials = [
 ];
 
 const trustItems = [
-  { icon: ShieldCheck, text: "NO EXTERNAL API CALLS" },
-  { icon: Lock, text: "RUNS LOCALLY ON YOUR MACHINE" },
+  { icon: ShieldCheck, text: "ENCRYPTED AT REST" },
+  { icon: Lock, text: "CANCEL ANYTIME" },
   { icon: EyeOff, text: "YOUR DATA, YOUR CONTROL" },
 ];
 
@@ -63,14 +63,18 @@ export function SocialProofSection() {
         ))}
       </div>
 
-      {/* Testimonials Row */}
-      <div className="flex flex-col md:flex-row w-full">
-        {testimonials.map((t, i) => (
-          <ScrollReveal key={t.attribution} delay={i * 0.15} className="flex-1">
+      {/* Testimonials Marquee */}
+      <div className="overflow-hidden w-full group">
+        <div
+          className="marquee-track flex gap-6"
+          style={{ animation: "scroll-marquee 40s linear infinite", width: "max-content" }}
+          onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.animationPlayState = "paused"; }}
+          onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.animationPlayState = "running"; }}
+        >
+          {[...testimonials, ...testimonials].map((t, i) => (
             <div
-              className={`flex flex-col gap-4 p-6 h-full ${
-                t.hasBorder ? "md:border-r-2 border-[var(--text-muted-dark)]" : ""
-              }`}
+              key={`${t.attribution}-${i}`}
+              className="flex flex-col gap-4 p-6 bg-[var(--bg-surface)] border border-[var(--border)] rounded-lg min-w-[340px] max-w-[400px] shrink-0"
             >
               <p className="font-body text-[13px] text-[var(--text-inverted)] leading-[1.5]">
                 {t.quote}
@@ -79,8 +83,8 @@ export function SocialProofSection() {
                 {t.attribution}
               </span>
             </div>
-          </ScrollReveal>
-        ))}
+          ))}
+        </div>
       </div>
 
       {/* Trust Bar */}

@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import type { Intern } from "@/data/interns-data";
-import { BUNDLE_PRICES, BUNDLE_CHECKOUT_URLS, tierBgClass } from "@/data/interns-data";
+import { MONTHLY_PRICE, tierBgClass } from "@/data/interns-data";
 
 interface InternDetailOverlayProps {
   intern: Intern;
@@ -38,9 +38,6 @@ export function InternDetailOverlay({ intern, onClose }: InternDetailOverlayProp
     };
   }, []);
 
-  const bundleUrl = intern.tier === "pro" ? BUNDLE_CHECKOUT_URLS.pro : BUNDLE_CHECKOUT_URLS.starter;
-  const bundlePrice = intern.tier === "pro" ? BUNDLE_PRICES.pro : BUNDLE_PRICES.starter;
-
   return (
     <>
       {/* Backdrop */}
@@ -65,7 +62,7 @@ export function InternDetailOverlay({ intern, onClose }: InternDetailOverlayProp
         <button
           ref={closeRef}
           onClick={onClose}
-          className="absolute -top-3 -right-3 z-10 w-8 h-8 flex items-center justify-center bg-[var(--warm-white)] border-2 border-[var(--stroke)] rounded-full cursor-pointer hover:bg-[var(--brown-light)] transition-colors shadow-md"
+          className="absolute -top-3 -right-3 z-10 w-8 h-8 flex items-center justify-center bg-[var(--bg-surface)] border-2 border-[var(--stroke)] rounded-full cursor-pointer hover:bg-[var(--stroke)] transition-colors shadow-md"
           aria-label="Close"
         >
           <svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="var(--text-primary)" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true">
@@ -74,7 +71,7 @@ export function InternDetailOverlay({ intern, onClose }: InternDetailOverlayProp
         </button>
 
         {/* Inner scrollable card — side-by-side on desktop, stacked on mobile */}
-        <div className="w-full max-h-[90vh] overflow-y-auto bg-[var(--warm-white)] border-2 border-[var(--stroke)] flex flex-col md:flex-row">
+        <div className="w-full max-h-[90vh] overflow-y-auto bg-[var(--bg-surface)] border-2 border-[var(--stroke)] flex flex-col md:flex-row">
 
         {/* Left column — Avatar (stacks on top for mobile) */}
         <div className="w-full md:w-[40%] flex-shrink-0">
@@ -121,7 +118,7 @@ export function InternDetailOverlay({ intern, onClose }: InternDetailOverlayProp
               {intern.skills.map((skill) => (
                 <span
                   key={skill}
-                  className="font-body text-[11px] text-[var(--text-muted-dark)] border border-[var(--brown-light)] rounded-[4px] px-2 py-[2px]"
+                  className="font-body text-[11px] text-[var(--text-muted-dark)] border border-[var(--stroke)] rounded-[4px] px-2 py-[2px]"
                 >
                   {skill}
                 </span>
@@ -146,36 +143,16 @@ export function InternDetailOverlay({ intern, onClose }: InternDetailOverlayProp
 
           {/* CTA */}
           <div className="mt-auto pt-2 flex flex-col gap-1">
-            {intern.tier === "free" ? (
-              <a
-                href="#install"
-                onClick={(e) => e.stopPropagation()}
-                className="block w-full bg-[var(--bg-black)] text-[var(--text-inverted)] font-body text-[13px] font-bold px-5 py-[10px] text-center no-underline hover:bg-[var(--brown-dark)] transition-colors"
-              >
-                INSTALL FREE
-              </a>
-            ) : (
-              <>
-                <a
-                  href={intern.checkoutUrl || "#pricing"}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={(e) => e.stopPropagation()}
-                  className="block w-full bg-[var(--bg-black)] text-[var(--text-inverted)] font-body text-[13px] font-bold px-5 py-[10px] text-center no-underline hover:bg-[var(--brown-dark)] transition-colors"
-                >
-                  BUY FOR ${intern.price}
-                </a>
-                <a
-                  href={bundleUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={(e) => e.stopPropagation()}
-                  className="font-body text-[11px] text-[var(--text-muted-dark)] text-center no-underline hover:text-[var(--text-primary)] transition-colors"
-                >
-                  or get all interns for ${bundlePrice}
-                </a>
-              </>
-            )}
+            <a
+              href="#gallery"
+              onClick={(e) => e.stopPropagation()}
+              className="block w-full bg-[var(--bg-black)] text-[var(--text-inverted)] font-body text-[13px] font-bold px-5 py-[10px] text-center no-underline hover:bg-[var(--bg-tertiary)] transition-colors"
+            >
+              HIRE FOR ${MONTHLY_PRICE}/MO
+            </a>
+            <span className="font-body text-[11px] text-[var(--text-muted-dark)] text-center">
+              3-day free trial included
+            </span>
           </div>
         </div>
         </div>

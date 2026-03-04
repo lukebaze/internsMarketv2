@@ -1,192 +1,120 @@
-"use client";
-
-import { BUNDLE_PRICES, BUNDLE_CHECKOUT_URLS } from "@/data/interns-data";
+import { MONTHLY_PRICE, MONTHLY_PRICE_3_PACK } from "@/data/interns-data";
 import { ScrollReveal } from "./scroll-reveal";
 
-const freeFeatures = [
-  "✓  3 free interns included",
-  "✓  Multi-runtime support",
-  "✓  CLI management",
-  "✓  Community Discord",
+const sharedFeatures = [
+  "Full personality & identity",
+  "Works 24/7",
+  "Dedicated to your tasks",
+  "Cancel anytime",
+  "3-day free trial (internship probation)",
 ];
-
-const starterFeatures = [
-  "✓  All 11 interns unlocked",
-  "✓  5 concurrent interns",
-  "✓  Multi-runtime support",
-  "✓  Email support",
-  "✓  Community Discord",
-];
-
-const proFeatures = [
-  "✓  All current + future v1.x interns",
-  "✓  Unlimited concurrent interns",
-  "✓  Custom runtime integration",
-  "✓  Priority email support",
-  "✓  Community Discord",
-];
-
-const enterpriseFeatures = [
-  "✓  Unlimited everything",
-  "✓  Priority support + SLA",
-  "✓  Dedicated account manager",
-  "✓  Custom integrations",
-];
-
-function FeatureList({
-  features,
-  textClass,
-}: {
-  features: string[];
-  textClass: string;
-}) {
-  return (
-    <div className="flex flex-col gap-3">
-      {features.map((f) => (
-        <span key={f} className={`font-body text-[13px] leading-[1.5] ${textClass}`}>
-          {f}
-        </span>
-      ))}
-    </div>
-  );
-}
 
 export function PricingSection() {
   return (
-    <section id="pricing" className="w-full bg-[var(--warm-white)] border-t-2 border-[var(--stroke)] px-12 py-16 flex flex-col gap-10">
+    <section id="pricing" className="w-full bg-[var(--bg-black)] border-t-2 border-[var(--stroke)] px-6 md:px-12 py-16 flex flex-col gap-10">
       {/* Header */}
       <ScrollReveal className="flex flex-col gap-3 w-full">
         <span className="font-body text-[13px] font-bold text-[var(--text-primary)] tracking-[1.5px]">
           PRICING
         </span>
         <h2 className="font-display text-[32px] md:text-[64px] font-black text-[var(--text-primary)] leading-none">
-          PAY ONCE. KEEP FOREVER.
+          HIRE BY THE MONTH
         </h2>
         <p className="font-body text-[13px] text-[var(--text-muted-dark)]">
-          Interview 3 interns free. No subscription. No credit card. Upgrade when they prove their worth.
+          Each intern is ${MONTHLY_PRICE}/month. Start with a 3-day free trial. Cancel anytime.
         </p>
       </ScrollReveal>
 
       {/* Pricing Tiers */}
       <div className="flex flex-col md:flex-row w-full">
-        {/* Free Tier */}
-        <div className="flex-1 flex flex-col justify-between gap-5 p-6 border-r-2 border-b-2 border-[var(--stroke)] min-h-[506px] bg-[var(--warm-white)]">
+        {/* 1 Intern */}
+        <div className="flex-1 flex flex-col justify-between gap-5 p-6 border-r-0 md:border-r-2 border-b-2 md:border-b-0 border-[var(--stroke)] min-h-[360px] bg-[var(--bg-surface)] hover-lift">
           <div className="flex flex-col gap-5">
             <span className="font-body text-[13px] font-bold tracking-[1.5px] text-[var(--text-primary)]">
-              FREE
+              1 INTERN
             </span>
             <div className="flex flex-col gap-0">
               <span className="font-display text-[64px] font-black text-[var(--text-primary)] leading-[0.9] tabular-nums">
-                $0
+                ${MONTHLY_PRICE}
               </span>
               <span className="font-body text-[11px] font-bold text-[var(--text-muted-dark)] tracking-[1.5px]">
-                FOREVER FREE
+                PER INTERN / MONTH
               </span>
             </div>
-            <div className="w-full h-[2px] bg-[var(--stroke)]" />
-            <FeatureList features={freeFeatures} textClass="text-[var(--text-primary)]" />
           </div>
           <a
-            href="#install"
-            className="block w-full font-body text-[13px] font-bold text-[var(--text-primary)] tracking-[1.5px] border-[1.5px] border-[var(--stroke)] px-6 py-[14px] text-center bg-transparent hover:bg-black/5 transition-colors no-underline"
+            href="#gallery"
+            className="block w-full font-body text-[13px] font-bold text-[var(--text-primary)] tracking-[1.5px] border-[1.5px] border-[var(--stroke)] px-6 py-[14px] text-center bg-transparent hover:bg-white/5 transition-colors no-underline"
           >
-            INSTALL FREE
+            START FREE TRIAL
           </a>
         </div>
 
-        {/* Starter Bundle (Highlighted) */}
-        <div className="flex-1 flex flex-col justify-between gap-5 p-6 border-r-2 border-b-2 border-[var(--stroke)] min-h-[506px] bg-[var(--brown-dark)]">
+        {/* 3 Interns — highlighted */}
+        <div className="flex-1 flex flex-col justify-between gap-5 p-6 min-h-[360px] bg-[var(--bg-surface)] border-2 border-[var(--accent)] shadow-[0_0_20px_rgba(255,77,0,0.15)] hover-lift">
           <div className="flex flex-col gap-5">
             <div className="flex flex-col gap-2">
-              <span className="self-start font-body text-[11px] font-bold text-[var(--text-primary)] tracking-[1.5px] bg-[var(--accent)] px-3 py-[6px] rounded-[4px]">
+              <span className="self-start font-body text-[11px] font-bold text-white tracking-[1.5px] bg-[var(--accent)] px-3 py-[6px] rounded-[4px]">
                 MOST POPULAR
               </span>
               <span className="font-body text-[13px] font-bold tracking-[1.5px] text-[var(--text-inverted)]">
-                STARTER BUNDLE
+                3 INTERNS
               </span>
             </div>
             <div className="flex flex-col gap-0">
               <span className="font-display text-[64px] font-black text-[var(--text-inverted)] leading-[0.9] tabular-nums">
-                ${BUNDLE_PRICES.starter}
+                ${MONTHLY_PRICE_3_PACK}
               </span>
               <span className="font-body text-[11px] font-bold text-[var(--text-muted)] tracking-[1.5px]">
-                ONE-TIME
+                PER MONTH
               </span>
             </div>
-            {/* Savings callout */}
             <span className="font-body text-[11px] text-[var(--accent)] font-bold tracking-[0.5px]">
-              Save $103 vs buying individually
+              SAVE {Math.round((1 - MONTHLY_PRICE_3_PACK / (MONTHLY_PRICE * 3)) * 100)}% vs individual pricing
             </span>
-            <div className="w-full h-[2px] bg-[var(--text-muted-dark)]" />
-            <FeatureList features={starterFeatures} textClass="text-[var(--text-inverted)]" />
           </div>
           <a
-            href={BUNDLE_CHECKOUT_URLS.starter}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block w-full font-body text-[13px] font-bold text-[var(--text-primary)] tracking-[1.5px] bg-[var(--accent)] px-6 py-[14px] text-center hover:bg-[var(--accent-bright)] transition-colors no-underline"
+            href="#gallery"
+            className="block w-full font-body text-[13px] font-bold text-white tracking-[1.5px] bg-[var(--accent)] px-6 py-[14px] text-center hover:bg-[var(--accent-bright)] transition-colors no-underline"
           >
-            BUY STARTER BUNDLE
+            START FREE TRIAL
           </a>
         </div>
 
-        {/* Pro Bundle */}
-        <div className="flex-1 flex flex-col justify-between gap-5 p-6 border-r-2 border-b-2 border-[var(--stroke)] min-h-[506px] bg-[var(--warm-white)]">
-          <div className="flex flex-col gap-5">
-            <div className="flex flex-col gap-2">
-              <span className="self-start font-body text-[11px] font-bold text-[var(--text-inverted)] tracking-[1.5px] bg-[var(--bg-black)] px-3 py-[6px] rounded-[4px]">
-                INCLUDES FUTURE INTERNS
-              </span>
-              <span className="font-body text-[13px] font-bold tracking-[1.5px] text-[var(--text-primary)]">
-                PRO BUNDLE
-              </span>
-            </div>
-            <div className="flex flex-col gap-0">
-              <span className="font-display text-[64px] font-black text-[var(--text-primary)] leading-[0.9] tabular-nums">
-                ${BUNDLE_PRICES.pro}
-              </span>
-              <span className="font-body text-[11px] font-bold text-[var(--text-muted-dark)] tracking-[1.5px]">
-                ONE-TIME
-              </span>
-            </div>
-            <div className="w-full h-[2px] bg-[var(--stroke)]" />
-            <FeatureList features={proFeatures} textClass="text-[var(--text-primary)]" />
-          </div>
-          <a
-            href={BUNDLE_CHECKOUT_URLS.pro}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block w-full font-body text-[13px] font-bold text-[var(--text-inverted)] tracking-[1.5px] bg-[var(--bg-black)] px-6 py-[14px] text-center hover:bg-black/80 transition-colors no-underline"
-          >
-            BUY PRO BUNDLE
-          </a>
-        </div>
-
-        {/* Enterprise Tier */}
-        <div className="flex-1 flex flex-col justify-between gap-5 p-6 border-b-2 border-[var(--stroke)] min-h-[506px] bg-[var(--warm-white)]">
+        {/* Team 5+ */}
+        <div className="flex-1 flex flex-col justify-between gap-5 p-6 border-l-0 md:border-l-2 border-t-2 md:border-t-0 border-[var(--stroke)] min-h-[360px] bg-[var(--bg-surface)] hover-lift">
           <div className="flex flex-col gap-5">
             <span className="font-body text-[13px] font-bold tracking-[1.5px] text-[var(--text-primary)]">
-              ENTERPRISE
+              TEAM 5+
             </span>
             <div className="flex flex-col gap-0">
               <span className="font-display text-[64px] font-black text-[var(--text-primary)] leading-[0.9] tabular-nums">
                 CUSTOM
               </span>
               <span className="font-body text-[11px] font-bold text-[var(--text-muted-dark)] tracking-[1.5px]">
-                CONTACT US
+                CUSTOM PRICING
               </span>
             </div>
-            <div className="w-full h-[2px] bg-[var(--stroke)]" />
-            <FeatureList features={enterpriseFeatures} textClass="text-[var(--text-primary)]" />
           </div>
           <a
             href="mailto:enterprise@internsmarket.com"
-            className="block w-full font-body text-[13px] font-bold text-[var(--text-primary)] tracking-[1.5px] border-[1.5px] border-[var(--stroke)] px-6 py-[14px] text-center bg-transparent hover:bg-black/5 transition-colors no-underline"
+            className="block w-full font-body text-[13px] font-bold text-[var(--text-primary)] tracking-[1.5px] border-[1.5px] border-[var(--stroke)] px-6 py-[14px] text-center bg-transparent hover:bg-white/5 transition-colors no-underline"
           >
             CONTACT US
           </a>
         </div>
       </div>
+
+      {/* Shared features */}
+      <ScrollReveal className="flex flex-col gap-3 w-full items-center">
+        <div className="flex flex-wrap justify-center gap-x-6 gap-y-2">
+          {sharedFeatures.map((f) => (
+            <span key={f} className="font-body text-[13px] text-[var(--text-muted-dark)] leading-[1.5]">
+              &#10003; {f}
+            </span>
+          ))}
+        </div>
+      </ScrollReveal>
     </section>
   );
 }

@@ -1,8 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { BUNDLE_PRICES, BUNDLE_CHECKOUT_URLS, tierBgClass } from "@/data/interns-data";
-
 export interface InternCardProps {
   name: string;
   role: string;
@@ -10,130 +7,47 @@ export interface InternCardProps {
   quote: string;
   skills: string[];
   image: string;
-  price: number;
-  checkoutUrl?: string;
-  isLast?: boolean;
   onClick?: () => void;
-}
-
-// Badge label: free shows "FREE", paid tiers show their price
-function tierBadgeLabel(tier: string, price: number): string {
-  if (tier === "free") return "FREE";
-  return `$${price}`;
 }
 
 export function InternCard({
   name,
   role,
-  tier,
-  quote,
-  skills,
   image,
-  price,
-  checkoutUrl,
-  isLast = false,
   onClick,
 }: InternCardProps) {
-  const borderClass = isLast
-    ? "border-b-2 border-[var(--stroke)]"
-    : "border-b-2 border-r-2 border-[var(--stroke)]";
-
   return (
-    <motion.div
-      layoutId={name}
+    <div
       onClick={onClick}
-      className={`flex flex-col gap-3 p-6 h-full bg-[var(--warm-white)] cursor-pointer ${borderClass}`}
+      className="group/card relative w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 flex-shrink-0 mx-2
+        rounded-lg overflow-hidden bg-[var(--bg-surface)] cursor-pointer
+        border-2 border-transparent hover:border-[var(--accent)] transition-all duration-300
+        hover:shadow-[0_0_20px_rgba(255,77,0,0.3)] hover:scale-105"
     >
-      {/* Avatar image */}
-      <div className="w-full h-[200px] overflow-hidden flex-shrink-0">
-        <img
-          src={image}
-          alt={name}
-          width={400}
-          height={200}
-          loading="lazy"
-          className="w-full h-full object-cover object-top"
-        />
-      </div>
+      {/* Portrait image — grayscale by default, color on hover */}
+      <img
+        src={image}
+        alt={name}
+        loading="lazy"
+        className="absolute inset-0 w-full h-full object-cover object-top
+          grayscale group-hover/card:grayscale-0 transition-all duration-400
+          group-hover/card:scale-105"
+      />
 
-      {/* Name + tier badge row */}
-      <div className="flex items-start justify-between gap-2">
-        <span
-          className="font-display text-[22px] font-black text-[var(--text-primary)] leading-tight"
-          style={{ letterSpacing: "1px" }}
+      {/* Gradient overlay with name + role — visible on hover */}
+      <div
+        className="absolute inset-x-0 bottom-0 px-4 pb-4 pt-16
+          bg-gradient-to-t from-black/80 via-black/40 to-transparent
+          opacity-0 group-hover/card:opacity-100 transition-opacity duration-300"
+      >
+        <p
+          className="font-display text-base font-black text-white leading-tight"
+          style={{ letterSpacing: "0.5px" }}
         >
           {name}
-        </span>
-        <span
-          className={`${tierBgClass[tier]} rounded-[4px] px-[10px] py-1 flex-shrink-0`}
-        >
-          <span
-            className="font-body text-[11px] font-bold text-[var(--text-inverted)] uppercase"
-            style={{ letterSpacing: "0.5px" }}
-          >
-            {tierBadgeLabel(tier, price)}
-          </span>
-        </span>
+        </p>
+        <p className="font-body text-xs text-white/70 mt-1">{role}</p>
       </div>
-
-      {/* Role */}
-      <span className="font-body text-[13px] text-[var(--text-primary)]">
-        {role}
-      </span>
-
-      {/* Skills */}
-      <div className="flex flex-row flex-wrap gap-[6px]">
-        {skills.map((skill) => (
-          <span
-            key={skill}
-            className="font-body text-[11px] text-[var(--text-muted-dark)] border border-[var(--brown-light)] rounded-[4px] px-2 py-[2px]"
-          >
-            {skill}
-          </span>
-        ))}
-      </div>
-
-      {/* Quote */}
-      <p
-        className="font-body text-[13px] italic text-[var(--text-primary)] leading-[1.5] overflow-hidden"
-        style={{ maxHeight: "40px" }}
-      >
-        {quote}
-      </p>
-
-      {/* CTA button */}
-      <div className="mt-auto pt-2 flex flex-col gap-1">
-        {tier === "free" ? (
-          <a
-            href="#install"
-            onClick={(e) => e.stopPropagation()}
-            className="block w-full bg-[var(--bg-black)] text-[var(--text-inverted)] font-body text-[13px] font-bold px-5 py-[10px] text-center no-underline hover:bg-[var(--brown-dark)] transition-colors"
-          >
-            INSTALL FREE
-          </a>
-        ) : (
-          <>
-            <a
-              href={checkoutUrl || "#pricing"}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={(e) => e.stopPropagation()}
-              className="block w-full bg-[var(--bg-black)] text-[var(--text-inverted)] font-body text-[13px] font-bold px-5 py-[10px] text-center no-underline hover:bg-[var(--brown-dark)] transition-colors"
-            >
-              BUY FOR ${price}
-            </a>
-            <a
-              href={BUNDLE_CHECKOUT_URLS.starter}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={(e) => e.stopPropagation()}
-              className="font-body text-[11px] text-[var(--text-muted-dark)] text-center no-underline hover:text-[var(--text-primary)] transition-colors"
-            >
-              or get all interns for ${BUNDLE_PRICES.starter}
-            </a>
-          </>
-        )}
-      </div>
-    </motion.div>
+    </div>
   );
 }
