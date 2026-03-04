@@ -1,30 +1,33 @@
 @import "tailwindcss";
 
 :root {
-  --accent: #F59E0B;
-  --accent-bright: #FBBF24;
-  --accent-dark: #D97706;
-  --bg-black: #1D1916;
-  --bg-white: #F5EDE0;
-  --text-primary: #2A211A;
-  --text-inverted: #EDE5D8;
-  --text-muted: #A08B76;
-  --text-muted-dark: #6B5243;
-  --text-muted-light: #C4B09A;
-  --stroke: #3D3028;
-  --warm-white: #F5EDE0;
-  --warm-bg: #EAE0D0;
-  --brown-dark: #2D1810;
-  --brown-mid: #5C3A24;
-  --brown-light: #8B7A6B;
-  --terminal-bg: #15110E;
-  --terminal-bar: #221A14;
-  --terminal-border: #3D3028;
+  --accent: #ff4d00;
+  --accent-bright: #ff6a2e;
+  --accent-dark: #cc3d00;
+  --bg-black: #0a0a0a;
+  --bg-white: #0a0a0a; /* aliased for backward compat — dark theme */
+  --bg-surface: #1E1E1E;
+  --bg-tertiary: #121212;
+  --text-primary: #ffffff;
+  --text-inverted: #ffffff; /* both white in dark theme */
+  --text-muted: #999999;
+  --text-muted-dark: #888888;
+  --text-muted-light: #bbbbbb;
+  --stroke: #333333;
+  --warm-white: #ffffff;
+  --warm-bg: #121212;
+  --brown-dark: #0a0a0a;
+  --brown-mid: #333333;
+  --brown-light: #666666;
+  --terminal-bg: #0d0d0d;
+  --terminal-bar: #1a1a1a;
+  --terminal-border: #333333;
   --free-tier: #84CC6A;
-  --starter-tier: #F59E0B;
-  --pro-tier: #E8722A;
+  --starter-tier: #ff4d00;
+  --pro-tier: #ff6a2e;
   --success-green: #84CC6A;
   --nav-height: 56px;
+  --border: #333333;
 }
 
 @layer base {
@@ -34,6 +37,8 @@
 
   html {
     scroll-behavior: smooth;
+    scrollbar-color: #333 #0a0a0a;
+    scrollbar-width: thin;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -41,6 +46,11 @@
       scroll-behavior: auto;
     }
   }
+
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-track { background: #0a0a0a; }
+  ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: #ff4d00; }
 
   /* Global focus-visible style for all interactive elements */
   a:focus-visible,
@@ -55,11 +65,11 @@
   }
 
   .font-display {
-    font-family: "Anton", sans-serif;
+    font-family: "Satoshi", sans-serif;
   }
 
   .font-body {
-    font-family: "Inter", sans-serif;
+    font-family: "Manrope", sans-serif;
   }
 
   .font-mono {
@@ -70,4 +80,78 @@
   .tabular-nums {
     font-variant-numeric: tabular-nums;
   }
+}
+
+/* Lava morphing blob animation */
+@keyframes lava-morph {
+  0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; transform: rotate(0deg) scale(1); }
+  25% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; transform: rotate(90deg) scale(1.05); }
+  50% { border-radius: 50% 60% 30% 60% / 30% 50% 70% 50%; transform: rotate(180deg) scale(0.95); }
+  75% { border-radius: 60% 40% 60% 40% / 70% 30% 50% 60%; transform: rotate(270deg) scale(1.02); }
+}
+
+.lava-blob {
+  animation: lava-morph 12s ease-in-out infinite;
+  background: radial-gradient(circle, rgba(255,77,0,0.3) 0%, rgba(255,77,0,0.05) 70%, transparent 100%);
+  filter: blur(60px);
+  width: 500px;
+  height: 500px;
+  position: absolute;
+  top: calc(50% - 250px);
+  left: 30%;
+  transform-origin: center;
+  z-index: 1;
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* Glass-morphism nav — Safari needs -webkit- prefix */
+.glass-nav {
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+/* Hover micro-interaction for cards */
+.hover-lift {
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.3s ease;
+}
+.hover-lift:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 25px rgba(255, 77, 0, 0.08);
+}
+
+/* Social proof marquee */
+@keyframes scroll-marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Intern catalog marquee — two rows, opposite directions */
+@keyframes scroll-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes scroll-right {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+/* Photo card grayscale-to-color transition */
+.photo-card-img {
+  filter: grayscale(100%);
+  transition: filter 0.4s ease, transform 0.4s ease;
+}
+.group:hover .photo-card-img {
+  filter: grayscale(0%);
+  transform: scale(1.05);
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .lava-blob { animation: none; opacity: 0.3; }
+  .hover-lift:hover { transform: none; }
+  .marquee-track { animation: none !important; }
+  .intern-marquee-track { animation: none !important; }
+  .photo-card-img { transition: none; }
+  .group:hover .photo-card-img { transform: none; }
 }

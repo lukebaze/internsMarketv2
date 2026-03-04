@@ -10,7 +10,7 @@ This package requires an active InternsMarket license (Pro tier or higher).
 
 ```bash
 # Step 1: Install the InternsMarket CLI
-npm install -g @internsmarket/cli
+npm install -g internsmarket
 
 # Step 2: Activate your license
 im activate

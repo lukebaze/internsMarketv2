@@ -1,0 +1,25 @@
+Component,Current Status,Production Plan
+Landing Page (Next.js),Live — SaaS pivot complete (monthly hire model),Polish copy + add real checkout URLs → Sprint 1
+Pricing Model,$29.99/intern/month + 3-day trial + volume discount,Stripe integration + checkout flow → Sprint 1
+Intern Catalog (11 interns),Live — gallery with detail overlays,Add search/filter + categories → Sprint 2
+Auth System,Not implemented,New build (Better Auth or Clerk) → Sprint 1
+User Dashboard,Not implemented,New build — manage hired interns → Sprint 2
+Stripe Payment / Billing,Not implemented,New build — $29.99/mo subscription per intern → Sprint 1
+CLI (Commander + Ink),Functional — npm install/apply/activate,Deprecate CLI-first flow; keep as dev tool → Sprint 3
+Core Engine (AIEOS),Functional — intern packaging + runtime adapters,Refactor to cloud-hosted SaaS runtime → Sprint 2
+Intern Authoring SDK,.intern bundle format + manifests,Add web-based intern builder UI → Sprint 3
+Registry (GitHub Releases),Functional — Ed25519 signed packages,Migrate to hosted API registry → Sprint 2
+License System (Polar.sh),Functional — Free/Starter/Pro tiers,Replace with Stripe subscription model → Sprint 1
+ZeroClaw Runtime Adapter,Functional — CLI-based apply,Cloud-hosted runtime (no local install) → Sprint 2
+Database Schema,Prisma schema drafted (MVP tickets exist),Implement PostgreSQL + Prisma → Sprint 1
+API Layer,Not implemented,New build — REST/tRPC endpoints → Sprint 1
+Telegram Bot,Not implemented,New build — intern interaction channel → Sprint 3
+Discord Community,External link only,Evaluate if needed for SaaS model → Sprint 3
+Docs Site,docs.internsmarket.com (CLI-focused),Rewrite for SaaS onboarding → Sprint 2
+Social Proof / Testimonials,Live — marquee on landing page,Add real user testimonials → Sprint 2
+SEO + Analytics,Not implemented,New build — meta tags + Plausible/PostHog → Sprint 1
+Email Onboarding,Not implemented,New build — welcome sequence + trial reminders → Sprint 2
+Feature Highlights,Live — 6 feature cards,Update copy from CLI to SaaS language → Sprint 1
+Footer,Live — has stale Discord/Docs links,Update links to match SaaS nav → Sprint 1
+Remotion Demo Video,Built but unused after pivot,Remove or re-record for SaaS → Sprint 3
+Mobile Responsive,Live — all sections responsive,QA pass on real devices → Sprint 1

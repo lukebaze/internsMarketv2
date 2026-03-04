@@ -52,8 +52,8 @@ function FeatureCard({
 }) {
   const Icon = feature.icon;
   return (
-    <div className={`h-full flex flex-col gap-4 p-6 ${borderClass}`}>
-      <Icon size={24} className="text-[var(--text-primary)]" strokeWidth={2} aria-hidden="true" />
+    <div className={`h-full flex flex-col gap-4 p-6 hover-lift ${borderClass}`}>
+      <Icon size={24} className="text-[var(--accent)]" strokeWidth={2} aria-hidden="true" />
       <span className="font-display text-[22px] font-black text-[var(--text-primary)] tracking-[1px]">
         {feature.title}
       </span>
@@ -69,7 +69,7 @@ export function FeatureHighlightsSection() {
   const bottomRow = features.slice(3, 5);
 
   return (
-    <section className="w-full bg-[var(--warm-white)] border-t-2 border-[var(--stroke)]">
+    <section className="w-full bg-[var(--bg-black)] border-t-2 border-[var(--stroke)]">
       {/* Header */}
       <ScrollReveal className="flex flex-col gap-4 px-12 pt-12 pb-8">
         <span className="font-body text-[13px] font-bold text-[var(--text-primary)] tracking-[1.5px]">
