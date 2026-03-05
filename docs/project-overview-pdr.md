@@ -2,57 +2,62 @@
 
 ## Product Vision
 
-InternsMarket sells AI intern personas as CLI-installable packages. Each intern is a complete AIEOS v1.1 entity with personality, skills, memory, and voice. Users install interns locally, activate them, and run them in their preferred runtime (ZeroClaw or OpenClaw).
+InternsMarket is a SaaS platform selling AI intern personas at $29.99/intern/month with 3-day free trial. Each intern is a complete AIEOS v1.1 entity with personality, skills, memory, and voice. Users discover, subscribe, and activate interns via cloud-hosted dashboard.
 
-**Tagline:** "Hire, train & deploy your personal AI intern in one click."
+**Tagline:** "AI Agents With Real Identity. Not Just Skills."
 
 ---
 
-## Target Users
+## Target Users (SaaS Model)
 
 ### Primary
-- **Solopreneurs & small businesses** who need domain-specific AI assistance without building custom prompts
-- **Developers & engineers** who want to automate code review, testing, documentation
-- **Content creators & agencies** building workflows with specialized AI personas
+- **Solopreneurs & founders** (25–45, tech-savvy, $50K+ income) needing AI help without prompt engineering
+- **Small dev teams** wanting specialized AI agents for code review, testing, docs
+- **Content creators & agencies** building AI-powered workflows with pre-built personas
 
 ### Secondary
 - **Enterprises** managing teams of AI agents across departments
 - **Educators** using interns as AI teaching assistants
 - **Researchers** exploring AIEOS persona design
 
+**Geographic:** Global, English-speaking markets first
+
 ---
 
-## Value Proposition
+## Value Proposition (SaaS)
 
-1. **Ready-to-Use AI Interns** — Pre-built personas with validated skills, no prompt engineering required
-2. **Personality-First Design** — Each intern has voice, personality, and communication style baked in
-3. **Flexible Runtimes** — Works with ZeroClaw (local) or OpenClaw (enterprise)
-4. **CLI-First** — Lightweight, easy to automate and integrate into workflows
-5. **Licensing Model** — Tier-based access (Free/Starter/Pro) via Polar.sh
+1. **Ready-to-Use AI Interns** — 11 pre-built personas with validated skills, no prompt engineering required
+2. **Personality-First Design** — Each intern has voice, personality, communication style (not just tool-first)
+3. **Cloud-Hosted Dashboard** — Discover, subscribe, activate interns without CLI friction
+4. **3-Day Free Trial** — Test any intern before paying $29.99/mo
+5. **Subscription Flexibility** — $29.99/intern, $79.99/3-pack, custom team pricing 5+
+6. **Skill Specialization** — Marketing, code review, QA, data analysis, DevOps, UX research, etc.
 
 ---
 
 ## Feature Summary
 
-### Core Features (v1.0)
-- **CLI Tool** (`im` command) — Install, manage, activate interns
-- **Core Library** — AIEOS types, validators, compilers (for custom interns)
-- **1 Launch Intern** — Content Marketing (Jordan Lee) with 5 skills
-- **License System** — Free tier (1 intern), Starter (5), Pro (unlimited)
-- **Runtime Adapters** — ZeroClaw + OpenClaw config generation
+### Completed (v1.1 — Feb 2026)
+- **CLI Tool** — Install, manage, activate interns (legacy)
+- **Core Library** — AIEOS types, validators, compilers
+- **11 AI Interns** — Content marketing, code review, QA, data analyst, DevOps, life coach, ops, research, social media, tech writer, UX design
+- **License System** — Polar.sh integration, Free/Starter/Pro tiers
+- **Landing Page** — Next.js 15, intern discovery, pricing table
+- **Package Signing** — Ed25519 signatures, GitHub Releases distribution
 
-### Released in v1.1
-- **Expanded Roster** — 11 interns across multiple domains (marketing, dev, data, ops, UX, etc.)
-- **ProMax Upgrade** — Code Review intern with enhanced capabilities
-- **Landing Page** — Next.js 15 website with intern discovery and pricing
-- **Intern Catalog** — All 11 interns showcased with tags and descriptions
+### SaaS Platform (v1.2 — Q2 2026, IN PROGRESS)
+- **Cloud Dashboard** — User accounts, intern management, subscription tracking
+- **Web-Based Discovery** — Browse, filter, subscribe to interns
+- **3-Day Free Trial** — No credit card required
+- **Subscription Management** — Upgrade/downgrade, license keys
+- **Payment Integration** — Stripe/Polar.sh for billing
 
-### Planned (v1.2+)
-- Web-based marketplace with user accounts
+### Planned (v1.3+)
 - Intern customization (adjust personality traits, skills)
 - Community intern submissions & ratings
 - Advanced analytics (usage, performance metrics)
-- Webhook integrations for workflow automation
+- Referral program (20% recurring commission)
+- Affiliate program (25% recurring, tiered to 40%)
 
 ---
 
@@ -84,39 +89,64 @@ packages/
 
 ---
 
-## Pricing Model
+## Pricing Model (SaaS)
 
-| Tier | Monthly | Limit | Features | Upgrade Link |
-|------|---------|-------|----------|--------------|
-| **Free** | $0 | 1 intern | Try it out | — |
-| **Starter** | $9 | 5 interns | Small team | internsmarket.com/upgrade |
-| **Pro** | $19 | Unlimited | Enterprise | internsmarket.com/upgrade |
+| Plan | Price | Trial | Includes | Best For |
+|------|-------|-------|----------|----------|
+| **Free** | $0 | — | 1 free intern test | Evaluation |
+| **Single** | $29.99/mo | 3 days | 1 intern subscription | Solo users |
+| **3-Pack** | $79.99/mo | 3 days | 3 interns | Small teams |
+| **Team** | Custom | Case-by-case | 5+ interns | Enterprises |
 
-**License Activation Flow:**
-1. User runs `im activate` → pastes Polar.sh license key
-2. Key validated via Polar.sh API (cached 24h)
-3. Tier cached locally; grace period allows 3 days offline
-4. Install gated by tier: "Pro required" → show upgrade link
+**Activation Flow (SaaS):**
+1. User signs up at internsmarket.com
+2. Discovers interns in web dashboard
+3. Starts 3-day free trial (no credit card)
+4. Subscribes to $29.99/intern/mo via Stripe
+5. Activates interns in dashboard and via CLI
+6. Billing via credit card (auto-renew)
 
 ---
 
-## Current Status (v1.1)
+## Current Status (v1.1 → v1.2 SaaS Pivot)
 
-### Completed
+### Completed (v1.1)
 - Core library (types, validators, compilers)
 - CLI tool with 8 commands
-- 11 AI intern personas (content, code-review, data, devops, life-coach, ops, qa, research, social-media, tech-writer, ux-design)
+- 11 AI intern personas
 - License system (Polar.sh integration)
 - Runtime adapters (ZeroClaw + OpenClaw)
 - Landing page with intern discovery
-- Comprehensive documentation
+- Package signing & GitHub distribution
+
+### In Progress (v1.2 SaaS Platform)
+- User authentication & accounts
+- Cloud dashboard for intern discovery
+- Subscription & billing integration
+- Web-based license management
+- 3-day free trial flow
 
 ### Known Limitations
-- No user accounts (CLI-only, no web login)
-- No intern customization UI
-- No community submissions
-- Single launch region (US)
-- No analytics dashboard
+- No intern customization UI yet
+- No community submissions yet
+- No analytics dashboard yet
+- Limited to web-first, CLI as secondary
+
+---
+
+## Marketing Objectives (SaaS Launch)
+
+| Goal | Target | Timeline |
+|------|--------|----------|
+| **Brand Awareness** | 10K Twitter impressions/week | Q1–Q2 2026 |
+| **Trial Signups** | 500 free trial users | Q2 2026 |
+| **Paid Conversion** | 50 paid subscribers | Q2 2026 |
+| **MRR** | $1,500+ | Q2 2026 end |
+| **CAC** | <$20 per converted user | Ongoing |
+| **Referral Rate** | 10% of users active | Q2 2026 |
+| **Community** | Discord 500+ members | Q2 2026 |
+
+**Competitive Landscape:** vs Relevance AI, CrewAI, Lindy.ai, Taskade AI — Differentiator: **Personality-first** (not workflow-first)
 
 ---
 

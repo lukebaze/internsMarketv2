@@ -86,3 +86,26 @@ We keep all important docs in `./docs` folder and keep updating them, structure 
 ```
 
 **IMPORTANT:** *MUST READ* and *MUST COMPLY* all *INSTRUCTIONS* in project `./CLAUDE.md`, especially *WORKFLOWS* section is *CRITICALLY IMPORTANT*, this rule is *MANDATORY. NON-NEGOTIABLE. NO EXCEPTIONS. MUST REMEMBER AT ALL TIMES!!!*
+
+---
+
+## Marketing Context
+
+InternsMarket has pivoted from CLI-only to SaaS platform ($29.99/intern/month, 3-day free trial, 11 AI interns).
+
+### Brand Voice
+- **Bold, direct, irreverent** — Anti-corporate, authentic, personality-obsessed
+- **Tagline:** "AI Agents With Real Identity. Not Just Skills."
+- **Colors:** Dark `#0a0a0a`, Orange accent `#FF4D00`, White text
+- **No buzzwords** — Talk like humans to humans
+
+### Target Audience
+- Solopreneurs/founders (25–45), small dev teams, content agencies
+- Looking for AI teammates with personality, not generic tools
+- Willing to pay $29.99/mo for specialized interns
+
+### Key Messaging
+- **Differentiation:** Personality-first (not workflow-first) like competitors
+- **CTAs:** "Start 3-Day Trial", "Browse Interns", "Earn $6/mo Referral"
+- **Social:** Twitter/X, Discord (organic focus)
+- **Launch:** Q2 2026 (Product Hunt, blog, referral program)

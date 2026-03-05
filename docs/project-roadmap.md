@@ -89,86 +89,75 @@ High-level development roadmap tracking phases, milestones, and progress toward 
 
 ---
 
-## Phase 3: Marketplace MVP (v1.2 — Q2 2026)
+## Phase 2: SaaS Infrastructure (v1.2 — Q2 2026) [NEW]
 
 **Timeline:** Mar–May 2026
-**Status:** 🔲 NOT STARTED
+**Status:** 🔲 IN PROGRESS
 
-**Objective:** Web-based marketplace with user accounts, intern discovery, and license management.
+**Objective:** Web-based cloud platform with user accounts, subscription billing, and intern discovery.
 
-### 3a: User Authentication (Estimated: 3 weeks)
-
-**Requirements:**
-- Email-based sign-up and login
-- OAuth integration (Google, GitHub optional)
+### 2a: User Authentication & Accounts (Estimated: 2 weeks)
+- Email/password sign-up and login
 - User profile management (name, email, tier)
-- Session management via JWT or session cookies
-
-**Deliverables:**
-- Authentication service (Next.js API routes + database)
-- Sign-up page, login page, account settings
+- Session management (JWT or secure cookies)
 - Password reset flow
 - Email verification
 
-**Acceptance Criteria:**
-- New user can sign up and receive verification email
-- Existing user can log in and view account
-- Tier information persists across sessions
-- Failed login attempts handled gracefully
+### 2b: Dashboard & Intern Discovery (Estimated: 2 weeks)
+- Cloud dashboard UI (Next.js)
+- Browse, search, filter interns by category/skill
+- Intern detail pages (full specs, skills, personality traits)
+- One-click subscribe to intern
+- View active subscriptions
 
-### 3b: Marketplace Web UI (Estimated: 4 weeks)
-
-**Requirements:**
-- Browse all interns by category or tag
-- View intern details (skills, personality traits, use cases)
-- One-click install via web UI (triggers CLI or direct download)
-- Search and filter (category, skill, tier required)
-- User dashboard (installed interns, licenses)
-
-**Deliverables:**
-- Marketplace page layout (grid/list view)
-- Intern detail page with full specs
-- Install button (web → CLI integration)
-- User dashboard component
-- Search/filter service
-
-**Acceptance Criteria:**
-- User can find intern by keyword
-- User can view all interns sorted by category
-- Install button shows tier requirement if needed
-- Dashboard shows all installed interns + versions
-
-### 3c: License Integration (Estimated: 2 weeks)
-
-**Requirements:**
-- Link Lemon Squeezy account to web dashboard
-- Show active licenses + subscription status
-- Upgrade/downgrade UI
+### 2c: Billing & Subscription (Estimated: 2 weeks)
+- Stripe/Polar.sh integration for subscriptions
+- 3-day free trial flow (no credit card)
+- Subscribe to $29.99/intern/mo or $79.99/3-pack
+- Subscription management (upgrade/downgrade)
+- Invoice generation and email
 - License key generation and display
 
-**Deliverables:**
-- Lemon Squeezy API wrapper (purchase, list licenses, check tier)
-- License management page
-- Upgrade flow (with checkout redirect)
-- License display in user dashboard
-
-**Acceptance Criteria:**
-- User can view active licenses on dashboard
-- User can initiate upgrade to Starter/Pro
-- License key syncs with CLI (CLI recognizes web-activated key)
-- Free tier limit enforced
+### 2d: Marketing Launch (Estimated: 3 weeks)
+- Twitter presence activation
+- Discord community launch
+- Product Hunt campaign prep
+- Blog/content marketing
+- Referral program setup
 
 ---
 
-## Phase 4: Community Interns (v1.2+ — Q2/Q3 2026)
+## Phase 3: Marketplace MVP (v1.2+ — Q3 2026) [LEGACY → ENHANCED]
 
-**Timeline:** Apr–Jun 2026
-**Status:** 🔲 NOT STARTED
+**Timeline:** May+ 2026
+**Status:** 🔲 PLANNED
 
-**Objective:** Allow community to submit and share custom interns.
+**Objective:** Advanced marketplace with user accounts, customization, and community.
+
+### 3a: Intern Customization (Estimated: 3 weeks)
 
 **Requirements:**
-- Submit intern form (upload .intern bundle or manifest)
+- Adjust personality traits (creativity, empathy, logic, etc.)
+- Customize voice/idiolect settings
+- Select subset of skills or disable skills
+- Save customized variant with version suffix
+
+**Deliverables:**
+- Customization page (trait sliders, voice presets)
+- Custom variant save & download
+- CLI support for custom interns
+- Version management (original vs. custom)
+
+**Acceptance Criteria:**
+- User can adjust 6 personality traits (0.0–1.0 scale)
+- Custom intern generates unique persona prompt
+- Customized intern can be installed locally
+- Custom version persists in user profile
+
+### 3b: Community Intern Submissions (Estimated: 2 weeks)
+
+**Requirements:**
+- Submit custom intern form (upload .intern bundle or manifest)
 - Validation pipeline (schema check, skill validation)
 - Community review system (ratings, comments)
 - Publish to marketplace with creator credit
@@ -184,65 +173,58 @@ High-level development roadmap tracking phases, milestones, and progress toward 
 - User can submit .intern package
 - Submission validated within 24h
 - Validated intern appears in community section
-- Creator can view submission stats (downloads, ratings)
+- Creator can view submission stats
 
----
-
-## Phase 5: Customization UI (v1.2+ — Q3 2026)
-
-**Timeline:** May–Jul 2026
-**Status:** 🔲 NOT STARTED
-
-**Objective:** Allow users to adjust intern personality traits and skills.
+### 3c: Referral & Affiliate Programs (Estimated: 2 weeks)
 
 **Requirements:**
-- Edit neural matrix traits (creativity, empathy, logic, etc.)
-- Customize voice/idiolect settings
-- Select subset of skills or disable skills
-- Save customized variant with version suffix
+- 20% recurring commission for referrals
+- Affiliate program (25% recurring, tiered to 40%)
+- Leaderboard & tracking dashboard
+- Email notifications for referral signups
 
 **Deliverables:**
-- Customization page (trait sliders, voice presets)
-- Save custom intern as new version
-- Download customized .intern bundle
-- CLI support for custom interns
+- Referral link generation
+- Tracking dashboard (clicks, conversions, earnings)
+- Affiliate recruitment page
+- Payout system (monthly payments)
 
 **Acceptance Criteria:**
-- User can adjust 6 personality traits (0.0–1.0 scale)
-- Custom intern generates unique persona prompt
-- Customized intern can be installed locally
-- Custom version persists in user profile
+- Referrer can share link and track conversions
+- Commission calculated correctly (20% of $29.99 = $6)
+- Affiliate can track earnings and payouts
+- Top referrers visible on leaderboard
 
 ---
 
-## Phase 6: Analytics & Insights (v1.2+ — Q3/Q4 2026)
+## Phase 4: Analytics & Insights (v1.3+ — Q3 2026)
 
 **Timeline:** Jun–Sep 2026
-**Status:** 🔲 NOT STARTED
+**Status:** 🔲 PLANNED
 
 **Objective:** Provide metrics on intern usage and performance.
 
 **Requirements:**
-- Track installations per intern (anonymized)
-- Track active usage (CLI telemetry opt-in)
-- Usage dashboard (downloads, active users, top interns)
-- Performance metrics (compile time, skill execution time)
+- Track subscriptions, cancellations, conversions
+- Usage dashboard (MRR, churn, top interns)
+- Performance metrics (trial→paid rate, CAC)
+- Creator analytics (downloads, usage, feedback)
 
 **Deliverables:**
-- Telemetry service (CLI opt-in, data sent securely)
-- Analytics dashboard (for creators and admins)
+- Analytics dashboard (for admins)
 - Usage reports (weekly/monthly)
-- Performance monitoring
+- Creator performance tracking
+- Churn analysis and retention metrics
 
 **Acceptance Criteria:**
-- Dashboard shows total downloads per intern
-- Top 3 interns ranked by usage
-- Performance metrics collected for top skills
-- User can opt out of telemetry
+- Dashboard shows total MRR and churn rate
+- Top 3 interns ranked by subscriptions
+- Trial→paid conversion tracked
+- Creator can see how their interns are used
 
 ---
 
-## Phase 7: Advanced Automation (v1.3+ — Q4 2026+)
+## Phase 5: Advanced Automation (v1.4+ — Q4 2026+)
 
 **Timeline:** Q4 2026+
 **Status:** 🔲 PLANNED
@@ -269,7 +251,7 @@ High-level development roadmap tracking phases, milestones, and progress toward 
 
 ---
 
-## Phase 8: Mobile App (v1.4+ — 2027)
+## Phase 6: Mobile App (v1.5+ — 2027)
 
 **Timeline:** 2027 (exploratory)
 **Status:** 🔲 PLANNED
@@ -302,93 +284,103 @@ High-level development roadmap tracking phases, milestones, and progress toward 
 |-----------|-------|----------|--------|------------|
 | **Launch (v1.0)** | Initial release | Q4 2025 | ✅ Complete | 1 intern, core + CLI |
 | **Expanded Roster (v1.1)** | Phases 1–2 | Feb 2026 | ✅ Complete | 11 interns, licensing, signing, npm publishing |
-| **Marketplace (v1.2)** | Phases 3–4 | Q2 2026 | 🔲 In Planning | Web UI, community, customization |
-| **Analytics (v1.3)** | Phases 5–6 | Q3 2026 | 🔲 Planned | Telemetry, metrics, insights |
-| **Automation (v1.4)** | Phase 7 | Q4 2026 | 🔲 Planned | Webhooks, orchestration, scheduling |
-| **Mobile (v1.5)** | Phase 8 | 2027 | 🔲 Exploratory | iOS + Android apps |
+| **SaaS Platform (v1.2)** | Phase 2 | Q2 2026 | 🔲 IN PROGRESS | Web dashboard, subscriptions, marketing launch |
+| **Community & Customization (v1.3)** | Phase 3 | Q3 2026 | 🔲 Planned | Custom interns, community submissions, referrals |
+| **Analytics (v1.4)** | Phase 4 | Q3–Q4 2026 | 🔲 Planned | Telemetry, metrics, insights |
+| **Automation (v1.5)** | Phase 5 | Q4 2026 | 🔲 Planned | Webhooks, orchestration, scheduling |
+| **Mobile (v1.6)** | Phase 6 | 2027 | 🔲 Exploratory | iOS + Android apps |
 
 ---
 
 ## Key Initiatives
 
-### 1. Marketplace (Highest Priority)
-**Rationale:** Unlock web-based user growth and license upsell.
-**Ownership:** Product + Web team
-**Risk:** Authentication complexity, payment integration
-**Mitigation:** Use Supabase (auth + DB) to accelerate
-
-### 2. Community Interns (Medium Priority)
-**Rationale:** Expand intern catalog without building more ourselves.
-**Ownership:** Community + Moderation team
-**Risk:** Quality control, marketplace spam
-**Mitigation:** Initial human review, ratings system, report feature
-
-### 3. Customization (Medium Priority)
-**Rationale:** Increase stickiness and allow power users to tailor interns.
+### 1. SaaS Platform Launch (Highest Priority)
+**Rationale:** Convert CLI adoption to recurring SaaS revenue.
 **Ownership:** Product + Frontend team
-**Risk:** UI complexity, personality compilation bugs
-**Mitigation:** Start with neural matrix slider, expand later
+**Risk:** Auth complexity, billing integration, user migration
+**Mitigation:** Use Supabase (auth + DB), Stripe/Polar.sh for billing
+
+### 2. Marketing Launch (Highest Priority — Parallel)
+**Rationale:** Drive trial signups and brand awareness for SaaS pivot.
+**Ownership:** Marketing + Community team
+**Risk:** Low organic reach initially
+**Mitigation:** Twitter activation, Product Hunt launch, referral program
+
+### 3. Community & Customization (Medium Priority)
+**Rationale:** Increase stickiness and expand catalog.
+**Ownership:** Product + Community team
+**Risk:** Quality control, UI complexity
+**Mitigation:** Start with neural matrix slider, human review for community
 
 ### 4. Analytics (Low Priority for MVP)
-**Rationale:** Understand usage patterns for future product decisions.
+**Rationale:** Understand usage patterns, optimize retention.
 **Ownership:** Data + Analytics team
-**Risk:** Privacy concerns, telemetry opt-out required
+**Risk:** Privacy concerns
 **Mitigation:** Clear opt-in, anonymous data, no PII
 
 ---
 
-## Engineering Priorities
+## Engineering Priorities (v1.2 SaaS)
 
-### Must-Have (v1.2)
-- User authentication
-- Web marketplace UI
-- License tier enforcement on web
+### Must-Have (Q2 2026)
+- User authentication (Next.js + Supabase)
+- Web dashboard with intern discovery
+- Subscription billing (Stripe/Polar.sh)
+- 3-day free trial flow
+- License key generation
 - Bug fixes from v1.1 feedback
 
-### Should-Have (v1.2)
+### Should-Have (Q2–Q3)
 - Community submission system
 - Customization UI (MVP: neural matrix only)
-- Email notifications
+- Email notifications (signup, trial expiry, renewal)
+- Referral program (20% commission)
 
-### Nice-to-Have (v1.2+)
-- Full-text search with Algolia
-- Dark mode
+### Nice-to-Have (Q3+)
+- Full-text search (Algolia optional)
+- Dark mode toggle
 - Intern analytics dashboard
 - API rate limiting
+- Affiliate program (25–40% tiered)
 
 ---
 
 ## Success Criteria by Phase
 
-### v1.1 (Current — Feb 2026)
+### v1.1 (Complete — Feb 2026)
 - [x] Landing page live and accessible
 - [x] All 11 interns displayed with descriptions
 - [x] Pricing clearly communicated
-- [x] Button wiring to CLI commands (in progress)
-- [ ] 100 beta sign-ups via landing page
+- [x] CLI tool with 8 commands
+- [x] License system (Polar.sh)
+- [x] Package signing & GitHub distribution
 
-### v1.2 (Q2 2026)
-- [ ] 500+ registered users on web platform
-- [ ] 50% of free users upgrade to Starter
-- [ ] Marketplace shows 5+ community interns
-- [ ] NPS > 40 from user feedback
-- [ ] Zero auth/payment-related bugs in production
+### v1.2 SaaS (Q2 2026)
+- [ ] 500+ trial signups
+- [ ] 50+ paid subscribers ($1.5K+ MRR)
+- [ ] 10% trial→paid conversion rate
+- [ ] Twitter audience 3K+
+- [ ] Discord community 500+ members
+- [ ] Product Hunt Top 10 launch
+- [ ] Zero auth/payment-related bugs
 
-### v1.3+ (Q3 2026+)
+### v1.3+ (Q3–Q4 2026)
 - [ ] 2,000+ active monthly users
 - [ ] $5,000+ MRR
 - [ ] 50+ community-submitted interns
-- [ ] Telemetry shows >60% daily active users
+- [ ] 20% of users active in referral program
+- [ ] NPS > 50
 
 ---
 
 ## Open Questions & Decisions Needed
 
-1. **Database choice for marketplace** — PostgreSQL (Supabase) vs. other? *(Recommend Supabase for speed)*
-2. **Payment flow** — Keep Lemon Squeezy or migrate to Stripe? *(Stay with Lemon Squeezy for MVP)*
-3. **Community moderation** — Human review vs. automated checks? *(Hybrid: automated schema check + 24h human review)*
-4. **Mobile strategy** — React Native vs. native per-platform? *(Defer to 2027, revisit after web MVP)*
-5. **Data privacy** — GDPR compliance scope? *(In-scope when user accounts launch; privacy policy required)*
+1. **Database choice for SaaS** — PostgreSQL (Supabase) vs. Firestore? *(Recommend Supabase for speed + SQL)*
+2. **Payment processor** — Stripe vs. Polar.sh? *(Recommend Stripe for flexibility, fallback to Polar.sh)*
+3. **User onboarding** — Guided tour or self-service? *(Start self-service, add tour in v1.3 if needed)*
+4. **Community moderation** — Human review vs. automated checks? *(Hybrid: automated schema check + 24h human review)*
+5. **Data privacy & GDPR** — In-scope when user accounts launch; privacy policy required by Q2 end
+6. **Mobile strategy** — React Native vs. native? *(Defer to 2027 after web MVP, revisit)*
 
 ---
 
@@ -408,7 +400,7 @@ High-level development roadmap tracking phases, milestones, and progress toward 
 ## Contact & Ownership
 
 **Roadmap Owner:** *TBD*
-**Last Updated:** Feb 25, 2026
-**Review Frequency:** Monthly (first Friday of each month)
+**Last Updated:** March 5, 2026 (SaaS Pivot)
+**Review Frequency:** Weekly during SaaS launch (Q2), then monthly
 
 Questions or suggestions? File an issue on GitHub or reach out to the team on Discord.
